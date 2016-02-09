@@ -1,0 +1,38 @@
+{
+  "name": "mongodb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp testing"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jessicahur/MongoDB.git"
+  },
+  "author": "Jessica Tran Hur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jessicahur/MongoDB/issues"
+  },
+  "homepage": "https://github.com/jessicahur/MongoDB#readme",
+  "devDependencies": {
+    "body-parser": "^1.14.2",
+    "chai": "^3.4.1",
+    "chai-http": "^1.0.0",
+    "express": "^4.13.4",
+    "foreman": "^1.4.1",
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-util": "^3.0.7",
+    "jshint": "^2.8.0",
+    "jshint-stylish": "^2.1.0",
+    "kerberos": "0.0.18",
+    "mocha": "^2.3.4",
+    "mongodb": "^2.1.4",
+    "mongoose": "^4.3.6",
+    "nodemon": "^1.8.1",
+    "path": "^0.12.7"
+  }
+}

@@ -5,7 +5,12 @@ into package.json since babel will need a preset to run the test files
 
 defaults write com.apple.Safari ApplePersistenceIgnoreState YES : prevent new Safari tab opens for each time tests are run
 */
+// import child_process from ('child_process');
+// child_process.spawn('defaults write com.apple.Safari ApplePersistenceIgnoreState YES');
+//You need to include some adapter that implements __karma__.start method!
+
 describe( 'Employee Controller', () => {
+
   beforeEach( angular.mock.module( 'employeeApp' ));
 
   var $controller, $scope, $httpBackend;

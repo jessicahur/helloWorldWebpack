@@ -69,14 +69,9 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
     $http.put('http://localhost:3000/employees/'+$scope.newEmployee.index, $scope.newEmployee)
          .then(
             function(res){
-              var temp = [];
-              $scope.employees.forEach(function(employee){
-                if (employee.index != $scope.newEmployee.index){
-                  temp.push(employee);
-                }
-              });
+
               // console.log(res);
-              $scope.employees = temp;
+              $scope.employees.splice($scope.employees.indexOf($scope.newEmployee), 1);
               res.data.index = res.data._id;
               res.data.DOB = res.data.DOB.substring(0,10);
               $scope.employees.push(res.data);
@@ -98,7 +93,9 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
             function(res){
               var newEmployee = res.data;
               newEmployee.DOB = newEmployee.DOB.substring(0,10);
+              newEmployee.index = newEmployee._id;
               $scope.employees.push(newEmployee);
+              console.log($scope.employees);
               $scope.badRequest = false;
               $scope.newEmployee = {};
             },
@@ -108,5 +105,3 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
           )
   }
 });
-
-

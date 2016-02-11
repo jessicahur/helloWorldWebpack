@@ -6,9 +6,10 @@
   "scripts": {
     "start": "webpack-dev-server --inline",
     "build": "webpack",
-    "test": "karma start"
+    "test": "karma start",
+    "e2e": "protractor"
   },
-  "author": "",
+  "author": "Jessica Hur <jess.uyentran@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "angular-mocks": "^1.5.0",
@@ -28,6 +29,7 @@
     "karma-safari-launcher": "^0.1.1",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.4.5",
+    "protractor": "^3.1.1",
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1"
   },

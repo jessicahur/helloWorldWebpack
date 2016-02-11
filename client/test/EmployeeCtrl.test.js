@@ -93,7 +93,26 @@ describe( 'Employee Controller', () => {
   });
 
   it('EDIT', () => {
+    obj.name = 'NEW NAME';
 
+    $httpBackend.expect('GET', 'http://localhost:3000/employees')
+                .respond(200, [obj]);
+
+    $httpBackend.expect('PUT', 'http://localhost:3000/employees/1')
+                .respond(200, obj);
+
+    $controller('EmployeeController', {$scope, $httpBackend});
+
+    $scope.edit(obj);
+    $scope.newEmployee.index = 1;
+    $scope.editSelectedEmployee();
+
+    $httpBackend.flush();
+
+    var keys = Object.keys($scope.employees[0]);
+    keys.forEach(key => {
+      assert.equal($scope.employees[0].key, obj.key);
+    });
   });
 
 });

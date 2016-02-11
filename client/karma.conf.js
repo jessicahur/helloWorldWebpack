@@ -1,5 +1,11 @@
-// Karma configuration
-// Generated on Wed Feb 10 2016 14:08:38 GMT-0800 (PST)
+const webpackConfig = require('./webpack.config.js');
+
+webpackConfig.entry = {};
+
+const entry = './src/entry.js';
+const preprocessors = {};
+preprocessors[entry] = ['webpack'];  //any file that matches this, run webpack
+preprocessors['./test/**/*.js'] = ['babel']; //because we want to use es6 in our test files
 
 module.exports = function(config) {
   config.set({
@@ -10,13 +16,18 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['mocha', 'chai'],//instead of jasmine
 
 
     // list of files / patterns to load in the browser
     files: [
+        entry,
+        './node_modules/angular-mocks/angular-mocks.js',
+        './test/**/*.js'
+
     ],
 
+    webpack: webpackConfig,//passing a config file to webpack
 
     // list of files to exclude
     exclude: [
@@ -25,8 +36,7 @@ module.exports = function(config) {
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-    },
+    preprocessors,
 
 
     // test results reporter to use
@@ -54,7 +64,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['Chrome', 'Safari'],//you have to have these installed unless you have remote cloud setup
 
 
     // Continuous Integration mode

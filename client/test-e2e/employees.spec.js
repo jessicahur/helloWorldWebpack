@@ -27,11 +27,6 @@ describe('employeeApp', () => {
   it('POST: a new employee to db', () => {
     modify(testObj);
     element(by.buttonText('ADD')).click();
-
-        browser.takeScreenshot().then( png => {
-          fs.writeFileSync( '../../test0.png', png, { encoding: 'base64' } );
-        });
-
     element.all(by.repeater('employee in employees').column('employee.name')).last().getText()
             .then(text => {
               expect(text).toEqual('Test999');
@@ -44,22 +39,28 @@ describe('employeeApp', () => {
               return arr[arr.length-1].all(by.css('a'));
             })
             .then( arr => {
-              return arr[0].click();
-            })
-            .then( () => {
-              return element(by.model('newEmployee.name')).clear().sendKeys('Test1000');
-            })
-            .then( () => {
+              arr[0].click();
+              element(by.model('newEmployee.name')).clear().sendKeys('Test1000');
               element(by.buttonText('EDIT')).click();
-
               element.all(by.repeater('employee in employees').column('employee.name')).last().getText()
                   .then(text => {
-                    console.log(text);
+                    expect(text).toEqual('Test1000');
                   });
-              browser.takeScreenshot().then( png => {
-                fs.writeFileSync( '../../test1.png', png, { encoding: 'base64' } );
-              });
             });
-
   });
+
+  it('DELETE: a test employee', () => {
+    element.all(by.repeater('employee in employees'))
+            .then( arr => {
+              return arr[arr.length-1].all(by.css('a'));
+            })
+            .then( arr => {
+              arr[1].click();
+              element.all(by.repeater('employee in employees').column('employee.name')).last().getText()
+                  .then(text => {
+                    expect(text).not.toEqual('Test1000');
+                  });
+            });
+  })
+
 });

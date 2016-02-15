@@ -13,7 +13,7 @@ app.use( (req, res, next) => {
   next();
 });
 
-app.use('/employees',router);
+app.use('/api/employees',router);
 
 app.use(function(req, res, next) {
   res.send('404 page not found for '+req.url);

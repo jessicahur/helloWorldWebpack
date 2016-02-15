@@ -5,7 +5,7 @@ var employeeApp = angular.module( 'employeeApp', []);
 employeeApp.controller('EmployeeController', function($scope, $http) {
 
   //GET
-  $http.get('http://localhost:3000/employees').then( function( res ) {
+  $http.get('http://localhost:3000/api/employees').then( function( res ) {
     $scope.employees = res.data;//Angular specific(?)
     $scope.employees.forEach(function(employee){
       employee.DOB = employee.DOB.substring(0,10);
@@ -16,7 +16,7 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
   //DELETE
   $scope.delete = function(employee) {
     $scope.deleteEmployeeIndex = employee.index;
-    $http.delete('http://localhost:3000/employees/'+employee._id)
+    $http.delete('http://localhost:3000/api/employees/'+employee._id)
          .then(
           function(res){
             var temp = [];
@@ -45,7 +45,7 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
   $scope.cancelEdit = function() {
     $scope.editEmployee = null;
     $scope.badRequest = false;
-    $http.get('http://localhost:3000/employees/'+$scope.newEmployee.index)
+    $http.get('http://localhost:3000/api/employees/'+$scope.newEmployee.index)
          .then(
             function(res) {
               var temp = [];
@@ -66,7 +66,7 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
           );
   }
   $scope.editSelectedEmployee = function() {
-    $http.put('http://localhost:3000/employees/'+$scope.newEmployee.index, $scope.newEmployee)
+    $http.put('http://localhost:3000/api/employees/'+$scope.newEmployee.index, $scope.newEmployee)
          .then(
             function(res){
 
@@ -88,7 +88,7 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
 
   //ADD-POST
   $scope.addEmployee = function() {
-    $http.post('http://localhost:3000/employees', JSON.stringify($scope.newEmployee))
+    $http.post('http://localhost:3000/api/employees', JSON.stringify($scope.newEmployee))
          .then(
             function(res){
               var newEmployee = res.data;

@@ -7,6 +7,7 @@
     "start": "webpack-dev-server --inline",
     "build": "webpack",
     "test": "karma start",
+    "webmanager": "webdriver-manager start",
     "e2e": "protractor"
   },
   "author": "Jessica Hur <jess.uyentran@gmail.com>",

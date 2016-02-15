@@ -34,7 +34,7 @@ describe ('Mongo-Mongoose', () => {
           position: "accountant"
         }
     chai.request(app)
-        .post('/employees')
+        .post('/api/employees')
         .send(testJson)
         .end((err, res) => {
           expect(err).to.be.null;
@@ -60,7 +60,7 @@ describe ('Mongo-Mongoose', () => {
       position: "accountant"
     };
     chai.request(app)
-        .post('/employees')
+        .post('/api/employees')
         .send(testJson)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -80,7 +80,7 @@ describe ('Mongo-Mongoose', () => {
       position: "Testing"
     };
     chai.request(app)
-        .post('/employees')
+        .post('/api/employees')
         .send(testJson)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -91,7 +91,7 @@ describe ('Mongo-Mongoose', () => {
   //GET
   it('should get an array of json objects back with /GET', (done) => {
     chai.request(app)
-        .get('/employees')
+        .get('/api/employees')
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.length).to.not.be.undefined;
@@ -102,7 +102,7 @@ describe ('Mongo-Mongoose', () => {
   //GET Specific Id
   it('should return a json object that has id matching the requested id', (done) => {
     chai.request(app)
-        .get('/employees/testing')
+        .get('/api/employees/testing')
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res.body['_id']).to.equal('testing');
@@ -113,7 +113,7 @@ describe ('Mongo-Mongoose', () => {
   //DELETE
   it('should receive the deleted object that has the requested id', (done) => {
     chai.request(app)
-        .delete('/employees/testing')
+        .delete('/api/employees/testing')
         .end((err, res) => {
           expect(err).to.be.null;
           expect(res.body['_id']).to.equal('testing');

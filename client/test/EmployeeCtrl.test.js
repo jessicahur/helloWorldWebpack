@@ -34,7 +34,7 @@ describe( 'Employee Controller', () => {
 
 
   it('GET', () => {
-    $httpBackend.expect('GET', 'http://localhost:3000/employees')
+    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
                 .respond(200, [obj]);
 
     $controller('EmployeeController', {$scope, $httpBackend});
@@ -49,10 +49,10 @@ describe( 'Employee Controller', () => {
 
 
   it('DELETE', () => {
-    $httpBackend.expect('GET', 'http://localhost:3000/employees')
+    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
                 .respond(200, [obj]);
 
-    $httpBackend.expect('DELETE', 'http://localhost:3000/employees/1')
+    $httpBackend.expect('DELETE', 'http://localhost:3000/api/employees/1')
                 .respond(200, obj);
 
     $controller('EmployeeController', {$scope, $httpBackend});
@@ -78,10 +78,10 @@ describe( 'Employee Controller', () => {
                 position: 'accountant'
     };
 
-    $httpBackend.expect('GET', 'http://localhost:3000/employees')
+    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
                 .respond(200, [obj]);
 
-    $httpBackend.expect('POST','http://localhost:3000/employees')//No need to include newEmployee here?
+    $httpBackend.expect('POST','http://localhost:3000/api/employees')//No need to include newEmployee here?
                 .respond(newEmployee);
 
     $controller('EmployeeController', {$scope, $httpBackend});
@@ -100,10 +100,10 @@ describe( 'Employee Controller', () => {
   it('EDIT', () => {
     obj.name = 'NEW NAME';
 
-    $httpBackend.expect('GET', 'http://localhost:3000/employees')
+    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
                 .respond(200, [obj]);
 
-    $httpBackend.expect('PUT', 'http://localhost:3000/employees/1')
+    $httpBackend.expect('PUT', 'http://localhost:3000/api/employees/1')
                 .respond(200, obj);
 
     $controller('EmployeeController', {$scope, $httpBackend});

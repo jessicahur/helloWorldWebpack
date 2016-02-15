@@ -57,7 +57,7 @@
 	employeeApp.controller('EmployeeController', function ($scope, $http) {
 	
 	  //GET
-	  $http.get('/employees').then(function (res) {
+	  $http.get('http://localhost:3000/api/employees').then(function (res) {
 	    $scope.employees = res.data; //Angular specific(?)
 	    $scope.employees.forEach(function (employee) {
 	      employee.DOB = employee.DOB.substring(0, 10);
@@ -68,7 +68,7 @@
 	  //DELETE
 	  $scope.delete = function (employee) {
 	    $scope.deleteEmployeeIndex = employee.index;
-	    $http.delete('/employees/' + employee._id).then(function (res) {
+	    $http.delete('http://localhost:3000/api/employees/' + employee._id).then(function (res) {
 	      var temp = [];
 	      $scope.employees.forEach(function (employee) {
 	        if (employee.index != $scope.deleteEmployeeIndex) {
@@ -94,7 +94,7 @@
 	  $scope.cancelEdit = function () {
 	    $scope.editEmployee = null;
 	    $scope.badRequest = false;
-	    $http.get('/employees/' + $scope.newEmployee.index).then(function (res) {
+	    $http.get('http://localhost:3000/api/employees/' + $scope.newEmployee.index).then(function (res) {
 	      var temp = [];
 	      $scope.employees.forEach(function (employee) {
 	        if (employee.index != $scope.newEmployee.index) {
@@ -111,15 +111,10 @@
 	    });
 	  };
 	  $scope.editSelectedEmployee = function () {
-	    $http.put('/employees/' + $scope.newEmployee.index, $scope.newEmployee).then(function (res) {
-	      var temp = [];
-	      $scope.employees.forEach(function (employee) {
-	        if (employee.index != $scope.newEmployee.index) {
-	          temp.push(employee);
-	        }
-	      });
+	    $http.put('http://localhost:3000/api/employees/' + $scope.newEmployee.index, $scope.newEmployee).then(function (res) {
+	
 	      // console.log(res);
-	      $scope.employees = temp;
+	      $scope.employees.splice($scope.employees.indexOf($scope.newEmployee), 1);
 	      res.data.index = res.data._id;
 	      res.data.DOB = res.data.DOB.substring(0, 10);
 	      $scope.employees.push(res.data);
@@ -134,10 +129,12 @@
 	
 	  //ADD-POST
 	  $scope.addEmployee = function () {
-	    $http.post('/employees', JSON.stringify($scope.newEmployee)).then(function (res) {
+	    $http.post('http://localhost:3000/api/employees', JSON.stringify($scope.newEmployee)).then(function (res) {
 	      var newEmployee = res.data;
 	      newEmployee.DOB = newEmployee.DOB.substring(0, 10);
+	      newEmployee.index = newEmployee._id;
 	      $scope.employees.push(newEmployee);
+	      console.log($scope.employees);
 	      $scope.badRequest = false;
 	      $scope.newEmployee = {};
 	    }, function (err) {

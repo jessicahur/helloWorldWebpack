@@ -73,15 +73,7 @@ router.delete('/:id', (req, res, next) => {
 });
 
 //PUT & PATCH
-router.put('/:id', (req, res, next) => {
-  next();
-});
-
-router.patch('/:id', (req, res, next) => {
-  next();
-});
-
-router.use((req, res, next) => {
+router.all('/:id', (req, res, next) => {
   var id = req.params.id;
   var update = req.body;
   update.DOB = new Date(update.DOB);

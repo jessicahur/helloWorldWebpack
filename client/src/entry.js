@@ -48,13 +48,7 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
     $http.get('http://localhost:3000/api/employees/'+$scope.newEmployee.index)
          .then(
             function(res) {
-              var temp = [];
-              $scope.employees.forEach(function(employee){
-                if (employee.index != $scope.newEmployee.index){
-                  temp.push(employee);
-                }
-              });
-              $scope.employees = temp;
+              $scope.employees.splice($scope.employees.indexOf($scope.newEmployee), 1);
               res.data.index = res.data._id;
               res.data.DOB = res.data.DOB.substring(0,10);
               $scope.employees.push(res.data);
@@ -69,19 +63,19 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
     $http.put('http://localhost:3000/api/employees/'+$scope.newEmployee.index, $scope.newEmployee)
          .then(
             function(res){
-
-              // console.log(res);
               $scope.employees.splice($scope.employees.indexOf($scope.newEmployee), 1);
+              console.log(res);
               res.data.index = res.data._id;
               res.data.DOB = res.data.DOB.substring(0,10);
               $scope.employees.push(res.data);
-
               $scope.newEmployee = null;
+              $scope.editEmployee = null;
               $scope.badRequest = false;
             },
             function(err){
               console.log(err);
               $scope.badRequest = `${err.status}: ${err.data.errmsg}`;
+              $scope.cancelEdit();
             }
           );
   }

@@ -4,6 +4,8 @@ var employeeApp = angular.module( 'employeeApp', []);
 
 employeeApp.controller('EmployeeController', function($scope, $http) {
 
+  $scope.search = {};
+
   //GET
   $http.get('http://localhost:3000/api/employees').then( function( res ) {
     $scope.employees = res.data;//Angular specific(?)

@@ -33,6 +33,14 @@ describe('employeeApp', () => {
             });
   });
 
+  it('should be able to filter out the testing name', () => {
+    element(by.model('search.name')).sendKeys('Test999');
+    element.all(by.repeater('employee in employees').column('employee.name')).first().getText()
+           .then( text => {
+             expect(text).toEqual('Test999');
+           })
+  });
+
   it('EDIT: a test employee', () => {
     element.all(by.repeater('employee in employees'))
             .then( arr => {

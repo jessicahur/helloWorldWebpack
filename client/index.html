@@ -8,6 +8,9 @@
 <body>
   <main ng-controller = "EmployeeController">
     <h3>Employees</h3>
+    <br >
+    <label>Filter by employee's name: </label>
+    <input ng-model="search.name"></input>
     <table class = "table table-bordered table-striped">
       <tr>
         <th>Name</th>
@@ -21,7 +24,7 @@
         <th></th>
         <th></th>
       </tr>
-      <tr ng-repeat = "employee in employees">
+      <tr ng-repeat = "employee in employees | filter: {name: search.name}">
         <td>{{employee.name}}</td>
         <td>{{employee._id}}</td>
         <td>{{employee.username}}</td>

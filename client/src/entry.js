@@ -9,6 +9,7 @@ filters(employeeApp);
 employeeApp.controller('EmployeeController', function($scope, $http) {
 
   $scope.search = {};
+  $scope.salaryFormat = 'usd';
 
   //GET
   $http.get('http://localhost:3000/api/employees').then( function( res ) {

@@ -15,8 +15,8 @@ export default function(angularModule) {
       else {
         var count = 1;
         var output = Math.floor(salary/base);
-        while ( output > base) {
-          output = Math.floor(salary/base);
+        while ( output >= base) {
+          output = Math.floor(output/base);
           count ++;
         }
         var result = output + simplifyArr[count];

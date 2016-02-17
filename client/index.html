@@ -8,7 +8,17 @@
 <body>
   <main ng-controller = "EmployeeController">
     <h3>Employees</h3>
-    <br >
+    <br />
+    <form>
+      <label>
+        <input type="radio" ng-model="salary" value="yen">
+        Yen
+      </label><br/>
+      <label>
+        <input type="radio" ng-model="salary" value="usd">
+        USD
+    </form>
+    </label><br/>
     <label>Filter by employee's name: </label>
     <input ng-model="search.name"></input>
     <table class = "table table-bordered table-striped">
@@ -73,6 +83,10 @@
       <div class="col-sm-10">
         <input ng-model = "newEmployee.email" type="text" class = "form-control">
       </div>
+      <label class="col-sm-2 control-label">Salary: </label>
+      <div class="col-sm-10">
+        <input ng-model = "newEmployee.salary" type="text" class = "form-control">
+      </div>
       <label class="col-sm-2 control-label">Position: </label>
       <div class="col-sm-10">
         <input ng-model = "newEmployee.position" type="text" class = "form-control">
@@ -96,6 +110,7 @@
         <th>Address</th>
         <th>Phone</th>
         <th>Email</th>
+        <th>Salary</th>
         <th>Position</th>
       </tr>
       <tr >
@@ -106,6 +121,7 @@
         <td>{{deletedEmployee.address}}</td>
         <td>{{deletedEmployee.phone}}</td>
         <td>{{deletedEmployee.email}}</td>
+        <td>{{deletedEmployee.salary}}</td>
         <td>{{deletedEmployee.position}}</td>
       </tr>
     </table>

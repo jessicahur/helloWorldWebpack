@@ -35,9 +35,12 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "angular": "^1.5.0"
+    "angular": "^1.5.0",
+    "moment": "^2.11.2"
   },
   "babel": {
-    "presets": [ "es2015" ]
+    "presets": [
+      "es2015"
+    ]
   }
 }

@@ -24,6 +24,7 @@ router.post('/', (req, res, next) => {
     email: postedEmployee.email,
     address: postedEmployee.address,
     phone: postedEmployee.phone,
+    salary: postedEmployee.salary,
     position: postedEmployee.position
   });
 

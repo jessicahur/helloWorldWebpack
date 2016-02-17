@@ -1,6 +1,10 @@
 import angular from 'angular';
+import filters from './filters';
+
 
 var employeeApp = angular.module( 'employeeApp', []);
+
+filters(employeeApp);
 
 employeeApp.controller('EmployeeController', function($scope, $http) {
 
@@ -21,13 +25,7 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
     $http.delete('http://localhost:3000/api/employees/'+employee._id)
          .then(
           function(res){
-            var temp = [];
-            $scope.employees.forEach(function(employee){
-              if (employee.index != $scope.deleteEmployeeIndex){
-                temp.push(employee);
-              }
-            });
-            $scope.employees = temp;
+            $scope.employees.splice($scope.employees.indexOf(employee), 1);
 
             $scope.deleteConfirmation = 'Deleted Employee:';
             $scope.deletedEmployee = res.data;
@@ -66,7 +64,6 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
          .then(
             function(res){
               $scope.employees.splice($scope.employees.indexOf($scope.newEmployee), 1);
-              console.log(res);
               res.data.index = res.data._id;
               res.data.DOB = res.data.DOB.substring(0,10);
               $scope.employees.push(res.data);
@@ -91,7 +88,6 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
               newEmployee.DOB = newEmployee.DOB.substring(0,10);
               newEmployee.index = newEmployee._id;
               $scope.employees.push(newEmployee);
-              console.log($scope.employees);
               $scope.badRequest = false;
               $scope.newEmployee = {};
             },

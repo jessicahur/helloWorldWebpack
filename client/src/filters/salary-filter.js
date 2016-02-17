@@ -6,7 +6,7 @@ export default function(angularModule) {
       const simplifyArr = ['', 'k', 'm'];
       const base = 1000;
       const baseJYen = 114.31;
-      if (format === 'Yen') {
+      if (format === 'yen') {
         var salary = salary/baseJYen;
       }
       if (salary < base) {

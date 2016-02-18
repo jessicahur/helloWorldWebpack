@@ -18,7 +18,6 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
 
   $http.get('https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
        .then(res => {
-        console.log(res);
           $scope.currencies.JPY.rate = res.data.rates.JPY;
           $scope.currencies.CNY.rate = res.data.rates.CNY;
        });

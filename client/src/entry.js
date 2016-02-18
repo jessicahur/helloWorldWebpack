@@ -9,7 +9,17 @@ filters(employeeApp);
 employeeApp.controller('EmployeeController', function($scope, $http) {
 
   $scope.search = {};
-  $scope.salaryFormat = 'usd';
+  $scope.currencies = {
+    USD: { symbol: '$', rate: 1 },
+    Yen: { symbol: '¥' },
+    CNY: { symbol: '¥' }
+  };
+  $scope.salaryFormat = $scope.currencies.USD;
+
+  $http.get('https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
+       .then(res => {
+          $scope.currencies.Yen.rate = res.data.rates.JPY;
+       });
 
   //GET
   $http.get('http://localhost:3000/api/employees').then( function( res ) {

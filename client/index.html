@@ -10,15 +10,21 @@
     <h3>Employees</h3>
     <br />
     <form>
+  <!--     <label ng-repeat='(name, currency) in currencies'>
+        <input type="radio" ng-model="salaryFormat" ng-value="currency">
+        {{name}}
+      </label><br/> -->
       <label>
-        <input type="radio" ng-model="salaryFormat" value="yen">
-        Yen
-      </label><br/>
+        <input type="radio" ng-model="salaryFormat" ng-value="currencies.USD">USD</input>
+      </label>
       <label>
-        <input type="radio" ng-model="salaryFormat" value="usd">
-        USD
+        <input type="radio" ng-model="salaryFormat" ng-value="currencies.Yen">Yen</input>
+      </label>
+      <label>
+        <input type="radio" ng-model="salaryFormat" ng-value="currencies.CNY">CNY</input>
+      </label>
     </form>
-    </label><br/>
+
     <label>Filter by employee's name: </label>
     <input ng-model="search.name"></input>
     <table class = "table table-bordered table-striped">
@@ -30,7 +36,7 @@
         <th>Address</th>
         <th>Phone</th>
         <th>Email</th>
-        <th>Salary ({{salaryFormat}})</th>
+        <th>Salary</th>
         <th>Position</th>
         <th></th>
         <th></th>
@@ -43,7 +49,7 @@
         <td>{{employee.address}}</td>
         <td>{{employee.phone}}</td>
         <td>{{employee.email}}</td>
-        <td>{{employee.salary | salary:salaryFormat}}</td>
+        <td>{{employee.salary | moneyExchange:salaryFormat}}</td>
         <td>{{employee.position}}</td>
         <td ng-click = "edit(employee)"><a>Edit</a></td>
         <td ng-click = "delete(employee)"><a>Delete</a></td>

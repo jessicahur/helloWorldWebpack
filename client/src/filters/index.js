@@ -1,5 +1,5 @@
-import salaryFilter from './salary-filter';
+import moneyFilter from './money-filter';
 
 export default function(angularModule){
-  salaryFilter(angularModule);
+  moneyFilter(angularModule);
 }

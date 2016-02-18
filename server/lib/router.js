@@ -74,7 +74,8 @@ router.delete('/:id', (req, res, next) => {
 });
 
 //PUT & PATCH
-router.all('/:id', (req, res, next) => {
+
+function update(req, res, next) {
   var id = req.params.id;
   var update = req.body;
   update.DOB = new Date(update.DOB);
@@ -94,7 +95,11 @@ router.all('/:id', (req, res, next) => {
     });
 
   });
-});
+}
+
+router.route('/:id')
+  .put(update)
+  .patch(update);
 // router.all('/:id', (req, res, next) => {
 //   var id = req.params.id;
 //   var update = req.body;

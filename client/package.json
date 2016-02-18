@@ -5,17 +5,41 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --inline",
-    "build": "webpack"
+    "build": "webpack",
+    "test": "karma start",
+    "webmanager": "webdriver-manager start",
+    "e2e": "protractor"
   },
-  "author": "",
+  "author": "Jessica Hur <jess.uyentran@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "angular-mocks": "^1.5.0",
+    "babel-core": "^6.5.1",
+    "babel-loader": "^6.2.2",
+    "babel-preset-es2015": "^6.5.0",
+    "chai": "^3.5.0",
     "html-loader": "^0.4.0",
     "html-webpack-plugin": "^2.8.1",
     "jshint": "^2.9.1",
     "jshint-loader": "^0.8.3",
-    "path": "^0.12.7",
+    "karma": "^0.13.19",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-mocha": "^0.2.1",
+    "karma-safari-launcher": "^0.1.1",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.4.5",
+    "protractor": "^3.1.1",
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "angular": "^1.5.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
   }
 }

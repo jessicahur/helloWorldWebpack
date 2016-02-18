@@ -10,18 +10,19 @@
     <h3>Employees</h3>
     <br />
     <form>
-  <!--     <label ng-repeat='(name, currency) in currencies'>
+    <!--   <label ng-repeat="(name, currency) in currencies">
         <input type="radio" ng-model="salaryFormat" ng-value="currency">
         {{name}}
       </label><br/> -->
+      <!-- The built-in filters orderBy and filter do not work with objects, and will throw if used with one. -->
       <label>
-        <input type="radio" ng-model="salaryFormat" ng-value="currencies.USD">USD</input>
+        <input type="radio" ng-model="salaryFormat" ng-value="currencies.USD"> USD </input>
       </label>
       <label>
-        <input type="radio" ng-model="salaryFormat" ng-value="currencies.Yen">Yen</input>
+        <input type="radio" ng-model="salaryFormat" ng-value="currencies.JPY"> JPY </input>
       </label>
       <label>
-        <input type="radio" ng-model="salaryFormat" ng-value="currencies.CNY">CNY</input>
+        <input type="radio" ng-model="salaryFormat" ng-value="currencies.CNY"> CNY </input>
       </label>
     </form>
 

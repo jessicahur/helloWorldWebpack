@@ -16,7 +16,7 @@ exports.config = {
   // connect to an already running instance of Selenium (called with 'webdriver-manager start'). This usually looks like
   // seleniumAddress: 'http://localhost:4444/wd/hub'
 
-  baseUrl: 'http://localhost:8080', //because of webpack-dev-sever, we don't have to put the entire path down in the test files
+  baseUrl: 'http://localhost:3000', //because of webpack-dev-sever, we don't have to put the entire path down in the test files
 
   framework: 'jasmine', //limited supports for mocha/chai
 

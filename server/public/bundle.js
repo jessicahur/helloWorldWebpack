@@ -50,11 +50,30 @@
 	
 	var _angular2 = _interopRequireDefault(_angular);
 	
+	var _filters = __webpack_require__(3);
+	
+	var _filters2 = _interopRequireDefault(_filters);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var employeeApp = _angular2.default.module('employeeApp', []);
 	
+	(0, _filters2.default)(employeeApp);
+	
 	employeeApp.controller('EmployeeController', function ($scope, $http) {
+	
+	  $scope.search = {};
+	  $scope.currencies = {
+	    USD: { symbol: '$', rate: 1 },
+	    JPY: { symbol: '¥' },
+	    CNY: { symbol: '¥' }
+	  };
+	  $scope.salaryFormat = $scope.currencies.USD;
+	
+	  $http.get('https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04').then(function (res) {
+	    $scope.currencies.JPY.rate = res.data.rates.JPY;
+	    $scope.currencies.CNY.rate = res.data.rates.CNY;
+	  });
 	
 	  //GET
 	  $http.get('http://localhost:3000/api/employees').then(function (res) {
@@ -69,13 +88,7 @@
 	  $scope.delete = function (employee) {
 	    $scope.deleteEmployeeIndex = employee.index;
 	    $http.delete('http://localhost:3000/api/employees/' + employee._id).then(function (res) {
-	      var temp = [];
-	      $scope.employees.forEach(function (employee) {
-	        if (employee.index != $scope.deleteEmployeeIndex) {
-	          temp.push(employee);
-	        }
-	      });
-	      $scope.employees = temp;
+	      $scope.employees.splice($scope.employees.indexOf(employee), 1);
 	
 	      $scope.deleteConfirmation = 'Deleted Employee:';
 	      $scope.deletedEmployee = res.data;
@@ -95,13 +108,7 @@
 	    $scope.editEmployee = null;
 	    $scope.badRequest = false;
 	    $http.get('http://localhost:3000/api/employees/' + $scope.newEmployee.index).then(function (res) {
-	      var temp = [];
-	      $scope.employees.forEach(function (employee) {
-	        if (employee.index != $scope.newEmployee.index) {
-	          temp.push(employee);
-	        }
-	      });
-	      $scope.employees = temp;
+	      $scope.employees.splice($scope.employees.indexOf($scope.newEmployee), 1);
 	      res.data.index = res.data._id;
 	      res.data.DOB = res.data.DOB.substring(0, 10);
 	      $scope.employees.push(res.data);
@@ -112,18 +119,17 @@
 	  };
 	  $scope.editSelectedEmployee = function () {
 	    $http.put('http://localhost:3000/api/employees/' + $scope.newEmployee.index, $scope.newEmployee).then(function (res) {
-	
-	      // console.log(res);
 	      $scope.employees.splice($scope.employees.indexOf($scope.newEmployee), 1);
 	      res.data.index = res.data._id;
 	      res.data.DOB = res.data.DOB.substring(0, 10);
 	      $scope.employees.push(res.data);
-	
 	      $scope.newEmployee = null;
+	      $scope.editEmployee = null;
 	      $scope.badRequest = false;
 	    }, function (err) {
 	      console.log(err);
 	      $scope.badRequest = err.status + ': ' + err.data.errmsg;
+	      $scope.cancelEdit();
 	    });
 	  };
 	
@@ -134,7 +140,6 @@
 	      newEmployee.DOB = newEmployee.DOB.substring(0, 10);
 	      newEmployee.index = newEmployee._id;
 	      $scope.employees.push(newEmployee);
-	      console.log($scope.employees);
 	      $scope.badRequest = false;
 	      $scope.newEmployee = {};
 	    }, function (err) {
@@ -30583,6 +30588,69 @@
 	})(window, document);
 	
 	!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (angularModule) {
+	  (0, _moneyFilter2.default)(angularModule);
+	};
+	
+	var _moneyFilter = __webpack_require__(4);
+
+	var _moneyFilter2 = _interopRequireDefault(_moneyFilter);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (angularModule) {
+	  angularModule.filter('moneyExchange', function () {
+	    //register "moment" filter to the angular module passed in
+	    return function filter(salary, format) {
+	      var simplifyArr = ['', 'k', 'm'];
+	      var base = 1000;
+	
+	      function convert() {
+	        if (salary < base) {
+	          console.log(format.symbol);
+	          return format.symbol + ' ' + salary + ' ' + simplifyArr[0];
+	          // return format.symbol+ salary + simplifyArr[0];
+	        } else {
+	            var count = 1;
+	            var output = Math.floor(salary / base);
+	            while (output >= base) {
+	              output = Math.floor(output / base);
+	              count++;
+	            }
+	            var result = output + simplifyArr[count];
+	            return format.symbol + ' ' + result;
+	          }
+	      }
+	      if (format.rate) {
+	        salary = Math.floor(salary / format.rate * 100) / 100;
+	        return convert();
+	      } else {
+	        return salary = 'Not Available';
+	      }
+	    };
+	  }); //end of angularModule.filter
+	};
 
 /***/ }
 /******/ ]);

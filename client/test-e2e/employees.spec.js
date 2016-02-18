@@ -1,5 +1,3 @@
-const fs = require( 'fs' );
-
 describe('employeeApp', () => {
   var testObj = {
     'newEmployee.name': 'Test999',
@@ -9,6 +7,7 @@ describe('employeeApp', () => {
     'newEmployee.address': '123 testing, test city, TEST',
     'newEmployee.phone': '000-000-0000',
     'newEmployee.email': 'test@test.com',
+    'newEmployee.salary': 1000,
     'newEmployee.position': 'accountant'
   };
 
@@ -38,7 +37,8 @@ describe('employeeApp', () => {
     element.all(by.repeater('employee in employees').column('employee.name')).first().getText()
            .then( text => {
              expect(text).toEqual('Test999');
-           })
+           });
+    element(by.model('search.name')).clear();
   });
 
   it('EDIT: a test employee', () => {

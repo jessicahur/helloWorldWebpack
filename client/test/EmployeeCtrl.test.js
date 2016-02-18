@@ -26,14 +26,42 @@ describe( 'Employee Controller', () => {
                 position: 'accountant'
               };
 
+  var exchangeRates = {
+        rates: {
+          JPY: 2,
+          CNY: 1.5
+        }
+    };
+
   beforeEach( angular.mock.inject( function(_$rootScope_, _$controller_, _$httpBackend_) {
     $controller = _$controller_;
     $scope = _$rootScope_.$new();//use rootScope instead of {} because we may set $rootScope.user = 'Something'
     $httpBackend = _$httpBackend_;
   }));
 
+  it('filter: changes currencies', () => {
+
+    $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
+                .respond(200, exchangeRates);
+
+    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+                .respond(200, [obj]);
+
+    $controller('EmployeeController', {$scope, $httpBackend});
+
+    $httpBackend.flush();
+
+    assert.equal($scope.currencies.USD.rate, 1);
+    assert.equal($scope.currencies.JPY.rate, 2);
+    assert.equal($scope.currencies.CNY.rate, 1.5);
+
+  });
 
   it('GET', () => {
+
+    $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
+                .respond(200, exchangeRates);
+
     $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
                 .respond(200, [obj]);
 
@@ -49,6 +77,10 @@ describe( 'Employee Controller', () => {
 
 
   it('DELETE', () => {
+
+    $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
+                .respond(200, exchangeRates);
+
     $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
                 .respond(200, [obj]);
 
@@ -78,6 +110,9 @@ describe( 'Employee Controller', () => {
                 position: 'accountant'
     };
 
+    $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
+                .respond(200, exchangeRates);
+
     $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
                 .respond(200, [obj]);
 
@@ -99,6 +134,9 @@ describe( 'Employee Controller', () => {
 
   it('EDIT', () => {
     obj.name = 'NEW NAME';
+
+    $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
+                .respond(200, exchangeRates);
 
     $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
                 .respond(200, [obj]);

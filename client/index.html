@@ -56,14 +56,14 @@
                   required
                   ng-pattern='/\D+/'
                   ng-minlength="2"
-                  ng-maxlength="100"
+                  ng-maxlength="50"
                   ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
                   type="text" class = "form-control">
           <div ng-messages="myForm.myName.$error" ng-if="myForm.myName.$dirty" role="alert">
             <div ng-message="required">Name is required</div>
             <div ng-message="pattern">Name can only contain letters and space</div>
             <div ng-message="minlength, maxlength">
-              Name must be between 2 and 100 characters long
+              Name must be between 2 and 50 characters long
             </div>
           </div>
         </div>

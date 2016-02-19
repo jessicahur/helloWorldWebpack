@@ -45,72 +45,106 @@
         <td ng-click = "delete(employee)"><a>Delete</a></td>
       </tr>
     </table>
-
     <!--POST-->
+      <p ng-show = "badRequest" class="text-center"><mark>{{badRequest}}</mark></p>
+      <form name = "myForm" class = "form-horizontal">
 
-    <h3>Add/Edit Employee:</h3>
-    <p ng-show = "badRequest" class="text-center"><mark>{{badRequest}}</mark></p>
-    <form name = "myForm" class = "form-horizontal">
-
-      <label class="col-sm-2 control-label">Name: </label>
-      <div class="col-sm-10">
-        <input  name = "myName"
-                ng-model = "newEmployee.name"
-                type="text" class = "form-control"
-                required >
-      </div>
-
-      <label class="col-sm-2 control-label">ID: </label>
-      <div class="col-sm-10">
-        <input  name = "myId"
-                ng-model = "newEmployee._id" ng-readonly="disable"
-                required
-                ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
-                ng-pattern='/^\d+$/'
-                type="text" class = "form-control">
-        <div ng-messages="myForm.myId.$error" ng-if="myForm.myId.$dirty" role="alert">
-          <div ng-message="required">You did not enter an ID</div>
-
+        <label class="col-sm-2 control-label">Name: </label>
+        <div class="col-sm-10">
+          <input  name = "myName"
+                  ng-model = "newEmployee.name"
+                  type="text" class = "form-control"
+                  required >
+          <div ng-messages="myForm.myName.$error" ng-if="myForm.myName.$dirty" role="alert">
+            <div ng-message="required">Name is required</div>
+          </div>
         </div>
 
-        <pre>{{myForm.myId.$error|json}}</pre>
-      </div>
+        <label class="col-sm-2 control-label">ID: </label>
+        <div class="col-sm-10">
+          <input  name = "myId"
+                  ng-model = "newEmployee._id" ng-readonly="disable"
+                  required
+                  ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+                  ng-pattern='/^\d+$/'
+                  type="text" class = "form-control">
+          <div ng-messages="myForm.myId.$error" ng-if="myForm.myId.$dirty" role="alert">
+            <div ng-message="required">ID is required</div>
+            <div ng-message="pattern">ID has to be a whole number</div>
+          </div>
+        </div>
 
-      <label class="col-sm-2 control-label">Username: </label>
-      <div class="col-sm-10">
-        <input ng-model = "newEmployee.username" type="text" class = "form-control">
-      </div>
-      <label class="col-sm-2 control-label">DOB: </label>
-      <div class="col-sm-10">
-        <input ng-model = "newEmployee.DOB" type="text" class = "form-control">
-      </div>
-      <label class="col-sm-2 control-label">Address: </label>
-      <div class="col-sm-10">
-        <input ng-model = "newEmployee.address" type="text" class = "form-control">
-      </div>
-      <label class="col-sm-2 control-label">Phone: </label>
-      <div class="col-sm-10">
-        <input ng-model = "newEmployee.phone" type="text" class = "form-control">
-      </div>
-      <label class="col-sm-2 control-label">Email: </label>
-      <div class="col-sm-10">
-        <input ng-model = "newEmployee.email" type="text" class = "form-control">
-      </div>
-      <label class="col-sm-2 control-label">Salary: </label>
-      <div class="col-sm-10">
-        <input ng-model = "newEmployee.salary" type="text" class = "form-control">
-      </div>
-      <label class="col-sm-2 control-label">Position: </label>
-      <div class="col-sm-10">
-        <input ng-model = "newEmployee.position" type="text" class = "form-control">
-      </div>
-      <div class="col-sm-offset-2 col-sm-10">
-        <button ng-show = "!editEmployee" ng-click = "addEmployee()" type='submit' class="btn btn-success">ADD</button>
-        <button ng-show = "editEmployee" ng-click = "editSelectedEmployee()" type='submit' class="btn btn-danger">EDIT</button>
-        <button ng-show = "editEmployee" ng-click = "cancelEdit()"  class="btn btn-warning">CANCEL</button>
-      </div>
-    </form>
+        <label class="col-sm-2 control-label">Username: </label>
+        <div class="col-sm-10">
+          <input  name="myUsername"
+                  ng-model = "newEmployee.username"
+                  required
+                  ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+                  type="text" class = "form-control">
+        </div>
 
+        <label class="col-sm-2 control-label">DOB: </label>
+        <div class="col-sm-10">
+          <input  name = "myDOB"
+                  ng-model = "newEmployee.DOB"
+                  required
+                  ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+                  type="text" class = "form-control">
+        </div>
+
+        <label class="col-sm-2 control-label">Address: </label>
+        <div class="col-sm-10">
+          <input  name = "myAddress"
+                  ng-model = "newEmployee.address"
+                  required
+                  ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+                  ng-min-length = "10"
+                  type="text" class = "form-control">
+        </div>
+
+        <label class="col-sm-2 control-label">Phone: </label>
+        <div class="col-sm-10">
+          <input  name = "myPhone"
+                  ng-model = "newEmployee.phone"
+                  required
+                  ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+                  ng-pattern = "/[0-9]{3}-[0-9]{3}-[0-9]{4}/"
+                  type="text" class = "form-control">
+        </div>
+
+        <label class="col-sm-2 control-label">Email: </label>
+        <div class="col-sm-10">
+          <input  name = "myEmail"
+                  type="email"
+                  ng-model = "newEmployee.email"
+                  required
+                  ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+                  type="text" class = "form-control">
+        </div>
+
+        <label class="col-sm-2 control-label">Salary: </label>
+        <div class="col-sm-10">
+          <input  name = "mySalary"
+                  type = "number"
+                  ng-model = "newEmployee.salary"
+                  required
+                  ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+                  type="text" class = "form-control">
+        </div>
+        <label class="col-sm-2 control-label">Position: </label>
+        <div class="col-sm-10">
+          <input  name = "myPosition"
+                  ng-model = "newEmployee.position"
+                  required
+                  ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+                  type="text" class = "form-control">
+        </div>
+        <div class="col-sm-offset-2 col-sm-10">
+          <button ng-show = "!editEmployee" ng-click = "addEmployee()" type='submit' class="btn btn-success">ADD</button>
+          <button ng-show = "editEmployee" ng-click = "editSelectedEmployee()" type='submit' class="btn btn-danger">EDIT</button>
+          <button ng-show = "editEmployee" ng-click = "cancelEdit()"  class="btn btn-warning">CANCEL</button>
+        </div>
+      </form>
     <!--DELETE-->
     <h3 ng-show = "deleteConfirmation">{{deleteConfirmation}}</h3>
     <div ng-show = "deletedEmployee">

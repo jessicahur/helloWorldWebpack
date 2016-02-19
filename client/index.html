@@ -53,10 +53,13 @@
         <div class="col-sm-10">
           <input  name = "myName"
                   ng-model = "newEmployee.name"
-                  type="text" class = "form-control"
-                  required >
+                  required
+                  ng-pattern='/\D+/'
+                  ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+                  type="text" class = "form-control">
           <div ng-messages="myForm.myName.$error" ng-if="myForm.myName.$dirty" role="alert">
             <div ng-message="required">Name is required</div>
+            <div ng-message="pattern">Name can only contain letters and space</div>
           </div>
         </div>
 
@@ -81,6 +84,9 @@
                   required
                   ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
                   type="text" class = "form-control">
+          <div ng-messages="myForm.myUsername.$error" ng-if="myForm.myUsername.$dirty" role="alert">
+            <div ng-message="required">Username is required</div>
+          </div>
         </div>
 
         <label class="col-sm-2 control-label">DOB: </label>
@@ -90,6 +96,9 @@
                   required
                   ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
                   type="text" class = "form-control">
+          <div ng-messages="myForm.myDOB.$error" ng-if="myForm.myDOB.$dirty" role="alert">
+            <div ng-message="required">Day of birth is required</div>
+          </div>
         </div>
 
         <label class="col-sm-2 control-label">Address: </label>
@@ -97,9 +106,13 @@
           <input  name = "myAddress"
                   ng-model = "newEmployee.address"
                   required
+                  minlength = "10"
                   ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
-                  ng-min-length = "10"
                   type="text" class = "form-control">
+          <div ng-messages="myForm.myAddress.$error" ng-if="myForm.myAddress.$dirty" role="alert">
+            <div ng-message="required">Address is required</div>
+            <div ng-message = "minlength">Address is too short</div>
+          </div>
         </div>
 
         <label class="col-sm-2 control-label">Phone: </label>
@@ -107,9 +120,13 @@
           <input  name = "myPhone"
                   ng-model = "newEmployee.phone"
                   required
-                  ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
                   ng-pattern = "/[0-9]{3}-[0-9]{3}-[0-9]{4}/"
+                  ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
                   type="text" class = "form-control">
+          <div ng-messages="myForm.myPhone.$error" ng-if="myForm.myPhone.$dirty" role="alert">
+            <div ng-message="required">Phone number is required</div>
+            <div ng-message = "pattern">Phone number has to be in the form 555-555-5555</div>
+          </div>
         </div>
 
         <label class="col-sm-2 control-label">Email: </label>
@@ -120,6 +137,9 @@
                   required
                   ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
                   type="text" class = "form-control">
+          <div ng-messages="myForm.myEmail.$error" ng-if="myForm.myEmail.$dirty" role="alert">
+            <div ng-message="required">Email is required</div>
+          </div>
         </div>
 
         <label class="col-sm-2 control-label">Salary: </label>
@@ -130,7 +150,11 @@
                   required
                   ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
                   type="text" class = "form-control">
+          <div ng-messages="myForm.mySalary.$error" ng-if="myForm.mySalary.$dirty" role="alert">
+            <div ng-message="required">Salary is required</div>
+          </div>
         </div>
+
         <label class="col-sm-2 control-label">Position: </label>
         <div class="col-sm-10">
           <input  name = "myPosition"
@@ -138,6 +162,10 @@
                   required
                   ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
                   type="text" class = "form-control">
+          <div ng-messages="myForm.myPosition.$error" ng-if="myForm.myPosition.$dirty" role="alert">
+            <div ng-message="required">Position is required</div>
+          </div>
+
         </div>
         <div class="col-sm-offset-2 col-sm-10">
           <button ng-show = "!editEmployee" ng-click = "addEmployee()" type='submit' class="btn btn-success">ADD</button>

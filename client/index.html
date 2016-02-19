@@ -50,15 +50,32 @@
 
     <h3>Add/Edit Employee:</h3>
     <p ng-show = "badRequest" class="text-center"><mark>{{badRequest}}</mark></p>
-    <form class = "form-horizontal">
+    <form name = "myForm" class = "form-horizontal">
+
       <label class="col-sm-2 control-label">Name: </label>
       <div class="col-sm-10">
-        <input ng-model = "newEmployee.name" type="text" class = "form-control">
+        <input  name = "myName"
+                ng-model = "newEmployee.name"
+                type="text" class = "form-control"
+                required >
       </div>
+
       <label class="col-sm-2 control-label">ID: </label>
       <div class="col-sm-10">
-        <input ng-model = "newEmployee._id" type="text" class = "form-control">
+        <input  name = "myId"
+                ng-model = "newEmployee._id" ng-readonly="disable"
+                required
+                ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+                ng-pattern='/^\d+$/'
+                type="text" class = "form-control">
+        <div ng-messages="myForm.myId.$error" ng-if="myForm.myId.$dirty" role="alert">
+          <div ng-message="required">You did not enter an ID</div>
+
+        </div>
+
+        <pre>{{myForm.myId.$error|json}}</pre>
       </div>
+
       <label class="col-sm-2 control-label">Username: </label>
       <div class="col-sm-10">
         <input ng-model = "newEmployee.username" type="text" class = "form-control">
@@ -90,7 +107,7 @@
       <div class="col-sm-offset-2 col-sm-10">
         <button ng-show = "!editEmployee" ng-click = "addEmployee()" type='submit' class="btn btn-success">ADD</button>
         <button ng-show = "editEmployee" ng-click = "editSelectedEmployee()" type='submit' class="btn btn-danger">EDIT</button>
-        <button ng-show = "editEmployee" ng-click = "cancelEdit()" type='reset' class="btn btn-warning">CANCEL</button>
+        <button ng-show = "editEmployee" ng-click = "cancelEdit()"  class="btn btn-warning">CANCEL</button>
       </div>
     </form>
 

@@ -1,0 +1,11 @@
+<div>
+  <div>
+    <label class="col-sm-2 control-label">{{label}}</label>
+  </div>
+  <div class="col-sm-10">
+    <div ng-transclude="input"></div>
+    <div ng-message="{{obj}}.$error" ng-if="{{obj}}.$dirty" role="alert">
+      <div ng-transclude="errors"></div>
+    </div>
+  </div>
+</div>

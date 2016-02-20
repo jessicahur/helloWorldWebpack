@@ -9,19 +9,46 @@ export default function(AngularModule) {
       template,
       scope: {
         editEmployee: '=info',
-        newEmployee: '=info2'
+        newEmployee: '=info2',
+        employees: '=info3'
       },
-      controller: ['$scope', function($scope) {
-        console.log($scope.editEmployee);
-        console.log('FORM in edit',myForm);
-        console.log('Input', myForm.myName);
+      controller: ['$scope','$http', function($scope, $http) {
+        // console.log($scope.editEmployee);
+        // console.log($scope);
+        // console.log('FORM in edit',myForm);
+        // console.log('Input', $scope.myForm);
         $scope.cancelEdit = function() {
           $scope.editEmployee = null;
           $scope.badRequest = false;
           $scope.newEmployee = null;
           $scope.disable = false;
-          $scope.myForm.$setPristine();
+          $scope.myForm.$setPristine();//Why $scope.myForm is defined here but console.log($scope.myForm)doesn't show?
           $scope.myForm.$setUntouched();
+        }
+
+        $scope.editSelectedEmployee = function() {
+          $http.put('http://localhost:3000/api/employees/'+$scope.newEmployee._id, $scope.newEmployee)
+            .then(
+            function(res){
+              $scope.employees.splice($scope.employees.indexOf($scope.employeeToEdit), 1);
+              res.data.DOB = res.data.DOB.substring(0,10);
+              $scope.employees.push(res.data);
+              $scope.newEmployee = null;
+              $scope.editEmployee = null;
+              $scope.employeeToEdit = null;
+              $scope.badRequest = false;
+              $scope.myForm.$setPristine();
+              $scope.disable = false;
+              $scope.myForm.$setPristine();
+              $scope.myForm.$setUntouched();
+            },
+            function(err){
+              console.log(err);
+              $scope.badRequest = `${err.statusText}`;
+              $scope.cancelEdit();
+              $scope.disable = false;
+            }
+          );
         }
       }] //don't need to create controller for this component yet
     }

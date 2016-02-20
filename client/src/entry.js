@@ -69,44 +69,38 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
   }
 
   //EDIT-PUT/PATCH
+  //also in employee-edit.js
   $scope.edit = function(employee) { //when user clicks on the edit link next to the employee
     $scope.newEmployee = angular.copy(employee);
     $scope.employeeToEdit = employee;
     $scope.editEmployee = true;
     $scope.disable = true;
   }
-  // $scope.cancelEdit = function() {
-  //   $scope.editEmployee = null;
-  //   $scope.badRequest = false;
-  //   $scope.newEmployee = null;
-  //   $scope.disable = false;
-  //   $scope.myForm.$setPristine();
-  //   $scope.myForm.$setUntouched();
+
+  // $scope.editSelectedEmployee = function() {
+  //   $http.put('http://localhost:3000/api/employees/'+$scope.newEmployee._id, $scope.newEmployee)
+  //        .then(
+  //           function(res){
+  //             $scope.employees.splice($scope.employees.indexOf($scope.employeeToEdit), 1);
+  //             res.data.DOB = res.data.DOB.substring(0,10);
+  //             $scope.employees.push(res.data);
+  //             $scope.newEmployee = null;
+  //             $scope.editEmployee = null;
+  //             $scope.employeeToEdit = null;
+  //             $scope.badRequest = false;
+  //             $scope.myForm.$setPristine();
+  //             $scope.disable = false;
+  //             $scope.myForm.$setPristine();
+  //             $scope.myForm.$setUntouched();
+  //           },
+  //           function(err){
+  //             console.log(err);
+  //             $scope.badRequest = `${err.statusText}`;
+  //             $scope.cancelEdit();
+  //             $scope.disable = false;
+  //           }
+  //         );
   // }
-  $scope.editSelectedEmployee = function() {
-    $http.put('http://localhost:3000/api/employees/'+$scope.newEmployee._id, $scope.newEmployee)
-         .then(
-            function(res){
-              $scope.employees.splice($scope.employees.indexOf($scope.employeeToEdit), 1);
-              res.data.DOB = res.data.DOB.substring(0,10);
-              $scope.employees.push(res.data);
-              $scope.newEmployee = null;
-              $scope.editEmployee = null;
-              $scope.employeeToEdit = null;
-              $scope.badRequest = false;
-              $scope.myForm.$setPristine();
-              $scope.disable = false;
-              $scope.myForm.$setPristine();
-              $scope.myForm.$setUntouched();
-            },
-            function(err){
-              console.log(err);
-              $scope.badRequest = `${err.statusText}`;
-              $scope.cancelEdit();
-              $scope.disable = false;
-            }
-          );
-  }
 
   //ADD-POST
 

@@ -9,7 +9,6 @@ export default function(angularModule) {
 
       function convert() {
         if (salary < base) {
-          console.log(format.symbol);
           return `${format.symbol} ${salary} ${simplifyArr[0]}`;
           // return format.symbol+ salary + simplifyArr[0];
         }

@@ -15,6 +15,14 @@ export default function(AngularModule) {
         console.log($scope.editEmployee);
         console.log('FORM in edit',myForm);
         console.log('Input', myForm.myName);
+        $scope.cancelEdit = function() {
+          $scope.editEmployee = null;
+          $scope.badRequest = false;
+          $scope.newEmployee = null;
+          $scope.disable = false;
+          $scope.myForm.$setPristine();
+          $scope.myForm.$setUntouched();
+        }
       }] //don't need to create controller for this component yet
     }
   });

@@ -8,9 +8,29 @@ var employeeApp = angular.module( 'employeeApp', [ngMessages, components]);
 
 filters(employeeApp);
 
+employeeApp.directive('overwriteEmail', function() {
+  var EMAIL_REGEXP = /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@example\.com$/i;
+
+  return {
+    require: '?ngModel',
+    link: function(scope, elm, attrs, ctrl) {
+      // only apply the validator if ngModel is present and Angular has added the email validator
+      if (ctrl && ctrl.$validators.email) {
+
+        // this will overwrite the default Angular email validator
+        ctrl.$validators.email = function(modelValue) {
+          return ctrl.$isEmpty(modelValue) || EMAIL_REGEXP.test(modelValue);
+        };
+      }
+    },
+    controller: ['$scope', function($scope) {
+      console.log('NG', form.overwrittenEmail);
+    }]
+  };
+});
+
 employeeApp.controller('EmployeeController', function($scope, $http) {
 
-  $scope.search = {};
   $scope.currencies = {
     USD: { symbol: '$', rate: 1 },
     JPY: { symbol: '¥' },
@@ -49,22 +69,20 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
   }
 
   //EDIT-PUT/PATCH
-  $scope.editEmployee = 'HEYY';
   $scope.edit = function(employee) { //when user clicks on the edit link next to the employee
     $scope.newEmployee = angular.copy(employee);
     $scope.employeeToEdit = employee;
     $scope.editEmployee = true;
-    console.log($scope.editEmployee);
     $scope.disable = true;
   }
-  $scope.cancelEdit = function() {
-    $scope.editEmployee = null;
-    $scope.badRequest = false;
-    $scope.newEmployee = null;
-    $scope.disable = false;
-    $scope.myForm.$setPristine();
-    $scope.myForm.$setUntouched();
-  }
+  // $scope.cancelEdit = function() {
+  //   $scope.editEmployee = null;
+  //   $scope.badRequest = false;
+  //   $scope.newEmployee = null;
+  //   $scope.disable = false;
+  //   $scope.myForm.$setPristine();
+  //   $scope.myForm.$setUntouched();
+  // }
   $scope.editSelectedEmployee = function() {
     $http.put('http://localhost:3000/api/employees/'+$scope.newEmployee._id, $scope.newEmployee)
          .then(

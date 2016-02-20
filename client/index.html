@@ -7,6 +7,16 @@
 </head>
 <body>
   <main ng-controller = "EmployeeController">
+  <form name="form" class="css-form" novalidate>
+  <div>
+    Overwritten Email:
+    <input type="email" ng-model="myEmail" overwrite-email name="overwrittenEmail" />
+    <span ng-show="form.overwrittenEmail.$error.email">This email format is invalid!</span><br>
+    Model: {{myEmail}}
+    </div>
+</form>
+
+
     <h3>Employees</h3>
     <br />
     <form>
@@ -46,7 +56,6 @@
       </tr>
     </table>
     <!--POST/EDIT where directives and components come in place-->
-      <p ng-show = "badRequest" class="text-center"><mark>{{badRequest}}</mark></p>
       <employee-edit
                       info="editEmployee"
                       info2="newEmployee">

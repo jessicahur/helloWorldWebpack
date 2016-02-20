@@ -61,6 +61,7 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
     $scope.newEmployee = null;
     $scope.disable = false;
     $scope.myForm.$setPristine();
+    $scope.myForm.$setUntouched();
   }
   $scope.editSelectedEmployee = function() {
     $http.put('http://localhost:3000/api/employees/'+$scope.newEmployee._id, $scope.newEmployee)
@@ -75,6 +76,8 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
               $scope.badRequest = false;
               $scope.myForm.$setPristine();
               $scope.disable = false;
+              $scope.myForm.$setPristine();
+              $scope.myForm.$setUntouched();
             },
             function(err){
               console.log(err);
@@ -97,6 +100,7 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
               $scope.badRequest = false;
               $scope.newEmployee = {};
               $scope.myForm.$setPristine();
+              $scope.myForm.$setUntouched();
             },
             function(err){
               $scope.badRequest = `${err.status}: ${err.data.errmsg}`;

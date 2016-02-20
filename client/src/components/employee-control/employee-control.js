@@ -7,11 +7,16 @@ export default function (AngularModule) {
       restrict: 'E',
       template,
       transclude: {
-        input: 'input'
+        input: 'input',
+        errors: '?errors'
       },
       scope: {
-        label: '@'
+        label: '@',
+        obj: '='
+      },
+      controller: ['$scope', function($scope) {
+        console.log($scope.obj);
       }
-    }
+    ]}
   });
 };

@@ -1,6 +1,7 @@
-<form name = "myForm" class = "form-horizontal">
+<form name="myForm" novalidate
+      class="form-horizontal">
 
-  <employee-control label="Name">
+  <employee-control label="Name" obj="myForm.myName" test="testing">
     <input  name = "myName"
             ng-model = "newEmployee.name"
             required
@@ -9,6 +10,11 @@
             ng-maxlength="50"
             ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
             type="text" class = "form-control">
+    <errors>
+      <div ng-message="required">Name is required</div>
+      <div ng-message="pattern">Name can only contain letters and space</div>
+      <div ng-message="minlength, maxlength">Name must be between 2 and 50 characters long</div>
+    </errors>
     <div ng-messages="myForm.myName.$error" ng-if="myForm.myName.$dirty" role="alert">
       <div ng-message="required">Name is required</div>
       <div ng-message="pattern">Name can only contain letters and space</div>
@@ -21,11 +27,11 @@
             ng-model = "newEmployee._id" ng-readonly="disable"
             required
             ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
-            ng-pattern='/^\d+$/'
+            integer
             type="text" class = "form-control">
     <div ng-messages="myForm.myId.$error" ng-if="myForm.myId.$dirty" role="alert">
       <div ng-message="required">ID is required</div>
-      <div ng-message="pattern">ID has to be a whole number</div>
+      <div ng-message="integer">ID has to be a whole number</div>
     </div>
   </employee-control>
 
@@ -115,8 +121,8 @@
   </employee-control>
 
   <div class="col-sm-offset-2 col-sm-10">
-    <button ng-show = "!editEmployee" ng-click = "addEmployee()" type='submit' class="btn btn-success">ADD</button>
-    <button ng-show = "editEmployee" ng-click = "editSelectedEmployee()" type='submit' class="btn btn-danger">EDIT</button>
+    <button ng-disabled="myForm.$invalid" ng-show = "!editEmployee" ng-click = "addEmployee()" type='submit' class="btn btn-success">ADD</button>
+    <button ng-disabled="myForm.$invalid" ng-show = "editEmployee" ng-click = "editSelectedEmployee()" type='submit' class="btn btn-danger">EDIT</button>
     <button ng-show = "editEmployee" ng-click = "cancelEdit()"  class="btn btn-warning">CANCEL</button>
   </div>
 </form>

@@ -2,6 +2,10 @@
     <label class="col-sm-2 control-label">{{label}}</label>
     <div class="col-sm-10">
       <ng-transclude ng-transclude-slot="input"></ng-transclude>
+      <ng-transclude ng-transclude-slot="errors"
+                      ng-messages="obj.$error"
+                      ng-if="obj.$dirty" role="alert">
+      </ng-transclude>
       <ng-transclude></ng-transclude>
     </div>
 </div>

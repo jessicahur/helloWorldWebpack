@@ -6,7 +6,7 @@ export default function (AngularModule) {
       replace: true,
       restrict: 'E',
       template,
-      // transclude: true,
+      transclude: true,
       scope: {
         label: '@'
       }

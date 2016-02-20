@@ -1,9 +1,10 @@
 import angular from 'angular';
 import filters from './filters';
 import ngMessages from 'angular-messages';
+import components from './components';
 
 
-var employeeApp = angular.module( 'employeeApp', ['ngMessages']);
+var employeeApp = angular.module( 'employeeApp', [ngMessages, components]);
 
 filters(employeeApp);
 

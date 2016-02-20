@@ -47,7 +47,10 @@
     </table>
     <!--POST/EDIT where directives and components come in place-->
       <p ng-show = "badRequest" class="text-center"><mark>{{badRequest}}</mark></p>
-      <employee-edit></employee-edit>
+      <employee-edit
+                      info="editEmployee"
+                      info2="newEmployee">
+      </employee-edit>
     <!--DELETE-->
     <h3 ng-show = "deleteConfirmation">{{deleteConfirmation}}</h3>
     <div ng-show = "deletedEmployee">

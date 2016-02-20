@@ -49,10 +49,12 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
   }
 
   //EDIT-PUT/PATCH
+  $scope.editEmployee = 'HEYY';
   $scope.edit = function(employee) { //when user clicks on the edit link next to the employee
     $scope.newEmployee = angular.copy(employee);
     $scope.employeeToEdit = employee;
     $scope.editEmployee = true;
+    console.log($scope.editEmployee);
     $scope.disable = true;
   }
   $scope.cancelEdit = function() {

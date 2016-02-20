@@ -7,10 +7,12 @@ export default function(AngularModule) {
       restrict: 'E', //restrict this directive to be html tag element
       // transclude: true,//put content of parent html inside my tags
       template,
-      // scope:{
-
-      // },
+      scope: {
+        editEmployee: '=info',
+        newEmployee: '=info2'
+      },
       controller: ['$scope', function($scope) {
+        console.log($scope.editEmployee);
         console.log('FORM in edit',myForm);
         console.log('Input', myForm.myName);
       }] //don't need to create controller for this component yet

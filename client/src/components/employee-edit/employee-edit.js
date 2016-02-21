@@ -13,10 +13,6 @@ export default function(AngularModule) {
         employees: '=info3'
       },
       controller: ['$scope','$http', function($scope, $http) {
-        // console.log($scope.editEmployee);
-        // console.log($scope);
-        // console.log('FORM in edit',myForm);
-        // console.log('Input', $scope.myForm);
         $scope.cancelEdit = function() {
           $scope.editEmployee = null;
           $scope.badRequest = false;
@@ -49,6 +45,27 @@ export default function(AngularModule) {
               $scope.disable = false;
             }
           );
+        }
+
+        $scope.addEmployee = function() {
+          console.log($scope.newEmployee);
+          $http.post('http://localhost:3000/api/employees', JSON.stringify($scope.newEmployee))
+               .then(
+                  function(res){
+                    var newEmp = res.data;
+                    newEmp.DOB = newEmp.DOB.substring(0,10);
+                    $scope.employees.push(newEmp);
+                    $scope.badRequest = false;
+                    $scope.newEmployee = null;
+                    $scope.myForm.$setPristine();
+                    $scope.myForm.$setUntouched();
+                  },
+                  function(err){
+                    $scope.badRequest = `${err.status}: ${err.data.errmsg}`;
+                    $scope.myForm.$setPristine();
+                    $scope.myForm.$setUntouched();
+                  }
+                )
         }
       }] //don't need to create controller for this component yet
     }

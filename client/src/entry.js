@@ -38,6 +38,8 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
   };
   $scope.salaryFormat = $scope.currencies.USD;
 
+  $scope.newEmployee = {};//Why do I have to initiate newEmployee here first? Why can't newEmployee be initiate in the childScope?
+
   $http.get('https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
        .then(res => {
           $scope.currencies.JPY.rate = res.data.rates.JPY;
@@ -69,7 +71,7 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
   }
 
   //EDIT-PUT/PATCH
-  //also in employee-edit.js
+  //edit() is triggered with the link on the table
   $scope.edit = function(employee) { //when user clicks on the edit link next to the employee
     $scope.newEmployee = angular.copy(employee);
     $scope.employeeToEdit = employee;
@@ -77,49 +79,23 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
     $scope.disable = true;
   }
 
-  // $scope.editSelectedEmployee = function() {
-  //   $http.put('http://localhost:3000/api/employees/'+$scope.newEmployee._id, $scope.newEmployee)
-  //        .then(
-  //           function(res){
-  //             $scope.employees.splice($scope.employees.indexOf($scope.employeeToEdit), 1);
-  //             res.data.DOB = res.data.DOB.substring(0,10);
-  //             $scope.employees.push(res.data);
-  //             $scope.newEmployee = null;
-  //             $scope.editEmployee = null;
-  //             $scope.employeeToEdit = null;
-  //             $scope.badRequest = false;
-  //             $scope.myForm.$setPristine();
-  //             $scope.disable = false;
-  //             $scope.myForm.$setPristine();
-  //             $scope.myForm.$setUntouched();
-  //           },
-  //           function(err){
-  //             console.log(err);
-  //             $scope.badRequest = `${err.statusText}`;
-  //             $scope.cancelEdit();
-  //             $scope.disable = false;
-  //           }
-  //         );
-  // }
-
-  //ADD-POST
-
-  $scope.addEmployee = function() {
-    $http.post('http://localhost:3000/api/employees', JSON.stringify($scope.newEmployee))
-         .then(
-            function(res){
-              var newEmployee = res.data;
-              newEmployee.DOB = newEmployee.DOB.substring(0,10);
-              $scope.employees.push(newEmployee);
-              $scope.badRequest = false;
-              $scope.newEmployee = {};
-              $scope.myForm.$setPristine();
-              $scope.myForm.$setUntouched();
-            },
-            function(err){
-              $scope.badRequest = `${err.status}: ${err.data.errmsg}`;
-              $scope.myForm.$setPristine();
-            }
-          )
-  }
+//   //ADD-POST
+//   $scope.addEmployee = function() {
+//     $http.post('http://localhost:3000/api/employees', JSON.stringify($scope.newEmployee))
+//          .then(
+//             function(res){
+//               var newEmployee = res.data;
+//               newEmployee.DOB = newEmployee.DOB.substring(0,10);
+//               $scope.employees.push(newEmployee);
+//               $scope.badRequest = false;
+//               $scope.newEmployee = {};
+//               $scope.myForm.$setPristine();
+//               $scope.myForm.$setUntouched();
+//             },
+//             function(err){
+//               $scope.badRequest = `${err.status}: ${err.data.errmsg}`;
+//               $scope.myForm.$setPristine();
+//             }
+//           )
+//   }
 });

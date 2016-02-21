@@ -13,6 +13,9 @@ export default function(AngularModule) {
         employees: '=info3'
       },
       controller: ['$scope','$http', function($scope, $http) {
+        //Form logic handling:
+
+        //When user clicks on the "CANCEL" button
         $scope.cancelEdit = function() {
           $scope.editEmployee = null;
           $scope.badRequest = false;
@@ -22,6 +25,7 @@ export default function(AngularModule) {
           $scope.myForm.$setUntouched();
         }
 
+        //When user click on the "EDIT" button
         $scope.editSelectedEmployee = function() {
           $http.put('http://localhost:3000/api/employees/'+$scope.newEmployee._id, $scope.newEmployee)
             .then(
@@ -47,6 +51,7 @@ export default function(AngularModule) {
           );
         }
 
+        //When user clicks on the "ADD" button
         $scope.addEmployee = function() {
           console.log($scope.newEmployee);
           $http.post('http://localhost:3000/api/employees', JSON.stringify($scope.newEmployee))
@@ -67,7 +72,7 @@ export default function(AngularModule) {
                   }
                 )
         }
-      }] //don't need to create controller for this component yet
+      }]
     }
   });
 };

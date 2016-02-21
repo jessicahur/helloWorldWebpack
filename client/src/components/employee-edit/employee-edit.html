@@ -4,7 +4,7 @@
   <form name="myForm" novalidate
         class="form-horizontal">
 
-    <employee-control label="Name" obj="myForm.myName" test="testing">
+    <employee-control label="Name" myelem="myForm.myName" test="testing">
       <input  name="myName"
               ng-model = "newEmployee.name"
               required
@@ -18,75 +18,70 @@
         <div ng-message="pattern">Name can only contain letters and space</div>
         <div ng-message="minlength, maxlength">Name must be between 2 and 50 characters long</div>
       </errors>
-      <div ng-messages="myForm.myName.$error" ng-if="myForm.myName.$dirty" role="alert">
-        <div ng-message="required">Name is required</div>
-        <div ng-message="pattern">Name can only contain letters and space</div>
-        <div ng-message="minlength, maxlength">Name must be between 2 and 50 characters long</div>
-      </div>
     </employee-control>
 
-    <employee-control label="ID">
+    <employee-control label="ID" myelem="myForm.myId">
       <input  name = "myId"
               ng-model = "newEmployee._id" ng-readonly="disable"
               required
               ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
               integer
               type="text" class = "form-control">
-      <div ng-messages="myForm.myId.$error" ng-if="myForm.myId.$dirty" role="alert">
+      <errors>
         <div ng-message="required">ID is required</div>
         <div ng-message="integer">ID has to be a whole number</div>
-      </div>
+      </errors>
     </employee-control>
 
-    <employee-control label="Username">
+    <employee-control label="Username" myelem="myForm.myUsername">
       <input  name="myUsername"
               ng-model = "newEmployee.username"
               required
               ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
               type="text" class = "form-control">
-      <div ng-messages="myForm.myUsername.$error" ng-if="myForm.myUsername.$dirty" role="alert">
+      <errors>
         <div ng-message="required">Username is required</div>
-      </div>
+      </errors>
     </employee-control>
 
-    <employee-control label="DOB">
+    <employee-control label="DOB" myelem="myForm.myDOB">
       <input  name = "myDOB"
               ng-model = "newEmployee.DOB"
               required
               ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
               type="text" class = "form-control">
-      <div ng-messages="myForm.myDOB.$error" ng-if="myForm.myDOB.$dirty" role="alert">
+      <errors>
         <div ng-message="required">Day of birth is required</div>
-      </div>
+      </errors>
     </employee-control>
 
-    <employee-control label="Address">
+    <employee-control label="Address" myelem="myForm.myAddress">
       <input  name = "myAddress"
               ng-model = "newEmployee.address"
               required
               ng-minlength = "10"
               ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
               type="text" class = "form-control">
-      <div ng-messages="myForm.myAddress.$error" ng-if="myForm.myAddress.$dirty" role="alert">
+      <errors>
         <div ng-message="required">Address is required</div>
         <div ng-message = "minlength">Address is too short</div>
-      </div>
+      </errors>
     </employee-control>
 
-    <employee-control label="Phone">
+    <employee-control label="Phone" myelem="myForm.myPhone">
       <input  name = "myPhone"
               ng-model = "newEmployee.phone"
               required
               ng-pattern = "/[0-9]{3}-[0-9]{3}-[0-9]{4}/"
               ng-model-options="{ updateOn: 'default blur', debounce: { default: 800, blur: 0 } }"
               type="text" class = "form-control">
-      <div ng-messages="myForm.myPhone.$error" ng-if="myForm.myPhone.$dirty" role="alert">
+      <errors>
         <div ng-message="required">Phone number is required</div>
         <div ng-message = "pattern">Phone number has to be in the form 555-555-5555</div>
-      </div>
+      </errors>
     </employee-control>
 
-    <employee-control label="Email">
+    <employee-control label="Email" myelem="myForm.myEmail">
       <input  name = "myEmail"
               type="email"
               ng-model = "newEmployee.email"
@@ -94,33 +89,33 @@
               ng-pattern="/.+\@.+\..+/"
               ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
               type="text" class = "form-control">
-      <div ng-messages="myForm.myEmail.$error" ng-if="myForm.myEmail.$dirty" role="alert">
+      <errors>
         <div ng-message="required">Email is required</div>
         <div ng-message="pattern">Email must be in the form example@example.com</div>
-      </div>
+      </errors>
     </employee-control>
 
-    <employee-control label="Salary">
+    <employee-control label="Salary" myelem="myForm.mySalary">
       <input  name = "mySalary"
               type = "number"
               ng-model = "newEmployee.salary"
               required
               ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
               type="text" class = "form-control">
-      <div ng-messages="myForm.mySalary.$error" ng-if="myForm.mySalary.$dirty" role="alert">
+      <errors>
         <div ng-message="required">Salary is required</div>
-      </div>
+      </errors>
     </employee-control>
 
-    <employee-control label="Position">
+    <employee-control label="Position" myelem="myForm.myPosition">
       <input  name = "myPosition"
               ng-model = "newEmployee.position"
               required
               ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
               type="text" class = "form-control">
-      <div ng-messages="myForm.myPosition.$error" ng-if="myForm.myPosition.$dirty" role="alert">
+      <errors>
         <div ng-message="required">Position is required</div>
-      </div>
+      </errors>
     </employee-control>
 
     <div class="col-sm-offset-2 col-sm-10">

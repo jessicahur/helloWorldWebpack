@@ -13,10 +13,7 @@ export default function (AngularModule) {
       scope: {
         label: '@',
         obj: '=myelem'
-      },
-      controller: ['$scope', function($scope) {
-        console.log($scope.obj);
       }
-    ]}
+    }
   });
 };

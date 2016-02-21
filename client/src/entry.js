@@ -8,27 +8,6 @@ var employeeApp = angular.module( 'employeeApp', [ngMessages, components]);
 
 filters(employeeApp);
 
-employeeApp.directive('overwriteEmail', function() {
-  var EMAIL_REGEXP = /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@example\.com$/i;
-
-  return {
-    require: '?ngModel',
-    link: function(scope, elm, attrs, ctrl) {
-      // only apply the validator if ngModel is present and Angular has added the email validator
-      if (ctrl && ctrl.$validators.email) {
-
-        // this will overwrite the default Angular email validator
-        ctrl.$validators.email = function(modelValue) {
-          return ctrl.$isEmpty(modelValue) || EMAIL_REGEXP.test(modelValue);
-        };
-      }
-    },
-    controller: ['$scope', function($scope) {
-      console.log('NG', form.overwrittenEmail);
-    }]
-  };
-});
-
 employeeApp.controller('EmployeeController', function($scope, $http) {
 
   $scope.currencies = {

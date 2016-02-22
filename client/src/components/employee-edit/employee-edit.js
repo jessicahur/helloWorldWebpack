@@ -8,13 +8,13 @@ export default function(AngularModule) {
       // transclude: true,//put content of parent html inside my tags
       template,
       scope: {
-        editEmployee: '=',
+        editEmployee: '=', //attr in index.html has to be in the form edit-employee
         newEmployee: '=',
         employees: '='
       },
       controller: ['$scope','$http', function($scope, $http) {
         //Form logic handling:
-        console.log($scope.newEmployee);
+        // console.log($scope.newEmployee);
         //When user clicks on the "CANCEL" button
         $scope.cancelEdit = function() {
           $scope.editEmployee = null;
@@ -37,7 +37,6 @@ export default function(AngularModule) {
               $scope.editEmployee = null;
               $scope.employeeToEdit = null;
               $scope.badRequest = false;
-              $scope.myForm.$setPristine();
               $scope.disable = false;
               $scope.myForm.$setPristine();
               $scope.myForm.$setUntouched();

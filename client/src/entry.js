@@ -54,7 +54,7 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
   //edit() is triggered with the link on the table
   $scope.edit = function(employee) { //when user clicks on the edit link next to the employee
     $scope.newEmployee = angular.copy(employee);
-    $scope.employeeToEdit = employee;
+    //$scope.employeeToEdit = employee;
     $scope.editEmployee = true;
     $scope.disable = true;
   }

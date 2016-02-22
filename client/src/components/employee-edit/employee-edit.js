@@ -8,9 +8,9 @@ export default function(AngularModule) {
       // transclude: true,//put content of parent html inside my tags
       template,
       scope: {
-        editEmployee: '=info',
-        newEmployee: '=info2',
-        employees: '=info3'
+        editEmployee: '=',
+        newEmployee: '=',
+        employees: '='
       },
       controller: ['$scope','$http', function($scope, $http) {
         //Form logic handling:

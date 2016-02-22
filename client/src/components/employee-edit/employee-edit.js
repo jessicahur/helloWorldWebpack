@@ -10,7 +10,8 @@ export default function(AngularModule) {
       scope: {
         editEmployee: '=', //attr in index.html has to be in the form edit-employee
         newEmployee: '=',
-        employees: '='
+        employees: '=',
+        employeeToEdit: '='
       },
       controller: ['$scope','$http', function($scope, $http) {
         //Form logic handling:
@@ -35,7 +36,7 @@ export default function(AngularModule) {
               $scope.employees.push(res.data);
               $scope.newEmployee = null;
               $scope.editEmployee = null;
-              $scope.employeeToEdit = null;
+              // $scope.employeeToEdit = null;
               $scope.badRequest = false;
               $scope.disable = false;
               $scope.myForm.$setPristine();
@@ -52,7 +53,6 @@ export default function(AngularModule) {
 
         //When user clicks on the "ADD" button
         $scope.addEmployee = function() {
-          console.log($scope.newEmployee);
           $http.post('http://localhost:3000/api/employees', JSON.stringify($scope.newEmployee))
                .then(
                   function(res){

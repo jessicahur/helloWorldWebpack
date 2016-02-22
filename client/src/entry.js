@@ -17,7 +17,7 @@ employeeApp.controller('EmployeeController', function($scope, $http) {
   };
   $scope.salaryFormat = $scope.currencies.USD;
 
-  $scope.newEmployee = {};//Angular won't inititate this in childScope!
+  //$scope.newEmployee = {};//Angular won't inititate this in childScope!
 
   //Getting currency exchange rate
   $http.get('https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')

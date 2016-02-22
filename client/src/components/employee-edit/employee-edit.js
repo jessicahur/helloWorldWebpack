@@ -14,7 +14,7 @@ export default function(AngularModule) {
       },
       controller: ['$scope','$http', function($scope, $http) {
         //Form logic handling:
-
+        console.log($scope.newEmployee);
         //When user clicks on the "CANCEL" button
         $scope.cancelEdit = function() {
           $scope.editEmployee = null;

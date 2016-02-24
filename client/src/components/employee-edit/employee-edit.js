@@ -22,7 +22,7 @@ export default function(AngularModule) {
         $scope.cancelEdit = function() {
           $scope.editEmployee = null;
           $scope.badRequest = false;
-          $scope.newEmployee = new Resource();
+          $scope.newEmployee = null;
           $scope.disable = false;
           $scope.myForm.$setPristine();//Why $scope.myForm is defined here but console.log($scope.myForm)doesn't show?
           $scope.myForm.$setUntouched();
@@ -35,7 +35,7 @@ export default function(AngularModule) {
             .then(
             function(res){
               res.DOB = res.DOB.substring(0,10);
-              $scope.newEmployee = new Resource();
+              $scope.newEmployee = null;
               $scope.editEmployee = null;
               $scope.employeeToEdit = null;
               $scope.badRequest = false;
@@ -53,13 +53,12 @@ export default function(AngularModule) {
 
         //When user clicks on the "ADD" button
         $scope.addEmployee = function() {
-          $scope.newEmployee.$add({employeeId:''})
-               .then(
+          Resource.save({employeeId:''}, $scope.newEmployee,
                   function(res){
                     res.DOB = res.DOB.substring(0,10);
                     $scope.employees.push(res);
                     $scope.badRequest = false;
-                    $scope.newEmployee = new Resource();
+                    $scope.newEmployee = null;
                     $scope.editEmployee = null;
                     $scope.myForm.$setPristine();
                     $scope.myForm.$setUntouched();

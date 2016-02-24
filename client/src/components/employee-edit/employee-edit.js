@@ -11,7 +11,8 @@ export default function(AngularModule) {
         editEmployee: '=', //attr in index.html has to be in the form edit-employee
         newEmployee: '=',
         employees: '=',
-        employeeToEdit: '='
+        employeeToEdit: '=',
+        disable: '='
       },
       controller: ['$scope','$http','employeeService', function($scope, $http, Resource) {
         //Form logic handling:
@@ -21,7 +22,7 @@ export default function(AngularModule) {
         $scope.cancelEdit = function() {
           $scope.editEmployee = null;
           $scope.badRequest = false;
-          $scope.newEmployee = null;
+          $scope.newEmployee = new Resource();
           $scope.disable = false;
           $scope.myForm.$setPristine();//Why $scope.myForm is defined here but console.log($scope.myForm)doesn't show?
           $scope.myForm.$setUntouched();
@@ -30,11 +31,11 @@ export default function(AngularModule) {
         //When user click on the "EDIT" button
         $scope.editSelectedEmployee = function() {
           //Since $scope.newEmployee is also an instance of Resource, we can call $update on itself. Ng will automatically detect the change and upate the DOM, no need to do array,splice
-          $scope.newEmployee.$update({employeeId: $scope.newEmployee._id})
+          $scope.newEmployee.$update()//no need to pass in id here since (employeeId : '@_id') took care of it
             .then(
             function(res){
               res.DOB = res.DOB.substring(0,10);
-              $scope.newEmployee = null;
+              $scope.newEmployee = new Resource();
               $scope.editEmployee = null;
               $scope.employeeToEdit = null;
               $scope.badRequest = false;
@@ -46,28 +47,27 @@ export default function(AngularModule) {
               console.log(err);
               $scope.badRequest = `${err.statusText}`;
               $scope.cancelEdit();
-              $scope.disable = false;
             }
           );
         }
 
         //When user clicks on the "ADD" button
         $scope.addEmployee = function() {
-          $http.post('http://localhost:3000/api/employees', JSON.stringify($scope.newEmployee))
+          $scope.newEmployee.$add({employeeId:''})
                .then(
                   function(res){
-                    var newEmp = res.data;
-                    newEmp.DOB = newEmp.DOB.substring(0,10);
-                    $scope.employees.push(newEmp);
+                    res.DOB = res.DOB.substring(0,10);
+                    $scope.employees.push(res);
                     $scope.badRequest = false;
-                    $scope.newEmployee = null;
+                    $scope.newEmployee = new Resource();
+                    $scope.editEmployee = null;
                     $scope.myForm.$setPristine();
                     $scope.myForm.$setUntouched();
                   },
                   function(err){
                     $scope.badRequest = `${err.status}: ${err.data.errmsg}`;
-                    $scope.myForm.$setPristine();
-                    $scope.myForm.$setUntouched();
+                    $scope.editEmployee = null;
+                    $scope.cancelEdit();
                   }
                 )
         }

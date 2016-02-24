@@ -31,7 +31,7 @@
         <th></th>
         <th></th>
       </tr>
-      <tr ng-repeat = "employee in employees | filter: {name: search.name} | orderBy: '_id'">
+      <tr ng-repeat = "employee in employees| filter: {name: search.name} | orderBy: '_id' track by employee._id">
         <td>{{employee.name}}</td>
         <td>{{employee._id}}</td>
         <td>{{employee.username}}</td>
@@ -50,7 +50,8 @@
                       edit-employee="editEmployee"
                       new-employee="newEmployee"
                       employees="employees"
-                      employee-to-edit="employeeToEdit">
+                      employee-to-edit="employeeToEdit"
+                      disable="disable">
       </employee-edit>
     <!--DELETE-->
     <h3 ng-show = "deleteConfirmation">{{deleteConfirmation}}</h3>

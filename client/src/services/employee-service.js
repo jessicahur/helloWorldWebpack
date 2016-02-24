@@ -9,7 +9,7 @@ export default function(angularModule){
 
     this.$get = function ($resource){
       var Resource = $resource(_url,
-                              {employeeId: '@id'}, {
+                              {employeeId: '@_id'}, {
                                 add: {method: 'POST'},
                                 update: {method: 'PUT'}
                               });

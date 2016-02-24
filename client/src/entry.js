@@ -31,7 +31,7 @@ employeeApp.controller('EmployeeController', function($scope, $http, $resource, 
   };
   $scope.salaryFormat = $scope.currencies.USD;
 
-  $scope.newEmployee = {};//Angular won't inititate this in childScope!
+  $scope.newEmployee = new employeeService();//Angular won't inititate this in childScope!
 
   //Getting currency exchange rate
   $http.get('https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
@@ -50,16 +50,12 @@ employeeApp.controller('EmployeeController', function($scope, $http, $resource, 
 
   //DELETE
   $scope.delete = function(employee) {
-    employeeService.delete({employeeId: employee._id})
-            .$promise.then(deletedEmployee => {
+    console.log(employee);
+    employee.$delete(() => {//$delete does not return a promise
               $scope.employees.splice($scope.employees.indexOf(employee), 1);
               $scope.deleteConfirmation = 'Deleted Employee:';
-              $scope.deletedEmployee = deletedEmployee;
-              $scope.deletedEmployee.DOB = $scope.deletedEmployee.DOB.substring(0,10);
-            },
-            err => {
-              $scope.deleteConfirmation = res.statusText;
-            })
+              $scope.deletedEmployee = employee;
+          });
   }
 
   //EDIT-PUT/PATCH

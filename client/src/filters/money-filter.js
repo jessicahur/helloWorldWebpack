@@ -2,7 +2,7 @@
 
 
 export default function(angularModule) {
-  angularModule.filter('moneyExchange', function() { //register "moment" filter to the angular module passed in
+  angularModule.filter('moneyExchange', function() { //register "moneyExchange" filter to the angular module passed in
     return function filter( salary, format) {
       const simplifyArr = ['', 'k', 'm'];
       const base = 1000;

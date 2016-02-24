@@ -13,10 +13,11 @@ export default function(AngularModule) {
         employees: '=',
         employeeToEdit: '='
       },
-      controller: ['$scope','$http', function($scope, $http) {
+      controller: ['$scope','$http','employeeService', function($scope, $http, Resource) {
         //Form logic handling:
         // console.log($scope.newEmployee);
         //When user clicks on the "CANCEL" button
+
         $scope.cancelEdit = function() {
           $scope.editEmployee = null;
           $scope.badRequest = false;
@@ -28,15 +29,14 @@ export default function(AngularModule) {
 
         //When user click on the "EDIT" button
         $scope.editSelectedEmployee = function() {
-          $http.put('http://localhost:3000/api/employees/'+$scope.newEmployee._id, $scope.newEmployee)
+          //Since $scope.newEmployee is also an instance of Resource, we can call $update on itself. Ng will automatically detect the change and upate the DOM, no need to do array,splice
+          $scope.newEmployee.$update({employeeId: $scope.newEmployee._id})
             .then(
             function(res){
-              $scope.employees.splice($scope.employees.indexOf($scope.employeeToEdit), 1);
-              res.data.DOB = res.data.DOB.substring(0,10);
-              $scope.employees.push(res.data);
+              res.DOB = res.DOB.substring(0,10);
               $scope.newEmployee = null;
               $scope.editEmployee = null;
-              // $scope.employeeToEdit = null;
+              $scope.employeeToEdit = null;
               $scope.badRequest = false;
               $scope.disable = false;
               $scope.myForm.$setPristine();

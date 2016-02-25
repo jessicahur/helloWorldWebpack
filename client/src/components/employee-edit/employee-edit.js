@@ -14,7 +14,7 @@ export default function(AngularModule) {
         employeeToEdit: '=',
         disable: '='
       },
-      controller: ['$scope','$http','employeeService', function($scope, $http, Resource) {
+      controller: ['$scope','employeeService', function($scope, Resource) {
         //Form logic handling:
         // console.log($scope.newEmployee);
         //When user clicks on the "CANCEL" button

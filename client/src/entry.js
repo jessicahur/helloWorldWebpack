@@ -13,22 +13,21 @@ var employeeApp = angular.module( 'employeeApp', [ ngMessages,
                                                    components,
                                                    services,
                                                    filters]);
-
+var baseUrl = 'http://localhost:3000/api/employees/:employeeId';
 //SET CONSTANT URL FOR APP
-employeeApp.constant( 'url', 'http://localhost:3000/api/employees/:employeeId');
+employeeApp.constant( 'url', baseUrl);
 
 //CONFIGURE APP
 employeeApp.config(function(url, employeeServiceProvider) {
   employeeServiceProvider.setUrl(url);
 });
 
-employeeApp.controller('EmployeeController', function($scope, $http, $resource, employeeService) {
+employeeApp.controller('EmployeeController', function($scope, employeeService) {
 
   $scope.newEmployee = new employeeService();//Angular won't inititate this in childScope!
 
   //GET all employees in DB
   $scope.employees = employeeService.query(() => {
-    console.log($scope.employees);
     $scope.employees.forEach(employee => {
       employee.DOB = employee.DOB.substring(0,10);
     });
@@ -36,7 +35,6 @@ employeeApp.controller('EmployeeController', function($scope, $http, $resource, 
 
   //DELETE
   $scope.delete = function(employee) {
-    console.log(employee);
     employee.$delete(() => {//$delete does not return a promise
               $scope.employees.splice($scope.employees.indexOf(employee), 1);
               $scope.deletedEmployee = employee;

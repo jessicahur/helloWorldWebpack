@@ -39,7 +39,6 @@ employeeApp.controller('EmployeeController', function($scope, $http, $resource, 
     console.log(employee);
     employee.$delete(() => {//$delete does not return a promise
               $scope.employees.splice($scope.employees.indexOf(employee), 1);
-              $scope.deleteConfirmation = 'Deleted Employee:';
               $scope.deletedEmployee = employee;
           });
   }

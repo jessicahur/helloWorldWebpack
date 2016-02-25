@@ -8,7 +8,8 @@ export default function(AngularModule) {
       template,
       scope: {
         employees: '=',
-        edit: '&'
+        edit: '&',
+        delete: '&'
       },
       controller: function($scope, $http){
         $scope.currencies = {
@@ -30,6 +31,9 @@ export default function(AngularModule) {
           $scope.edit({employee: employee});
         };
 
+        $scope.deleteEmployee = function(employee) {
+          $scope.delete({employee: employee});
+        };
       }
     }//end of return
   })

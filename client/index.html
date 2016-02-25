@@ -9,7 +9,8 @@
   <main ng-controller = "EmployeeController">
 
       <employee-table employees="employees"
-                      edit="edit(employee)"></employee-table>
+                      edit="edit(employee)"
+                      delete="delete(employee)"></employee-table>
 
     <!--POST/EDIT where directives and components come in place-->
       <employee-edit
@@ -20,33 +21,7 @@
                       disable="disable">
       </employee-edit>
     <!--DELETE-->
-    <h3 ng-show = "deleteConfirmation">{{deleteConfirmation}}</h3>
-    <div ng-show = "deletedEmployee">
-      <table class = "table table-bordered">
-      <tr class="danger">
-        <th>Name</th>
-        <th>ID</th>
-        <th>User Name</th>
-        <th>DOB</th>
-        <th>Address</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <th>Salary</th>
-        <th>Position</th>
-      </tr>
-      <tr >
-        <td>{{deletedEmployee.name}}</td>
-        <td>{{deletedEmployee._id}}</td>
-        <td>{{deletedEmployee.username}}</td>
-        <td>{{deletedEmployee.DOB}}</td>
-        <td>{{deletedEmployee.address}}</td>
-        <td>{{deletedEmployee.phone}}</td>
-        <td>{{deletedEmployee.email}}</td>
-        <td>{{deletedEmployee.salary}}</td>
-        <td>{{deletedEmployee.position}}</td>
-      </tr>
-    </table>
-    </div>
+   <employee-delete deletedEmployee="deletedEmployee"></employee-delete>
   </main>
 </body>
 </html>

@@ -14,7 +14,7 @@ export default function(AngularModule) {
         employeeToEdit: '=',
         disable: '='
       },
-      controller: ['$scope','employeeService', function($scope, Resource) {
+      controller: ['$scope','employeeService', '$window', function($scope, Resource, $window) {
         //Form logic handling:
         // console.log($scope.newEmployee);
         //When user clicks on the "CANCEL" button
@@ -62,6 +62,7 @@ export default function(AngularModule) {
                     $scope.editEmployee = null;
                     $scope.myForm.$setPristine();
                     $scope.myForm.$setUntouched();
+                    // $window.location.href = '#/employees';
                   },
                   function(err){
                     $scope.badRequest = `${err.status}: ${err.data.errmsg}`;

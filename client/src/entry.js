@@ -18,27 +18,13 @@ var employeeApp = angular.module( 'employeeApp', [ ngMessages,
 employeeApp.constant( 'url', 'http://localhost:3000/api/employees/:employeeId');
 
 //CONFIGURE APP
-employeeApp.config(function(url,employeeServiceProvider) {
+employeeApp.config(function(url, employeeServiceProvider) {
   employeeServiceProvider.setUrl(url);
 });
 
 employeeApp.controller('EmployeeController', function($scope, $http, $resource, employeeService) {
 
-  $scope.currencies = {
-    USD: { symbol: '$', rate: 1 },
-    JPY: { symbol: '¥' },
-    CNY: { symbol: '¥' }
-  };
-  $scope.salaryFormat = $scope.currencies.USD;
-
   $scope.newEmployee = new employeeService();//Angular won't inititate this in childScope!
-
-  //Getting currency exchange rate
-  $http.get('https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
-       .then(res => {
-          $scope.currencies.JPY.rate = res.data.rates.JPY;
-          $scope.currencies.CNY.rate = res.data.rates.CNY;
-       });
 
   //GET all employees in DB
   $scope.employees = employeeService.query(() => {
@@ -59,7 +45,7 @@ employeeApp.controller('EmployeeController', function($scope, $http, $resource, 
   }
 
   //EDIT-PUT/PATCH
-  //edit() is triggered with the link on the table
+  //don't want to move this out of entry.js because it's linked with other components as well...
   $scope.edit = function(employee) { //when user clicks on the edit link next to the employee
     $scope.newEmployee = employee;
     $scope.employeeToEdit = angular.copy(employee);

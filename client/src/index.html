@@ -6,24 +6,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body>
-  <main ng-controller = "EmployeeController">
-
-      <employee-table employees="employees"
-                      edit="edit(employee)"
-                      delete="delete(employee)"></employee-table>
-
-    <!--POST/EDIT where directives and components come in place-->
-      <employee-edit
-                      edit-employee="editEmployee"
-                      new-employee="newEmployee"
-                      employees="employees"
-                      employee-to-edit="employeeToEdit"
-                      disable="disable">
-      </employee-edit>
-    <!--DELETE-->
-    <div ng-show="deletedEmployee">
-     <employee-delete deletedEmployee="deletedEmployee"></employee-delete>
-    </div>
-  </main>
+  <app/>
 </body>
 </html>

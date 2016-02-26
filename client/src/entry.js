@@ -6,10 +6,12 @@ import ngMessages from 'angular-messages';
 import components from './components';
 import ngResource from 'angular-resource';
 import services from './services';
+import uiRouter from 'angular-ui-router';
 // import employeeService from './services/employee-service';
 
 var employeeApp = angular.module( 'employeeApp', [ ngMessages,
                                                    ngResource,
+                                                   uiRouter,
                                                    components,
                                                    services,
                                                    filters]);
@@ -22,6 +24,15 @@ employeeApp.config(function(url, employeeServiceProvider) {
   employeeServiceProvider.setUrl(url);
 });
 
+employeeApp.config(function($stateProvider){
+  $stateProvider
+    .state('employees', {
+      url: '/employees',
+      templateUrl:'index.html'
+    })
+});
+
+//DEFINE CONTROLLER
 employeeApp.controller('EmployeeController', function($scope, employeeService) {
 
   $scope.newEmployee = new employeeService();//Angular won't inititate this in childScope!

@@ -1,19 +1,24 @@
-export default function(angularModule){
-  angularModule.provider('employeeService', function() {//use provider here so that I can configure it in app.config
+export default function(AngularModule) {
+  AngularModule.factory('employeeService', function() {
 
-    var _url = '';
+    return {
+      employees: [],
+      getAll(array){
+        this.employees = array;
+      },
+      addEmployee(employee){
+        this.employees.push(employee);
+      },
+      deleteEmployee(employee){
+        this.employees.splice(employees.indexOf(employee), 1);
+      },
+      updateEmployee(employee){
 
-    this.setUrl = function(url) {
-      _url = url;
-    };
+      },
+      getEmployees() {
+        return this.employees;
 
-    this.$get = function ($resource){
-      var Resource = $resource(_url,
-                              {employeeId: '@_id'}, {
-                                add: {method: 'POST'},
-                                update: {method: 'PUT'}
-                              });
-      return Resource;
+      }
     }
   });
-}
+};

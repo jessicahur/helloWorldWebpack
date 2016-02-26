@@ -9,8 +9,8 @@
 <body>
   <main ng-controller = "EmployeeController">
     <div class="container">
-      <div ui-view></div>
-
+      <div ui-view="table"></div>
+      <div ui-view="new"></div>
     <!--POST/EDIT where directives and components come in place-->
       <!-- <employee-edit
                       edit-employee="editEmployee"
@@ -20,7 +20,6 @@
                       disable="disable">
       </employee-edit> -->
     <!--DELETE-->
-      <!-- <employee-delete deletedEmployee="deletedEmployee"></employee-delete> -->
    </div>
   </main>
 </body>

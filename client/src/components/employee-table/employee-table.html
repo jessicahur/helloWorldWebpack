@@ -35,9 +35,12 @@
         <td>{{employee.salary | moneyExchange:salaryFormat}}</td>
         <td>{{employee.position}}</td>
         <td ng-click = "update(employee)"><a>Edit</a></td>
-        <td ng-click = "deleteEmployee(employee)"><a ui-sref="employees.delete()">Delete</a></td>
+        <td ng-click = "deleteEmployee(employee)"><a>Delete</a></td>
       </tr>
     </table>
 
     <div ui-view></div>
+    <div ng-show=deletedEmployee>
+      <employee-delete></employee-delete>
+    </div>
 </section>

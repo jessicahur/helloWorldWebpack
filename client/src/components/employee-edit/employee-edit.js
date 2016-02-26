@@ -14,7 +14,7 @@ export default function(AngularModule) {
         employeeToEdit: '=',
         disable: '='
       },
-      controller: ['$scope','employeeService', '$window', function($scope, Resource, $window) {
+      controller: ['$scope','resourceService', '$window', 'employeeService', function($scope, Resource, $window, Employee) {
         //Form logic handling:
         // console.log($scope.newEmployee);
         //When user clicks on the "CANCEL" button
@@ -57,6 +57,8 @@ export default function(AngularModule) {
                   function(res){
                     res.DOB = res.DOB.substring(0,10);
                     $scope.employees.push(res);
+                    console.log($scope.employees);
+                    Employee.getAll($scope.employees);
                     $scope.badRequest = false;
                     $scope.newEmployee = null;
                     $scope.editEmployee = null;

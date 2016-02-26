@@ -24,12 +24,16 @@ employeeApp.config(function(url, employeeServiceProvider) {
   employeeServiceProvider.setUrl(url);
 });
 
-employeeApp.config(function($stateProvider){
+employeeApp.config(function($stateProvider, $urlRouterProvider){
+
+  $urlRouterProvider.otherwise( '/employees' );//if other routes not handled, redirect here
+
   $stateProvider
     .state('employees', {
       url: '/employees',
-      templateUrl:'index.html'
-    })
+      template:'<app/>',
+      controller: 'EmployeeController'
+    });
 });
 
 //DEFINE CONTROLLER

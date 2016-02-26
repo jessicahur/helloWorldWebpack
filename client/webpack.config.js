@@ -9,7 +9,7 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: [new HtmlWebpackPlugin({ //DO NOT USE 'PLUGIN'. THE 'S' is important!
-    template: './index.html'})],
+    template: './src/index.html'})],
   module: {
     preloaders: [
       {

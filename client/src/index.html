@@ -21,7 +21,9 @@
                       disable="disable">
       </employee-edit>
     <!--DELETE-->
-   <employee-delete deletedEmployee="deletedEmployee"></employee-delete>
+    <div ng-show="deletedEmployee">
+     <employee-delete deletedEmployee="deletedEmployee"></employee-delete>
+    </div>
   </main>
 </body>
 </html>

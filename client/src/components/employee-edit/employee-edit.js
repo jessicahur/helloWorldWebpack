@@ -58,7 +58,7 @@ export default function(AngularModule) {
                     res.DOB = res.DOB.substring(0,10);
                     $scope.employees.push(res);
                     $scope.badRequest = false;
-                    $scope.newEmployee = null;
+                    $scope.newEmployee = new Resource();
                     $scope.editEmployee = null;
                     $scope.myForm.$setPristine();
                     $scope.myForm.$setUntouched();

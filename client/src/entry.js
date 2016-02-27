@@ -7,11 +7,13 @@ import components from './components';
 import ngResource from 'angular-resource';
 import services from './services';
 import uiRouter from 'angular-ui-router';
+import uiBootstrap from 'angular-ui-bootstrap';
 // import employeeService from './services/employee-service';
 
 var employeeApp = angular.module( 'employeeApp', [ ngMessages,
                                                    ngResource,
                                                    uiRouter,
+                                                   uiBootstrap,
                                                    components,
                                                    services,
                                                    filters]);
@@ -26,12 +28,27 @@ employeeApp.config(function(url, employeeServiceProvider) {
 
 employeeApp.config(function($stateProvider, $urlRouterProvider){
 
-  $urlRouterProvider.otherwise( '/employees' );//if other routes not handled, redirect here
+  $urlRouterProvider.otherwise( '/home' );//if other routes not handled, redirect here
 
   $stateProvider
+    .state('home', {
+      url:'/home',
+      template:`<h1>Welcome to your employee Database</h1>`
+    })
     .state('employees', {
-      url: '/employees',
+      url: '/employees?action',
       template:'<app/>',
+      controller: 'EmployeeController'
+    })
+    .state('newEmployee', {
+      url: '/new',
+      template:`<employee-edit
+                      edit-employee="editEmployee"
+                      new-employee="newEmployee"
+                      employees="employees"
+                      employee-to-edit="employeeToEdit"
+                      disable="disable">
+                </employee-edit>`,
       controller: 'EmployeeController'
     });
 });

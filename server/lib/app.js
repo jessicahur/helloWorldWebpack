@@ -1,5 +1,6 @@
 const express = require('express');
 const methodOverride = require( 'method-override' );
+const bodyParser = require( 'body-parser' );
 
 const router = require('./router');
 const app = express();
@@ -7,6 +8,9 @@ const app = express();
 const auth = require( './auth.js' );
 
 app.use(express.static('public'));
+
+app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded({ extended: false }) );
 
 app.use( (req, res, next) => {
   const url = '*';

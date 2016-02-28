@@ -28,6 +28,10 @@ module.exports = {
           }
       },
       {
+        test: /\.css$/,
+        loader: 'style!css'
+      },
+      {
         test: /\.html$/,
         loader: 'html'
       }

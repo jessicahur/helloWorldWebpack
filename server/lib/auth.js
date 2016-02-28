@@ -54,16 +54,16 @@ function createJWT(user) {
  | Login with GitHub
  |--------------------------------------------------------------------------
  */
-router.post('/auth/github', function(req, res) {
+router.post('/github', function(req, res) {
   var accessTokenUrl = 'https://github.com/login/oauth/access_token';
   var userApiUrl = 'https://api.github.com/user';
+  console.log(req.body);
   var params = {
     code: req.body.code,
     client_id: req.body.clientId,
     client_secret: config.GITHUB_SECRET,
     redirect_uri: req.body.redirectUri
   };
-
   // Step 1. Exchange authorization code for access token.
   request.get({ url: accessTokenUrl, qs: params }, function(err, response, accessToken) {
     accessToken = qs.parse(accessToken);

@@ -10,6 +10,8 @@ import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
 import satellizer from 'satellizer';
 import ngDialog from 'ng-dialog';
+import 'ng-dialog/css/ngDialog.css';
+import 'ng-dialog/css/ngDialog-theme-default.css';
 
 // import employeeService from './services/employee-service';
 
@@ -33,28 +35,26 @@ employeeApp.config(function(url, employeeServiceProvider) {
 
 employeeApp.config(function($stateProvider, $urlRouterProvider){
 
-  $urlRouterProvider.otherwise( '/home' );//if other routes not handled, redirect here
+  $urlRouterProvider.otherwise( '/' );//if other routes not handled, redirect here
 
   $stateProvider
-    // .state('login', {
-    //     url: '/login',
-    //     template: '<login></login>',
-    //     controller: 'LoginCtrl',
-    //     resolve: {
-    //       skipIfLoggedIn: skipIfLoggedIn
-    //     }
-    //   })
     .state('home', {
       url:'/home',
       template:`<h1>Welcome to your employee Database</h1>`
     })
     .state('employees', {
       url: '/employees?action',
+      data: {
+        requireAuth: true
+      },
       template:'<app/>',
       controller: 'EmployeeController'
     })
     .state('newEmployee', {
       url: '/new',
+      data: {
+        requireAuth: true
+      },
       template:`<employee-edit
                       edit-employee="editEmployee"
                       new-employee="newEmployee"
@@ -65,35 +65,12 @@ employeeApp.config(function($stateProvider, $urlRouterProvider){
       controller: 'EmployeeController'
     });
 
-    // function skipIfLoggedIn($q, $auth) {
-    //   var deferred = $q.defer();
-    //   if ($auth.isAuthenticated()) {
-    //     deferred.reject();
-    //   } else {
-    //     deferred.resolve();
-    //   }
-    //   return deferred.promise;
-    // }
 });
 
 employeeApp.config(function($authProvider){
   $authProvider.github({
-      clientId: 'd9dff7bff1850d059f18'
+    clientId: 'd9dff7bff1850d059f18'
   });
-
-  $authProvider.httpInterceptor = function() { return true; },
-  $authProvider.withCredentials = true;
-  $authProvider.tokenRoot = null;
-  $authProvider.cordova = false;
-  $authProvider.baseUrl = '/';
-  $authProvider.loginUrl = '/auth/login';
-  $authProvider.signupUrl = '/auth/signup';
-  $authProvider.unlinkUrl = '/auth/unlink/';
-  $authProvider.tokenName = 'token';
-  $authProvider.tokenPrefix = 'satellizer';
-  $authProvider.authHeader = 'Authorization';
-  $authProvider.authToken = 'Bearer';
-  $authProvider.storageType = 'localStorage';
 
   $authProvider.github({
     url: '/auth/github',
@@ -105,7 +82,7 @@ employeeApp.config(function($authProvider){
     type: '2.0',
     popupOptions: { width: 1020, height: 618 }
   });
-})
+});
 /*----------APP RUN------------*/
 
 employeeApp.run( [ '$rootScope', 'User', 'ngDialog', '$state', '$auth',
@@ -139,15 +116,6 @@ function ( $rootScope, User, ngDialog, $state, $auth ) {
 
 /*----------DEFINE CONTROLLER------------*/
 
-//LoginCtrl
-employeeApp
-  .controller('LoginCtrl', function($scope, $auth) {
-
-    $scope.authenticate = function(provider) {
-      $auth.authenticate(provider);
-    };
-
-  });
 
 //EmployeeCtrl
 employeeApp.controller('EmployeeController', function($scope, employeeService) {

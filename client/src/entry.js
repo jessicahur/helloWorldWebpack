@@ -8,12 +8,16 @@ import ngResource from 'angular-resource';
 import services from './services';
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
+import satellizer from 'satellizer';
+import ngDialog from 'ng-dialog';
 // import employeeService from './services/employee-service';
 
 var employeeApp = angular.module( 'employeeApp', [ ngMessages,
                                                    ngResource,
                                                    uiRouter,
                                                    uiBootstrap,
+                                                   satellizer,
+                                                   ngDialog,
                                                    components,
                                                    services,
                                                    filters]);
@@ -31,6 +35,14 @@ employeeApp.config(function($stateProvider, $urlRouterProvider){
   $urlRouterProvider.otherwise( '/home' );//if other routes not handled, redirect here
 
   $stateProvider
+    .state('login', {
+        url: '/login',
+        template: '<login></login>',
+        controller: 'LoginCtrl',
+        resolve: {
+          skipIfLoggedIn: skipIfLoggedIn
+        }
+      })
     .state('home', {
       url:'/home',
       template:`<h1>Welcome to your employee Database</h1>`
@@ -51,9 +63,47 @@ employeeApp.config(function($stateProvider, $urlRouterProvider){
                 </employee-edit>`,
       controller: 'EmployeeController'
     });
+
+    function skipIfLoggedIn($q, $auth) {
+      var deferred = $q.defer();
+      if ($auth.isAuthenticated()) {
+        deferred.reject();
+      } else {
+        deferred.resolve();
+      }
+      return deferred.promise;
+    }
 });
 
-//DEFINE CONTROLLER
+employeeApp.config(function($authProvider){
+  $authProvider.github({
+      clientId: 'GitHub Client ID'
+  });
+  $authProvider.github({
+  url: '/auth/github',
+  authorizationEndpoint: 'https://github.com/login/oauth/authorize',
+  redirectUri: window.location.origin,
+  optionalUrlParams: ['scope'],
+  scope: ['user:email'],
+  scopeDelimiter: ' ',
+  type: '2.0',
+  popupOptions: { width: 1020, height: 618 }
+});
+})
+
+/*----------DEFINE CONTROLLER------------*/
+
+//LoginCtrl
+employeeApp
+  .controller('LoginCtrl', function($scope, $auth) {
+
+    $scope.authenticate = function(provider) {
+      $auth.authenticate(provider);
+    };
+
+  });
+
+//EmployeeCtrl
 employeeApp.controller('EmployeeController', function($scope, employeeService) {
 
   $scope.newEmployee = new employeeService();//Angular won't inititate this in childScope!

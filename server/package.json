@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "gulp testing",
-    "start": "nodemon index.js"
+    "start": "eval $(cat .env) nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -35,5 +35,12 @@
     "mongoose": "^4.3.6",
     "nodemon": "^1.8.1",
     "path": "^0.12.7"
+  },
+  "dependencies": {
+    "jwt-simple": "^0.4.1",
+    "method-override": "^2.3.5",
+    "moment": "^2.11.2",
+    "querystring": "^0.2.0",
+    "request": "^2.69.0"
   }
 }

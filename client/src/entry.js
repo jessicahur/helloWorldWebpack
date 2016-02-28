@@ -10,6 +10,7 @@ import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
 import satellizer from 'satellizer';
 import ngDialog from 'ng-dialog';
+
 // import employeeService from './services/employee-service';
 
 var employeeApp = angular.module( 'employeeApp', [ ngMessages,
@@ -25,7 +26,7 @@ var baseUrl = 'http://localhost:3000/api/employees/:employeeId';
 //SET CONSTANT URL FOR APP
 employeeApp.constant( 'url', baseUrl);
 
-//CONFIGURE APP
+/*----------CONFIGURE APP------------*/
 employeeApp.config(function(url, employeeServiceProvider) {
   employeeServiceProvider.setUrl(url);
 });
@@ -35,14 +36,14 @@ employeeApp.config(function($stateProvider, $urlRouterProvider){
   $urlRouterProvider.otherwise( '/home' );//if other routes not handled, redirect here
 
   $stateProvider
-    .state('login', {
-        url: '/login',
-        template: '<login></login>',
-        controller: 'LoginCtrl',
-        resolve: {
-          skipIfLoggedIn: skipIfLoggedIn
-        }
-      })
+    // .state('login', {
+    //     url: '/login',
+    //     template: '<login></login>',
+    //     controller: 'LoginCtrl',
+    //     resolve: {
+    //       skipIfLoggedIn: skipIfLoggedIn
+    //     }
+    //   })
     .state('home', {
       url:'/home',
       template:`<h1>Welcome to your employee Database</h1>`
@@ -64,32 +65,77 @@ employeeApp.config(function($stateProvider, $urlRouterProvider){
       controller: 'EmployeeController'
     });
 
-    function skipIfLoggedIn($q, $auth) {
-      var deferred = $q.defer();
-      if ($auth.isAuthenticated()) {
-        deferred.reject();
-      } else {
-        deferred.resolve();
-      }
-      return deferred.promise;
-    }
+    // function skipIfLoggedIn($q, $auth) {
+    //   var deferred = $q.defer();
+    //   if ($auth.isAuthenticated()) {
+    //     deferred.reject();
+    //   } else {
+    //     deferred.resolve();
+    //   }
+    //   return deferred.promise;
+    // }
 });
 
 employeeApp.config(function($authProvider){
   $authProvider.github({
-      clientId: 'GitHub Client ID'
+      clientId: 'd9dff7bff1850d059f18'
   });
+
+  $authProvider.httpInterceptor = function() { return true; },
+  $authProvider.withCredentials = true;
+  $authProvider.tokenRoot = null;
+  $authProvider.cordova = false;
+  $authProvider.baseUrl = '/';
+  $authProvider.loginUrl = '/auth/login';
+  $authProvider.signupUrl = '/auth/signup';
+  $authProvider.unlinkUrl = '/auth/unlink/';
+  $authProvider.tokenName = 'token';
+  $authProvider.tokenPrefix = 'satellizer';
+  $authProvider.authHeader = 'Authorization';
+  $authProvider.authToken = 'Bearer';
+  $authProvider.storageType = 'localStorage';
+
   $authProvider.github({
-  url: '/auth/github',
-  authorizationEndpoint: 'https://github.com/login/oauth/authorize',
-  redirectUri: window.location.origin,
-  optionalUrlParams: ['scope'],
-  scope: ['user:email'],
-  scopeDelimiter: ' ',
-  type: '2.0',
-  popupOptions: { width: 1020, height: 618 }
-});
+    url: '/auth/github',
+    authorizationEndpoint: 'https://github.com/login/oauth/authorize',
+    redirectUri: window.location.origin,
+    optionalUrlParams: ['scope'],
+    scope: ['user:email'],
+    scopeDelimiter: ' ',
+    type: '2.0',
+    popupOptions: { width: 1020, height: 618 }
+  });
 })
+/*----------APP RUN------------*/
+
+employeeApp.run( [ '$rootScope', 'User', 'ngDialog', '$state', '$auth',
+function ( $rootScope, User, ngDialog, $state, $auth ) {
+
+  $auth.logout();
+
+  $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+
+      if ( toState.data && toState.data.requireAuth && !$auth.isAuthenticated() /*!User.isAuthed()*/ ) {
+          event.preventDefault();
+          const dialog = ngDialog.open({
+        template: `<login success="success(response)"/>`,
+        plain: true,
+        controller: [ '$scope', function( $scope ){
+          $scope.success = function( response ){
+            dialog.close();
+            //User.setToken();
+            return $state.go( toState.name, toParams );
+          };
+        }]
+      });
+
+      dialog.closePromise
+        .then( () => alert( 'success!') )
+        .catch( () => alert( 'failure!') );
+      }
+  });
+
+}]);
 
 /*----------DEFINE CONTROLLER------------*/
 

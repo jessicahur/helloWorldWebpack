@@ -1,7 +1,10 @@
 const express = require('express');
+const methodOverride = require( 'method-override' );
 
 const router = require('./router');
 const app = express();
+
+const auth = require( './auth.js' );
 
 app.use(express.static('public'));
 
@@ -13,7 +16,11 @@ app.use( (req, res, next) => {
   next();
 });
 
+app.use( '/auth', auth );
+
 app.use('/api/employees',router);
+
+app.use( methodOverride() );
 
 app.use(function(req, res, next) {
   res.send('404 page not found for '+req.url);

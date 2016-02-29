@@ -120,13 +120,6 @@
 	    },
 	    template: '<app/>',
 	    controller: 'EmployeeController'
-	  }).state('newEmployee', {
-	    url: '/new',
-	    data: {
-	      requireAuth: true
-	    },
-	    template: '<employee-edit\n                      edit-employee="editEmployee"\n                      new-employee="newEmployee"\n                      employees="employees"\n                      employee-to-edit="employeeToEdit"\n                      disable="disable">\n                </employee-edit>',
-	    controller: 'EmployeeController'
 	  });
 	});
 	
@@ -182,7 +175,7 @@
 	/*----------DEFINE CONTROLLER------------*/
 	
 	//EmployeeCtrl
-	employeeApp.controller('EmployeeController', function ($scope, employeeService) {
+	employeeApp.controller('EmployeeController', function ($scope, $window, $auth, employeeService) {
 	
 	  $scope.newEmployee = new employeeService(); //Angular won't inititate this in childScope!
 	
@@ -210,6 +203,16 @@
 	    $scope.employeeToEdit = _angular2.default.copy(employee);
 	    $scope.editEmployee = true;
 	    $scope.disable = true;
+	  };
+	
+	  //Logout
+	  $scope.logout = function () {
+	    if (!$auth.isAuthenticated()) {
+	      return;
+	    }
+	    $auth.logout().then(function () {
+	      $window.location = '/';
+	    });
 	  };
 	});
 
@@ -31539,7 +31542,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "  <nav>\n    <ul>\n      <li><a ui-sref=\"home()\">Home</a></li>\n      <li><a ui-sref=\"employees()\">Employees</a></li>\n      <li><a ui-sref=\"newEmployee()\">Add Employee</a></li>\n      <li><a ui-sref=\"logout()\">Logout</a></li>\n    </ul>\n  </nav>\n";
+	module.exports = "  <nav>\n    <ul>\n      <li><a ui-sref=\"home()\">Home</a></li>\n      <li><a ui-sref=\"employees()\">Employees</a></li>\n      <!-- <li><a ui-sref=\"newEmployee()\">Add Employee</a></li> -->\n      <li><a ng-click=\"logout()\">Logout</a></li>\n    </ul>\n  </nav>\n";
 
 /***/ },
 /* 12 */

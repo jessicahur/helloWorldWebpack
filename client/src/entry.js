@@ -49,20 +49,6 @@ employeeApp.config(function($stateProvider, $urlRouterProvider){
       },
       template:'<app/>',
       controller: 'EmployeeController'
-    })
-    .state('newEmployee', {
-      url: '/new',
-      data: {
-        requireAuth: true
-      },
-      template:`<employee-edit
-                      edit-employee="editEmployee"
-                      new-employee="newEmployee"
-                      employees="employees"
-                      employee-to-edit="employeeToEdit"
-                      disable="disable">
-                </employee-edit>`,
-      controller: 'EmployeeController'
     });
 
 });
@@ -118,7 +104,7 @@ function ( $rootScope, User, ngDialog, $state, $auth ) {
 
 
 //EmployeeCtrl
-employeeApp.controller('EmployeeController', function($scope, employeeService) {
+employeeApp.controller('EmployeeController', function($scope, $window, $auth, employeeService) {
 
   $scope.newEmployee = new employeeService();//Angular won't inititate this in childScope!
 
@@ -144,6 +130,15 @@ employeeApp.controller('EmployeeController', function($scope, employeeService) {
     $scope.employeeToEdit = angular.copy(employee);
     $scope.editEmployee = true;
     $scope.disable = true;
+  }
+
+  //Logout
+  $scope.logout = function(){
+    if (!$auth.isAuthenticated()) {return; }
+    $auth.logout()
+      .then(function() {
+        $window.location = '/';
+      });
   }
 
 });

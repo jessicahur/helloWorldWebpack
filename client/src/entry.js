@@ -13,8 +13,6 @@ import ngDialog from 'ng-dialog';
 import 'ng-dialog/css/ngDialog.css';
 import 'ng-dialog/css/ngDialog-theme-default.css';
 
-// import employeeService from './services/employee-service';
-
 var employeeApp = angular.module( 'employeeApp', [ ngMessages,
                                                    ngResource,
                                                    uiRouter,

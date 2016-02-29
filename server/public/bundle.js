@@ -92,8 +92,6 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// import employeeService from './services/employee-service';
-	
 	//http://tylermcginnis.com/angularjs-factory-vs-service-vs-provider/
 	
 	var employeeApp = _angular2.default.module('employeeApp', [_angularMessages2.default, _angularResource2.default, _angularUiRouter2.default, _angularUiBootstrap2.default, _satellizer2.default, _ngDialog2.default, _components2.default, _services2.default, _filters2.default]);
@@ -31542,7 +31540,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "  <nav>\n    <ul>\n      <li><a ui-sref=\"home()\">Home</a></li>\n      <li><a ui-sref=\"employees()\">Employees</a></li>\n      <!-- <li><a ui-sref=\"newEmployee()\">Add Employee</a></li> -->\n      <li><a ng-click=\"logout()\">Logout</a></li>\n    </ul>\n  </nav>\n";
+	module.exports = "  <nav>\n    <ul>\n      <li><a ui-sref=\"home()\">Home</a></li>\n      <li><a ui-sref=\"employees()\">Employees</a></li>\n      <li ng-hide=\"logoutHide\"><a ng-click=\"logout()\">Logout</a></li>\n    </ul>\n  </nav>\n";
 
 /***/ },
 /* 12 */

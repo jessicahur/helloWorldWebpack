@@ -1,11 +1,42 @@
 const express = require('express');
 const methodOverride = require( 'method-override' );
 const bodyParser = require( 'body-parser' );
+const moment = require( 'moment' );
+const jwt = require( 'jwt-simple');
 
 const router = require('./router');
 const app = express();
 
+var config = require('../config');
 const auth = require( './auth.js' );
+
+/*
+ |--------------------------------------------------------------------------
+ | Login Required Middleware
+ |--------------------------------------------------------------------------
+ */
+function ensureAuthenticated(req, res, next) {
+  console.log(req.headers);
+  if (!req.header('Authorization')) {
+    return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
+  }
+  var token = req.header('Authorization').split(' ')[1];
+
+  console.log('TOKEN IN SERVER', token)
+  var payload = null;
+  try {
+    payload = jwt.decode(token, config.TOKEN_SECRET);
+  }
+  catch (err) {
+    return res.status(401).send({ message: err.message });
+  }
+
+  if (payload.exp <= moment().unix()) {
+    return res.status(401).send({ message: 'Token has expired' });
+  }
+  req.user = payload.sub;
+  next();
+}
 
 app.use(express.static('public'));
 
@@ -14,6 +45,7 @@ app.use( bodyParser.urlencoded({ extended: false }) );
 
 app.use( (req, res, next) => {
   const url = '*';
+  if (req.method === 'OPTIONS') next();
   res.header( 'Access-Control-Allow-Origin', url );
   res.header( 'Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE' );
   res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept' );
@@ -22,7 +54,7 @@ app.use( (req, res, next) => {
 
 app.use( '/auth', auth );
 
-app.use('/api/employees',router);
+app.use('/api/employees', ensureAuthenticated, router);
 
 app.use( methodOverride() );
 

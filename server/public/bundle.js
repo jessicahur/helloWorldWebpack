@@ -31540,7 +31540,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "  <nav class=\"navbar navbar-default\" role=\"navigation\">\n    <ul class=\"nav navbar-nav\">\n      <li><a ui-sref=\"home()\">Home</a></li>\n      <li><a ui-sref=\"employees()\">Employees</a></li>\n      <li ng-hide=\"logoutHide\"><a ng-click=\"logout()\">Logout</a></li>\n    </ul>\n  </nav>\n";
+	module.exports = "  <nav class=\"navbar navbar-default\" role=\"navigation\">\n    <ul class=\"nav navbar-nav\">\n      <li><a ui-sref=\"home()\">Home</a></li>\n      <li><a ui-sref=\"employees()\">Employees</a></li>\n      <li><a ng-click=\"logout()\">Logout</a></li>\n    </ul>\n  </nav>\n";
 
 /***/ },
 /* 12 */

@@ -6,94 +6,73 @@
 // defaults write com.apple.Safari ApplePersistenceIgnoreState YES : prevent new Safari tab opens for each time tests are run
 // */
 
-// describe( 'Employee Controller', () => {
+describe( 'Employee Controller', () => {
 
-//   beforeEach( angular.mock.module( 'employeeApp' ));
+  beforeEach( angular.mock.module( 'employeeApp' ));
 
-//   var $controller, $scope, $httpBackend;
+  var $controller, $scope, $httpBackend, $window, $auth, mockResource;
 
-//   var obj = {
-//                 _id: '1',
-//                 name: 'test',
-//                 username: 'test',
-//                 DOB: '1986-04-24UTC',
-//                 address: '123 testing',
-//                 phone: '555-555-5555',
-//                 email: 'test@testing.com',
-//                 position: 'accountant'
-//               };
+  var obj = {
+                _id: '1',
+                name: 'test',
+                username: 'test',
+                DOB: '1986-04-24UTC',
+                address: '123 testing',
+                phone: '555-555-5555',
+                email: 'test@testing.com',
+                position: 'accountant'
+              };
+  var keys = Object.keys(obj);
 
-//   var exchangeRates = {
-//         rates: {
-//           JPY: 2,
-//           CNY: 1.5
-//         }
-//     };
+  beforeEach( angular.mock.inject( function(_$rootScope_, _$controller_, _$httpBackend_, _$window_, _$auth_, employeeService) { //we wrap these dependencies with underscore because we need to pass them to the declared vars $controller (for example) so that the tests will have access to it
+    $controller = _$controller_;
+    $scope = _$rootScope_.$new();//use rootScope instead of {} because we may set $rootScope.user = 'Something'
+    $httpBackend = _$httpBackend_;
+    $window = _$window_;
+    $auth = _$auth_;
+    mockResource = new employeeService();
 
-//   beforeEach( angular.mock.inject( function(_$rootScope_, _$controller_, _$httpBackend_) { //we wrap these dependencies with underscore because we need to pass them to the declared vars $controller (for example) so that the tests will have access to it
-//     $controller = _$controller_;
-//     $scope = _$rootScope_.$new();//use rootScope instead of {} because we may set $rootScope.user = 'Something'
-//     $httpBackend = _$httpBackend_;
-//   }));
+    keys.forEach(key => {
+      mockResource[key] = obj[key];
+    });
 
-//   it('filter: changes currencies', () => {
-
-//     $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
-//                 .respond(200, exchangeRates);
-
-//     $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-//                 .respond(200, [obj]);
-
-//     $controller('EmployeeController', {$scope, $httpBackend});
-
-//     $httpBackend.flush();
-
-//     assert.equal($scope.currencies.USD.rate, 1);
-//     assert.equal($scope.currencies.JPY.rate, 2);
-//     assert.equal($scope.currencies.CNY.rate, 1.5);
-
-//   });
-
-//   it('GET', () => {
-
-//     $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
-//                 .respond(200, exchangeRates);
-
-//     $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-//                 .respond(200, [obj]);
-
-//     $controller('EmployeeController', {$scope, $httpBackend});
-
-//     $httpBackend.flush();
-
-//     var props = Object.keys($scope.employees[0]);
-//     props.forEach(prop => {
-//       assert.equal($scope.employees[0].prop, obj.prop);
-//     });
-//   });
+  }));
 
 
-//   it('DELETE', () => {
+  it('GET', () => {
 
-//     $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
-//                 .respond(200, exchangeRates);
+    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+                .respond(200, [mockResource]);
 
-//     $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-//                 .respond(200, [obj]);
+    $controller('EmployeeController', {$scope, $httpBackend});
 
-//     $httpBackend.expect('DELETE', 'http://localhost:3000/api/employees/1')
-//                 .respond(200, obj);
+    $httpBackend.flush();
 
-//     $controller('EmployeeController', {$scope, $httpBackend});
+    var props = Object.keys(obj);
+    props.forEach(prop => {
+      assert.equal($scope.employees[0].prop, obj.prop);
+    });
+  });
 
-//     $scope.delete(obj);
-//     $httpBackend.flush();
 
-//     var keys = Object.keys($scope.deletedEmployee);
-//     keys.forEach(key => {
-//       assert.equal($scope.deletedEmployee.key, obj.key);
-//     });
-//   });
+  it('DELETE', () => {
+
+    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+                .respond(200, [mockResource]);
+
+    $httpBackend.expect('DELETE', 'http://localhost:3000/api/employees/1')
+                .respond(200, mockResource);
+
+    $controller('EmployeeController', {$scope, $httpBackend});
+
+    $scope.delete(mockResource);
+    $httpBackend.flush();
+
+    var keys = Object.keys($scope.deletedEmployee);
+    keys.forEach(key => {
+      assert.equal($scope.deletedEmployee.key, mockResource.key);
+    });
+  });
 
 //   // it('ADD', () => {
 //   //   var newEmployee = {
@@ -155,4 +134,4 @@
 //   //   });
 //   // });
 
-// });
+});

@@ -97,8 +97,8 @@ function ( $rootScope, User, ngDialog, $state, $auth ) {
 
 }]);
 
-/*----------DEFINE CONTROLLER------------*/
 
+/*----------DEFINE CONTROLLER------------*/
 
 //EmployeeCtrl
 employeeApp.controller('EmployeeController', function($scope, $window, $auth, employeeService) {

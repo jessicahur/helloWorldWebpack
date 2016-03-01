@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
+const DefinePlugin = require('webpack').DefinePlugin;
 
 module.exports = {
   entry: './src/entry.js',
@@ -8,8 +9,15 @@ module.exports = {
     filename: 'bundle.js'
   },
   devtool: 'source-map',
-  plugins: [new HtmlWebpackPlugin({ //DO NOT USE 'PLUGIN'. THE 'S' is important!
-    template: './src/index.html'})],
+  plugins: [
+    new HtmlWebpackPlugin({ //DO NOT USE 'PLUGIN'. THE 'S' is important!
+      template: './src/index.html'
+    }),
+    new DefinePlugin({
+      BASE_URL : JSON.stringify( process.env.BASE_URL || '' ),
+      CLIENT_ID: JSON.stringify( process.env.CLIENT_ID || '')
+    })
+    ],
   module: {
     preloaders: [
       {

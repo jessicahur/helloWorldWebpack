@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "eval $(cat .env) webpack-dev-server --inline",
-    "build": "webpack",
-    "test": "karma start",
+    "build": "eval $(cat .env) webpack",
+    "test": "eval $(cat .env) karma start",
     "webmanager": "webdriver-manager start",
     "e2e": "protractor"
   },

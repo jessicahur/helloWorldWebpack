@@ -22,9 +22,10 @@ var employeeApp = angular.module( 'employeeApp', [ ngMessages,
                                                    components,
                                                    services,
                                                    filters]);
-var baseUrl = 'http://localhost:3000/api/employees/:employeeId';
+var baseUrl = BASE_URL;
+
 //SET CONSTANT URL FOR APP
-employeeApp.constant( 'url', baseUrl);
+employeeApp.constant( 'url', baseUrl+'/api/employees/:employeeId');
 
 /*----------CONFIGURE APP------------*/
 employeeApp.config(function(url, employeeServiceProvider) {
@@ -53,7 +54,7 @@ employeeApp.config(function($stateProvider, $urlRouterProvider){
 
 employeeApp.config(function($authProvider){
   $authProvider.github({
-    clientId: 'd9dff7bff1850d059f18'
+    clientId: CLIENT_ID
   });
 
   $authProvider.github({
@@ -71,8 +72,6 @@ employeeApp.config(function($authProvider){
 
 employeeApp.run( [ '$rootScope', 'User', 'ngDialog', '$state', '$auth',
 function ( $rootScope, User, ngDialog, $state, $auth ) {
-
-  $auth.logout();
 
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
 

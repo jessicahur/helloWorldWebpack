@@ -45,7 +45,7 @@ app.use( bodyParser.urlencoded({ extended: false }) );
 
 app.use( (req, res, next) => {
   const url = '*';
-  if (req.method === 'OPTIONS') next();
+  if (req.method === 'OPTIONS') next(); //CHECK AGAIN
   res.header( 'Access-Control-Allow-Origin', url );
   res.header( 'Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE' );
   res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept' );

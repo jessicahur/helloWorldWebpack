@@ -95,9 +95,10 @@
 	//http://tylermcginnis.com/angularjs-factory-vs-service-vs-provider/
 	
 	var employeeApp = _angular2.default.module('employeeApp', [_angularMessages2.default, _angularResource2.default, _angularUiRouter2.default, _angularUiBootstrap2.default, _satellizer2.default, _ngDialog2.default, _components2.default, _services2.default, _filters2.default]);
-	var baseUrl = 'http://localhost:3000/api/employees/:employeeId';
+	var baseUrl = ("http://localhost:3000");
+	
 	//SET CONSTANT URL FOR APP
-	employeeApp.constant('url', baseUrl);
+	employeeApp.constant('url', baseUrl + '/api/employees/:employeeId');
 	
 	/*----------CONFIGURE APP------------*/
 	employeeApp.config(function (url, employeeServiceProvider) {
@@ -123,7 +124,7 @@
 	
 	employeeApp.config(function ($authProvider) {
 	  $authProvider.github({
-	    clientId: 'd9dff7bff1850d059f18'
+	    clientId: ("d9dff7bff1850d059f18")
 	  });
 	
 	  $authProvider.github({
@@ -140,8 +141,6 @@
 	/*----------APP RUN------------*/
 	
 	employeeApp.run(['$rootScope', 'User', 'ngDialog', '$state', '$auth', function ($rootScope, User, ngDialog, $state, $auth) {
-	
-	  $auth.logout();
 	
 	  $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
 	

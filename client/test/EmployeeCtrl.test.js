@@ -54,6 +54,26 @@ describe( 'Employee Controller', () => {
     });
   });
 
+  it ('EDIT', () => {
+    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+                .respond(200, [mockResource]);
+
+    $controller('EmployeeController', {$scope, $httpBackend});
+
+    $httpBackend.flush();
+
+    $scope.edit(mockResource);
+
+    //Test if a copy is made and newEmployee has the same reference to the editting instance
+    var copy = angular.copy(mockResource);
+    assert.equal($scope.newEmployee, mockResource);
+    assert.notEqual($scope.employeeToEdit, copy);
+    assert.deepEqual($scope.employeeToEdit, copy);
+
+    //Test if scope variables are set correctly after a user clicks on Edit link
+    assert.equal($scope.editEmployee, true);
+    assert.equal($scope.disable, true);
+  });
 
   it('DELETE', () => {
 
@@ -73,65 +93,5 @@ describe( 'Employee Controller', () => {
       assert.equal($scope.deletedEmployee.key, mockResource.key);
     });
   });
-
-//   // it('ADD', () => {
-//   //   var newEmployee = {
-//   //               _id: '2',
-//   //               name: 'new',
-//   //               username: 'new',
-//   //               DOB: '1989-04-24UTC',
-//   //               address: '123 new',
-//   //               phone: '555-555-5555',
-//   //               email: 'new@testing.com',
-//   //               position: 'accountant'
-//   //   };
-
-//   //   $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
-//   //               .respond(200, exchangeRates);
-
-//   //   $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-//   //               .respond(200, [obj]);
-
-//   //   $httpBackend.expect('POST','http://localhost:3000/api/employees')//No need to include newEmployee here?
-//   //               .respond(newEmployee);
-
-//   //   $controller('EmployeeController', {$scope, $httpBackend});
-
-//   //   $scope.edit(newEmployee);
-//   //   $scope.addEmployee();
-//   //   $httpBackend.flush();
-
-//   //   var keys = Object.keys($scope.employees[1]);
-//   //   keys.forEach(key => {
-//   //     assert.equal($scope.employees[1].key, newEmployee.key);
-//   //   });
-//   //   assert.equal($scope.badRequest, false);
-//   // });
-
-//   // it('EDIT', () => {
-//   //   obj.name = 'NEW NAME';
-
-//   //   $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
-//   //               .respond(200, exchangeRates);
-
-//   //   $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-//   //               .respond(200, [obj]);
-
-//   //   $httpBackend.expect('PUT', 'http://localhost:3000/api/employees/1')
-//   //               .respond(200, obj);
-
-//   //   $controller('EmployeeController', {$scope, $httpBackend});
-
-//   //   $scope.edit(obj);
-//   //   $scope.newEmployee.index = 1;
-//   //   $scope.editSelectedEmployee();
-
-//   //   $httpBackend.flush();
-
-//   //   var keys = Object.keys($scope.employees[0]);
-//   //   keys.forEach(key => {
-//   //     assert.equal($scope.employees[0].key, obj.key);
-//   //   });
-//   // });
 
 });

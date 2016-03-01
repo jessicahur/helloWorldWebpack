@@ -44,7 +44,7 @@ describe( 'Employee Controller', () => {
     $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
                 .respond(200, [mockResource]);
 
-    $controller('EmployeeController', {$scope, $httpBackend});
+    $controller('EmployeeController', {$scope, $httpBackend, $window, $auth});
 
     $httpBackend.flush();
 
@@ -58,7 +58,7 @@ describe( 'Employee Controller', () => {
     $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
                 .respond(200, [mockResource]);
 
-    $controller('EmployeeController', {$scope, $httpBackend});
+    $controller('EmployeeController', {$scope, $httpBackend, $window, $auth});
 
     $httpBackend.flush();
 
@@ -83,7 +83,7 @@ describe( 'Employee Controller', () => {
     $httpBackend.expect('DELETE', 'http://localhost:3000/api/employees/1')
                 .respond(200, mockResource);
 
-    $controller('EmployeeController', {$scope, $httpBackend});
+    $controller('EmployeeController', {$scope, $httpBackend, $window, $auth});
 
     $scope.delete(mockResource);
     $httpBackend.flush();

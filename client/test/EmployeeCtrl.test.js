@@ -94,4 +94,14 @@ describe( 'Employee Controller', () => {
     });
   });
 
+  it ('LOG OUT', () => {
+    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+                .respond(200, [mockResource]);
+    $controller('EmployeeController', {$scope, $httpBackend, $window, $auth});
+
+    $scope.logout();
+
+    //Test that after logout, the user is not authenticated anymore
+    assert.equal($auth.isAuthenticated(), false);
+  });
 });

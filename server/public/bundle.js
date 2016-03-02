@@ -31505,7 +31505,7 @@
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<main>\n\n      <employee-table employees=\"employees\"\n                      edit=\"edit(employee)\"\n                      delete=\"delete(employee)\"></employee-table>\n\n    <!--POST/EDIT where directives and components come in place-->\n      <employee-edit\n                      edit-employee=\"editEmployee\"\n                      new-employee=\"newEmployee\"\n                      employees=\"employees\"\n                      employee-to-edit=\"employeeToEdit\"\n                      disable=\"disable\">\n      </employee-edit>\n    <!--DELETE-->\n    <div ng-show=\"deletedEmployee\">\n     <employee-delete deletedEmployee=\"deletedEmployee\"></employee-delete>\n    </div>\n</main>\n";
+	module.exports = "<main>\n\n      <employee-table employees=\"employees\"\n                      edit=\"edit(employee)\"\n                      delete=\"delete(employee)\">\n      </employee-table>\n\n    <!--POST/EDIT where directives and components come in place-->\n      <employee-edit\n                      edit-employee=\"editEmployee\"\n                      new-employee=\"newEmployee\"\n                      employees=\"employees\"\n                      employee-to-edit=\"employeeToEdit\"\n                      disable=\"disable\">\n      </employee-edit>\n    <!--DELETE-->\n    <div ng-show=\"deletedEmployee\">\n     <employee-delete deletedEmployee=\"deletedEmployee\"></employee-delete>\n    </div>\n</main>\n";
 
 /***/ },
 /* 10 */
@@ -31753,7 +31753,11 @@
 	        };
 	
 	        //Getting currency exchange rate
-	        $http.get('https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04').then(function (res) {
+	        $http({ //FINALLY FIX THIS! Check Satellizer's README.md and satellizer.js for skipping authorization being added to header
+	          method: 'GET',
+	          url: 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04',
+	          skipAuthorization: true // `Authorization: Bearer <token>` will not be sent on this request.
+	        }).then(function (res) {
 	          console.log(res);
 	          $scope.currencies.JPY.rate = res.data.rates.JPY;
 	          $scope.currencies.CNY.rate = res.data.rates.CNY;

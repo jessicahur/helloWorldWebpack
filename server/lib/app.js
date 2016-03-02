@@ -45,8 +45,6 @@ app.use(express.static('public'));
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded({ extended: false }) );
 
-app.use('/rates', moneyRouter);
-
 app.use( (req, res, next) => {
   const url = '*';
   res.header( 'Access-Control-Allow-Origin', url );

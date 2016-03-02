@@ -19,7 +19,11 @@ export default function(AngularModule) {
         };
 
         //Getting currency exchange rate
-      $http.get('https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
+        $http({ //FINALLY FIX THIS! Check Satellizer's README.md and satellizer.js for skipping authorization being added to header
+          method: 'GET',
+          url: 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04',
+          skipAuthorization: true  // `Authorization: Bearer <token>` will not be sent on this request.
+        })
        .then(res => {
           console.log(res);
           $scope.currencies.JPY.rate = res.data.rates.JPY;

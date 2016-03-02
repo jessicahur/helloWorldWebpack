@@ -21,9 +21,17 @@ export default function(AngularModule) {
         //Getting currency exchange rate
       $http.get('https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
        .then(res => {
+          console.log(res);
           $scope.currencies.JPY.rate = res.data.rates.JPY;
           $scope.currencies.CNY.rate = res.data.rates.CNY;
        });
+        // $http({
+        //   url: 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04',
+        //   method: 'GET',
+        //   headers: {none: 'none'}
+        // }).then(res => {
+        //   console.log(res);
+        // });
 
         $scope.salaryFormat = $scope.currencies.USD;
 

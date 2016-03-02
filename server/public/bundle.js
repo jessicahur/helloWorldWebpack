@@ -176,12 +176,6 @@
 	
 	  $scope.newEmployee = new employeeService(); //Angular won't inititate this in childScope!
 	
-	  //Check if user is authenticated or not
-	  // if ($window.location !== '/') {
-	  //   if (!$auth.isAuthenticated()) {
-	  //     $window.location = '/';
-	  //   }
-	  // }
 	  //GET all employees in DB
 	  $scope.employees = employeeService.query(function () {
 	    $scope.employees.forEach(function (employee) {
@@ -31568,11 +31562,14 @@
 	      },
 	      controller: function controller($scope, $auth, $window) {
 	        $scope.authenticate = function (provider) {
-	          $auth.authenticate(provider).then(function (response) {
+	          return $auth.authenticate(provider) //return this bc in our test, we have to mimic async behavior of $auth.authenticate
+	          .then(function (response) {
 	            $scope.success({ response: response });
+	            // return true; //So that we can test if this success path was taken
 	          }).catch(function (error) {
-	            $window.location = '/';
-	            console.log(error);
+	            $scope.error = error;
+	            alert(error);
+	            //return false; //So that we can test if this pass was taken
 	          });
 	        };
 	      }
@@ -31757,9 +31754,17 @@
 	
 	        //Getting currency exchange rate
 	        $http.get('https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04').then(function (res) {
+	          console.log(res);
 	          $scope.currencies.JPY.rate = res.data.rates.JPY;
 	          $scope.currencies.CNY.rate = res.data.rates.CNY;
 	        });
+	        // $http({
+	        //   url: 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04',
+	        //   method: 'GET',
+	        //   headers: {none: 'none'}
+	        // }).then(res => {
+	        //   console.log(res);
+	        // });
 	
 	        $scope.salaryFormat = $scope.currencies.USD;
 	

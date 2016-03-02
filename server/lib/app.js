@@ -5,6 +5,7 @@ const moment = require( 'moment' );
 const jwt = require( 'jwt-simple');
 
 const router = require('./router');
+const moneyRouter = require('./moneyRouter');
 const app = express();
 
 var config = require('../config');
@@ -16,13 +17,14 @@ const auth = require( './auth.js' );
  |--------------------------------------------------------------------------
  */
 function ensureAuthenticated(req, res, next) {
-  console.log(req.headers);
+
+  if ( req.method === 'OPTIONS' ) return next();
+
   if (!req.header('Authorization')) {
     return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
   }
   var token = req.header('Authorization').split(' ')[1];
 
-  console.log('TOKEN IN SERVER', token)
   var payload = null;
   try {
     payload = jwt.decode(token, config.TOKEN_SECRET);
@@ -43,9 +45,10 @@ app.use(express.static('public'));
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded({ extended: false }) );
 
+app.use('/rates', moneyRouter);
+
 app.use( (req, res, next) => {
   const url = '*';
-  if (req.method === 'OPTIONS') next(); //CHECK AGAIN
   res.header( 'Access-Control-Allow-Origin', url );
   res.header( 'Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE' );
   res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept' );

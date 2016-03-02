@@ -46,9 +46,9 @@ describe('employee-edit Component', () => {
   var scope, render, $httpBackend, resourceEmployee;
 
   function getElement(scope) { //need to have this function because we always have to call render and $digest after assigning new variables attached to scope
-    const element = render( scope );
-    scope.$digest();
-    return element;
+    const element = render( scope ); //we don't really need scope as args since this func has access to $scope outside, but I put it here for clarity purposes
+    scope.$digest();//tells Angular that we just modified our scope
+    return element; //So that we can create an isoScope later
   }
 
   const employeeTemplate = `<employee-edit

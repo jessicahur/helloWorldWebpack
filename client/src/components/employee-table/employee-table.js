@@ -25,7 +25,6 @@ export default function(AngularModule) {
           skipAuthorization: true  // `Authorization: Bearer <token>` will not be sent on this request.
         })
        .then(res => {
-          console.log(res);
           $scope.currencies.JPY.rate = res.data.rates.JPY;
           $scope.currencies.CNY.rate = res.data.rates.CNY;
        });

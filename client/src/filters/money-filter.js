@@ -1,5 +1,3 @@
-/*Rewrite a date format instead of using moment.js*/
-
 
 export default function(angularModule) {
   angularModule.filter('moneyExchange', function() { //register "moneyExchange" filter to the angular module passed in

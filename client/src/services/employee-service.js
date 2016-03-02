@@ -5,6 +5,7 @@ export default function(angularModule){
 
     this.setUrl = function(url) {
       _url = url;
+      return _url;
     };
 
     this.$get = function ($resource){

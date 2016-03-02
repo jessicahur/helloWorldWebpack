@@ -51,7 +51,6 @@ describe ('LOGIN', () => {
 
     isoScope.authenticate('github')
             .then(res => {
-              console.log(res);
               // assert.ok(res);//Test if the success path was taken
               assert.ok(authCalled);//Test if $auth.authenticate was called
               assert.ok(successCalled);//Test if the outer scope's success function was called

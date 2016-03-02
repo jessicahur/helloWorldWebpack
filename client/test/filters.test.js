@@ -1,7 +1,7 @@
 
 describe('filters', function() {
 
-  beforeEach(module('filters'));
+  beforeEach(module('filters')); //same as using angular.mock.module
 
   describe('money filter', function() {
 

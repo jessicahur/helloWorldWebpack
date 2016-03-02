@@ -70,12 +70,12 @@ employeeApp.config(function($authProvider){
 });
 /*----------APP RUN------------*/
 
-employeeApp.run( [ '$rootScope', 'User', 'ngDialog', '$state', '$auth',
-function ( $rootScope, User, ngDialog, $state, $auth ) {
+employeeApp.run( [ '$rootScope', 'ngDialog', '$state', '$auth',
+function ( $rootScope, ngDialog, $state, $auth ) {
 
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
 
-      if ( toState.data && toState.data.requireAuth && !$auth.isAuthenticated() /*!User.isAuthed()*/ ) {
+      if ( toState.data && toState.data.requireAuth && !$auth.isAuthenticated() ) {
           event.preventDefault();
           const dialog = ngDialog.open({
         template: `<login success="success(response)"/>`,
@@ -83,7 +83,6 @@ function ( $rootScope, User, ngDialog, $state, $auth ) {
         controller: [ '$scope', function( $scope ){
           $scope.success = function( response ){
             dialog.close();
-            //User.setToken();
             return $state.go( toState.name, toParams );
           };
         }]

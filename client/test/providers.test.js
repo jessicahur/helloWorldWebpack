@@ -21,10 +21,9 @@ describe( 'Providers' , () => {
       var testUrl = 'http://test';
       var urlBeforeConfig = employeeService.setUrl();
 
-      assert.equal(urlBeforeConfig, undefined);
-
       var urlAfterConfig = employeeService.setUrl(testUrl);
 
+      //Test that employeeService's setUrl method works
       assert.equal(urlAfterConfig, testUrl);
 
       var serviceInstance = employeeService.$get($resource);

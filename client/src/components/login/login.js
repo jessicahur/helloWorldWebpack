@@ -9,15 +9,17 @@ export default function( ngModule ) {
       scope: {
         success: '&'
       },
-      controller ( $scope, $auth ) {
+      controller ( $scope, $auth, $window ) {
         $scope.authenticate = function( provider ) {
-          $auth.authenticate( provider )
+          return $auth.authenticate( provider ) //return this bc in our test, we have to mimic async behavior of $auth.authenticate
             .then( response => {
               $scope.success( { response } );
+              // return true; //So that we can test if this success path was taken
             })
-            .catch( response => {
-              alert( 'problem!' );
-              console.log(response);
+            .catch( error => {
+              $scope.error = error;
+              alert( error );
+              //return false; //So that we can test if this pass was taken
             });
         };
         }

@@ -1,4 +1,8 @@
-
+/*
+render = _$compile_(employeeTemplate): returns a function that can take in a scope
+element = render(scope): returns a scope that has all props (?not sure yet) of the parent scope of the given directive
+isoScope = element.isoscope() : returns an isolated scope as specified in the directive.js
+*/
 describe('employee-edit Component', () => {
   //Step 1: Mock your app
   beforeEach( angular.mock.module('employeeApp') );
@@ -41,7 +45,7 @@ describe('employee-edit Component', () => {
 
   var scope, render, $httpBackend, resourceEmployee;
 
-  function getElement() { //need to have this function because we always have to call render after assigning new variables attached to scope
+  function getElement(scope) { //need to have this function because we always have to call render and $digest after assigning new variables attached to scope
     const element = render( scope );
     scope.$digest();
     return element;
@@ -134,15 +138,15 @@ describe('employee-edit Component', () => {
                 .respond(200, newEmployeeData);
 
     scope.newEmployee = {};
+
     const element = getElement(scope);
+
     var isoScope = element.isolateScope();
 
     assert.equal(scope.employees.length, 1);
 
     isoScope.addEmployee();
     $httpBackend.flush();
-
-    // console.log(isoScope.employees[1]);
 
     assert.equal(scope.employees.length, 2);
 

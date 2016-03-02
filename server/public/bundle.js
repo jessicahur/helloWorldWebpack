@@ -113,7 +113,7 @@
 	    url: '/home',
 	    template: '<h1>Welcome to your employee Database</h1>'
 	  }).state('employees', {
-	    url: '/employees?action',
+	    url: '/employees',
 	    data: {
 	      requireAuth: true
 	    },
@@ -176,6 +176,12 @@
 	
 	  $scope.newEmployee = new employeeService(); //Angular won't inititate this in childScope!
 	
+	  //Check if user is authenticated or not
+	  // if ($window.location !== '/') {
+	  //   if (!$auth.isAuthenticated()) {
+	  //     $window.location = '/';
+	  //   }
+	  // }
 	  //GET all employees in DB
 	  $scope.employees = employeeService.query(function () {
 	    $scope.employees.forEach(function (employee) {
@@ -186,7 +192,7 @@
 	  //DELETE
 	  $scope.delete = function (employee) {
 	    employee.$delete(function () {
-	      //$delete does not return a promise
+	      //$delete also returns a promise
 	      $scope.employees.splice($scope.employees.indexOf(employee), 1);
 	      $scope.deletedEmployee = employee;
 	    });
@@ -31560,13 +31566,13 @@
 	      scope: {
 	        success: '&'
 	      },
-	      controller: function controller($scope, $auth) {
+	      controller: function controller($scope, $auth, $window) {
 	        $scope.authenticate = function (provider) {
 	          $auth.authenticate(provider).then(function (response) {
 	            $scope.success({ response: response });
-	          }).catch(function (response) {
-	            alert('problem!');
-	            console.log(response);
+	          }).catch(function (error) {
+	            $window.location = '/';
+	            console.log(error);
 	          });
 	        };
 	      }

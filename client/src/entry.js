@@ -42,7 +42,7 @@ employeeApp.config(function($stateProvider, $urlRouterProvider){
       template:`<h1>Welcome to your employee Database</h1>`
     })
     .state('employees', {
-      url: '/employees?action',
+      url: '/employees',
       data: {
         requireAuth: true
       },
@@ -114,7 +114,7 @@ employeeApp.controller('EmployeeController', function($scope, $window, $auth, em
 
   //DELETE
   $scope.delete = function(employee) {
-    employee.$delete(() => {//$delete does not return a promise
+    employee.$delete(() => {//$delete also returns a promise
               $scope.employees.splice($scope.employees.indexOf(employee), 1);
               $scope.deletedEmployee = employee;
           });

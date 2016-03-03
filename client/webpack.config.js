@@ -4,11 +4,12 @@ const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 module.exports = {
   entry: './src/entry.js',
   output: {
-    path: __dirname,//path.resolve(__dirname, '../server/public'), //path.resolve([from ...], to): resolve to an abs path
+    path: path.resolve(__dirname, '../server/public'), //path.resolve([from ...], to): resolve to an abs path
     filename: 'bundle.js'
   },
-  plugin: [new HtmlWebpackPlugin()],
   devtool: 'source-map',
+  plugins: [new HtmlWebpackPlugin({ //DO NOT USE 'PLUGIN'. THE 'S' is important!
+    template: './index.html'})],
   module: {
     preloaders: [
       {
@@ -18,7 +19,18 @@ module.exports = {
       }
     ],
     loaders: [
-      {test: /\.html$/, loader: 'html'}
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+          query: {
+            presets: ['es2015']
+          }
+      },
+      {
+        test: /\.html$/,
+        loader: 'html'
+      }
     ]
   }
 }

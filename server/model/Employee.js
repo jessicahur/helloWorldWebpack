@@ -41,6 +41,10 @@ const Employee = new Schema({ //Future updates cannot alter id and username
     require: true,
     match: /.+\@.+\..+/
   },
+  salary: {
+    type: Number,
+    require: true
+  },
   position: {
     type: String,
     require: true,

@@ -15,7 +15,8 @@ module.exports = {
     }),
     new DefinePlugin({
       BASE_URL : JSON.stringify( process.env.BASE_URL || '' ),
-      CLIENT_ID: JSON.stringify( process.env.CLIENT_ID || '')
+      CLIENT_ID: JSON.stringify( process.env.CLIENT_ID || ''),
+      EMAIL: JSON.stringify( process.env.EMAIL || 'no email')
     })
     ],
   module: {

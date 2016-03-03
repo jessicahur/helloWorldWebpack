@@ -1,3 +1,5 @@
+var env = require('./env.js');
+
 exports.config = {
   allScriptsTimeout: 11000, //// The timeout in milliseconds for each script run on the browser. This should
   // be longer than the maximum time your application needs to stabilize between
@@ -15,6 +17,15 @@ exports.config = {
   seleniumAddress: 'http://localhost:4444/wd/hub', // The address of a running Selenium Server. If specified, Protractor will
   // connect to an already running instance of Selenium (called with 'webdriver-manager start'). This usually looks like
   // seleniumAddress: 'http://localhost:4444/wd/hub'
+
+  // onPrepare: function(){
+  //   // browser.executeScript('window.sessionStorage.clear();');
+  // },
+  // params: {
+  //   login: {
+  //     token: env.token
+  //   }
+  // },
 
   baseUrl: 'http://localhost:8080', //because of webpack-dev-sever, we don't have to put the entire path down in the test files
 

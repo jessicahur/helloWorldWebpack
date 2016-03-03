@@ -17,7 +17,7 @@ const auth = require( './auth.js' );
  */
 function ensureAuthenticated(req, res, next) {
 
-  if ( req.method === 'OPTIONS' ) res.send(200);//I'd prefer this over calling return next();
+  if ( req.method === 'OPTIONS' ) return next();
 
   if (!req.header('Authorization')) {
     return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });

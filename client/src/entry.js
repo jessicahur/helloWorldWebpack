@@ -58,7 +58,7 @@ employeeApp.config(function($authProvider){
   });
 
   $authProvider.github({
-    url: 'http://localhost:3000/auth/github',
+    url: `${baseUrl}/auth/github`,
     authorizationEndpoint: 'https://github.com/login/oauth/authorize',
     redirectUri: window.location.origin,
     optionalUrlParams: ['scope'],

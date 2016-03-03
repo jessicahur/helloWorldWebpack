@@ -70,25 +70,25 @@
 	
 	var _services2 = _interopRequireDefault(_services);
 	
-	var _angularUiRouter = __webpack_require__(27);
+	var _angularUiRouter = __webpack_require__(26);
 	
 	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
 	
-	var _angularUiBootstrap = __webpack_require__(28);
+	var _angularUiBootstrap = __webpack_require__(27);
 	
 	var _angularUiBootstrap2 = _interopRequireDefault(_angularUiBootstrap);
 	
-	var _satellizer = __webpack_require__(30);
+	var _satellizer = __webpack_require__(29);
 	
 	var _satellizer2 = _interopRequireDefault(_satellizer);
 	
-	var _ngDialog = __webpack_require__(31);
+	var _ngDialog = __webpack_require__(30);
 	
 	var _ngDialog2 = _interopRequireDefault(_ngDialog);
 	
-	__webpack_require__(32);
+	__webpack_require__(31);
 	
-	__webpack_require__(36);
+	__webpack_require__(35);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -128,7 +128,7 @@
 	  });
 	
 	  $authProvider.github({
-	    url: '/auth/github',
+	    url: 'http://localhost:3000/auth/github',
 	    authorizationEndpoint: 'https://github.com/login/oauth/authorize',
 	    redirectUri: window.location.origin,
 	    optionalUrlParams: ['scope'],
@@ -140,32 +140,31 @@
 	});
 	/*----------APP RUN------------*/
 	
-	employeeApp.run(['$rootScope', 'User', 'ngDialog', '$state', '$auth', function ($rootScope, User, ngDialog, $state, $auth) {
+	employeeApp.run(['$rootScope', 'ngDialog', '$state', '$auth', function ($rootScope, ngDialog, $state, $auth) {
 	
 	  $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
 	
-	    if (toState.data && toState.data.requireAuth && !$auth.isAuthenticated() /*!User.isAuthed()*/) {
-	        (function () {
-	          event.preventDefault();
-	          var dialog = ngDialog.open({
-	            template: '<login success="success(response)"/>',
-	            plain: true,
-	            controller: ['$scope', function ($scope) {
-	              $scope.success = function (response) {
-	                dialog.close();
-	                //User.setToken();
-	                return $state.go(toState.name, toParams);
-	              };
-	            }]
-	          });
+	    if (toState.data && toState.data.requireAuth && !$auth.isAuthenticated()) {
+	      (function () {
+	        event.preventDefault();
+	        var dialog = ngDialog.open({
+	          template: '<login success="success(response)"/>',
+	          plain: true,
+	          controller: ['$scope', function ($scope) {
+	            $scope.success = function (response) {
+	              dialog.close();
+	              return $state.go(toState.name, toParams);
+	            };
+	          }]
+	        });
 	
-	          dialog.closePromise.then(function () {
-	            return alert('success!');
-	          }).catch(function () {
-	            return alert('failure!');
-	          });
-	        })();
-	      }
+	        dialog.closePromise.then(function () {
+	          return alert('success!');
+	        }).catch(function () {
+	          return alert('failure!');
+	        });
+	      })();
+	    }
 	  });
 	}]);
 	
@@ -31758,7 +31757,6 @@
 	          url: 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04',
 	          skipAuthorization: true // `Authorization: Bearer <token>` will not be sent on this request.
 	        }).then(function (res) {
-	          console.log(res);
 	          $scope.currencies.JPY.rate = res.data.rates.JPY;
 	          $scope.currencies.CNY.rate = res.data.rates.CNY;
 	        });
@@ -32624,16 +32622,11 @@
 	
 	var _employeeService2 = _interopRequireDefault(_employeeService);
 	
-	var _user = __webpack_require__(26);
-	
-	var _user2 = _interopRequireDefault(_user);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var services = angular.module('services', []);
 	
 	(0, _employeeService2.default)(services);
-	(0, _user2.default)(services);
 	
 	exports.default = services.name;
 
@@ -32655,6 +32648,7 @@
 	
 	    this.setUrl = function (url) {
 	      _url = url;
+	      return _url;
 	    };
 	
 	    this.$get = function ($resource) {
@@ -32669,28 +32663,6 @@
 
 /***/ },
 /* 26 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function (ngModule) {
-	
-	  ngModule.factory('User', ['$window', function ($window) {
-	
-	    return {
-	      isAuthed: function isAuthed() {
-	        return !!$window.localStorage.token;
-	      }
-	    };
-	  }]);
-	};
-
-/***/ },
-/* 27 */
 /***/ function(module, exports) {
 
 	/**
@@ -37234,16 +37206,16 @@
 	})(window, window.angular);
 
 /***/ },
-/* 28 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(29);
+	__webpack_require__(28);
 	
 	module.exports = 'ui.bootstrap';
 
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports) {
 
 	/*
@@ -44601,7 +44573,7 @@
 	angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); });
 
 /***/ },
-/* 30 */
+/* 29 */
 /***/ function(module, exports) {
 
 	/**
@@ -45568,7 +45540,7 @@
 
 
 /***/ },
-/* 31 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -46404,16 +46376,16 @@
 
 
 /***/ },
-/* 32 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(33);
+	var content = __webpack_require__(32);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(35)(content, {});
+	var update = __webpack_require__(34)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -46430,10 +46402,10 @@
 	}
 
 /***/ },
-/* 33 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(34)();
+	exports = module.exports = __webpack_require__(33)();
 	// imports
 	
 	
@@ -46444,7 +46416,7 @@
 
 
 /***/ },
-/* 34 */
+/* 33 */
 /***/ function(module, exports) {
 
 	/*
@@ -46500,7 +46472,7 @@
 
 
 /***/ },
-/* 35 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46754,16 +46726,16 @@
 
 
 /***/ },
-/* 36 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(37);
+	var content = __webpack_require__(36);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(35)(content, {});
+	var update = __webpack_require__(34)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -46780,10 +46752,10 @@
 	}
 
 /***/ },
-/* 37 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(34)();
+	exports = module.exports = __webpack_require__(33)();
 	// imports
 	
 	

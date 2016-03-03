@@ -5,7 +5,6 @@ const moment = require( 'moment' );
 const jwt = require( 'jwt-simple');
 
 const router = require('./router');
-const moneyRouter = require('./moneyRouter');
 const app = express();
 
 var config = require('../config');
@@ -18,7 +17,7 @@ const auth = require( './auth.js' );
  */
 function ensureAuthenticated(req, res, next) {
 
-  if ( req.method === 'OPTIONS' ) return next();
+  if ( req.method === 'OPTIONS' ) res.send(200);//I'd prefer this over calling return next();
 
   if (!req.header('Authorization')) {
     return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
@@ -42,22 +41,22 @@ function ensureAuthenticated(req, res, next) {
 
 app.use(express.static('public'));
 
-app.use( bodyParser.json() );
-app.use( bodyParser.urlencoded({ extended: false }) );
-
 app.use( (req, res, next) => {
   const url = '*';
   res.header( 'Access-Control-Allow-Origin', url );
+  // res.header( 'Access-Control-Allow-Credentials', true );
   res.header( 'Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE' );
-  res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept' );
+  res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization' );
   next();
 });
 
-app.use( '/auth', auth );
+app.use( bodyParser.json() );
+app.use( bodyParser.urlencoded({ extended: false }) );
+app.use( methodOverride() );
 
+app.use( '/auth', auth );
 app.use('/api/employees', ensureAuthenticated, router);
 
-app.use( methodOverride() );
 
 app.use(function(req, res, next) {
   res.send('404 page not found for '+req.url);

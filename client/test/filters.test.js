@@ -1,7 +1,7 @@
 
 describe('filters', function() {
-
-  beforeEach(module('filters')); //same as using angular.mock.module. Have to roll this up because moneyExchange is not directly connected to any registered angular module
+  //can also load module 'filters' since we also registered it was an angular module
+  beforeEach(module('employeeApp')); //same as using angular.mock.module. Have to roll this up because moneyExchange is not directly connected to any registered angular module
 
   describe('money filter', function() {
 

@@ -1,3 +1,5 @@
+//http://stackoverflow.com/questions/20959748/e2e-protractor-test-requiring-oauth-authentication
+
 const fs = require( 'fs' );
 
 describe('employeeApp', () => {

@@ -21,11 +21,12 @@ describe ('Employee-Table Directive', () => {
     render = _$compile_(template);
   }));
 
-  it('should GET currency rates', () => {
+  beforeEach(() => {
     $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
-                .respond(200, {rates: { JPY: 2,
-                                              CNY: 1.5 }
-                              });
+                .respond(200, {rates: { JPY: 2, CNY: 1.5 } });
+  });
+
+  it('should GET currency rates', () => {
 
     var element = getElement($scope);
     var isoScope = element.isolateScope();
@@ -39,10 +40,6 @@ describe ('Employee-Table Directive', () => {
   it('should be able to call edit employee', () => {
     var outerScopeEditCalled = false;
 
-    $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
-                .respond(200, {rates: { JPY: 2,
-                                              CNY: 1.5 }
-                              });
     $scope.edit = function () {
       outerScopeEditCalled = true;
     }
@@ -62,10 +59,6 @@ describe ('Employee-Table Directive', () => {
   it('should be able to call outer scope delete function', () => {
     var outerScopeDeleteCalled = false;
 
-    $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
-                .respond(200, {rates: { JPY: 2,
-                                              CNY: 1.5 }
-                              });
     $scope.delete = function () {
       outerScopeDeleteCalled = true;
     }

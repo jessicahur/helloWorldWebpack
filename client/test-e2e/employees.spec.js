@@ -25,7 +25,9 @@ describe('employeeApp', () => {
     });
 
     it('should be able to login via github', done => {
-
+      element(by.css('#viewEmployee')).click();
+      element(by.tagName('button')).click();
+      if ()
     });
 });
 // const fs = require( 'fs' );

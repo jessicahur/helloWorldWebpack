@@ -17,7 +17,7 @@ const auth = require( './auth.js' );
  */
 function ensureAuthenticated(req, res, next) {
 
-  if ( req.method === 'OPTIONS' ) return next();
+  if ( req.method === 'OPTIONS' ) return next(); //Pass this to router. Our router doesn't have any method hat deals with OPTIONS request
 
   if (!req.header('Authorization')) {
     return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });

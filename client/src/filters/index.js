@@ -1,5 +1,8 @@
 import moneyFilter from './money-filter';
 
-export default function(angularModule){
-  moneyFilter(angularModule);
-}
+
+var filters = angular.module('filters', []);
+
+moneyFilter(filters);
+
+export default filters.name;

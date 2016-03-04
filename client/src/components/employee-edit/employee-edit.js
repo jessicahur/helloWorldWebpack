@@ -60,6 +60,7 @@ export default function(AngularModule) {
                     $scope.badRequest = false;
                     $scope.newEmployee = new Resource();
                     $scope.editEmployee = null;
+                    window.location = '#/employees';
                     $scope.myForm.$setPristine();
                     $scope.myForm.$setUntouched();
                   },

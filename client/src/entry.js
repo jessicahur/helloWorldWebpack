@@ -48,6 +48,10 @@ employeeApp.config(function($stateProvider, $urlRouterProvider){
       },
       template:'<app/>',
       controller: 'EmployeeController'
+    })
+    .state('employees.action', {
+      url: '/:action',
+      template: '<employee-delete deletedEmployee="deletedEmployee"></employee-delete>'
     });
 
 });

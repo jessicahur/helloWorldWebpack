@@ -1,6 +1,6 @@
  <div>
   <p ng-show = "badRequest" class="text-center"><mark>{{badRequest}}</mark></p>
-  <form name="myForm" novalidate
+  <form name="myForm" novalidate enctype="multipart/form-data"
         class="form-horizontal">
 
     <employee-control label="Name" myelem="myForm.myName" test="testing">
@@ -116,6 +116,11 @@
         <div ng-message="required">Position is required</div>
       </errors>
     </employee-control>
+
+    <input type="file"
+           name="upload"
+           multiple="multiple"
+           ng-model = "newEmployee.profilePic">
 
     <div class="col-sm-offset-2 col-sm-10">
       <button ng-disabled="myForm.$invalid" ng-show = "!editEmployee" ng-click = "addEmployee()" type='submit' class="btn btn-success">ADD</button>

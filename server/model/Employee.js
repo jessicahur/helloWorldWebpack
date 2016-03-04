@@ -49,6 +49,9 @@ const Employee = new Schema({ //Future updates cannot alter id and username
     type: String,
     require: true,
     enum: ['manager', 'accountant', 'engineer', 'receptionist']
+  },
+  profilePic: {
+    type: String
   }
 });
 

@@ -53,6 +53,8 @@ export default function(AngularModule) {
 
         //When user clicks on the "ADD" button
         $scope.addEmployee = function() {
+          console.log($scope.profilePic);
+          $scope.newEmployee.profilePic = $scope.profilePic;
           Resource.save({employeeId:''}, $scope.newEmployee,
                   function(res){
                     res.DOB = res.DOB.substring(0,10);

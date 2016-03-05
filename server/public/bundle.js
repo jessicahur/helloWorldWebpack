@@ -62,39 +62,39 @@
 	
 	var _components2 = _interopRequireDefault(_components);
 	
-	var _angularResource = __webpack_require__(22);
+	var _angularResource = __webpack_require__(24);
 	
 	var _angularResource2 = _interopRequireDefault(_angularResource);
 	
-	var _services = __webpack_require__(24);
+	var _services = __webpack_require__(26);
 	
 	var _services2 = _interopRequireDefault(_services);
 	
-	var _angularUiRouter = __webpack_require__(26);
+	var _angularUiRouter = __webpack_require__(28);
 	
 	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
 	
-	var _angularUiBootstrap = __webpack_require__(27);
+	var _angularUiBootstrap = __webpack_require__(29);
 	
 	var _angularUiBootstrap2 = _interopRequireDefault(_angularUiBootstrap);
 	
-	var _satellizer = __webpack_require__(29);
+	var _satellizer = __webpack_require__(31);
 	
 	var _satellizer2 = _interopRequireDefault(_satellizer);
 	
-	var _ngDialog = __webpack_require__(30);
+	var _ngDialog = __webpack_require__(32);
 	
 	var _ngDialog2 = _interopRequireDefault(_ngDialog);
 	
-	__webpack_require__(31);
-	
-	__webpack_require__(35);
+	__webpack_require__(33);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var employeeApp = _angular2.default.module('employeeApp', [_angularMessages2.default, _angularResource2.default, _angularUiRouter2.default, _angularUiBootstrap2.default, _satellizer2.default, _ngDialog2.default, _components2.default, _services2.default, _filters2.default]);
+	// import 'ng-dialog/css/ngDialog.css';
+	// import 'ng-dialog/css/ngDialog-theme-default.css';
 	//http://tylermcginnis.com/angularjs-factory-vs-service-vs-provider/
 	
-	var employeeApp = _angular2.default.module('employeeApp', [_angularMessages2.default, _angularResource2.default, _angularUiRouter2.default, _angularUiBootstrap2.default, _satellizer2.default, _ngDialog2.default, _components2.default, _services2.default, _filters2.default]);
 	var baseUrl = ("http://localhost:3000");
 	
 	//SET CONSTANT URL FOR APP
@@ -111,7 +111,7 @@
 	
 	  $stateProvider.state('home', {
 	    url: '/home',
-	    template: '<h1>Welcome to your employee Database</h1>'
+	    template: '<homepage></homepage>'
 	  }).state('employees', {
 	    url: '/employees',
 	    data: {
@@ -119,6 +119,9 @@
 	    },
 	    template: '<app/>',
 	    controller: 'EmployeeController'
+	  }).state('employees.action', {
+	    url: '/:action',
+	    template: '<employee-delete deletedEmployee="deletedEmployee"></employee-delete>'
 	  });
 	});
 	
@@ -128,7 +131,7 @@
 	  });
 	
 	  $authProvider.github({
-	    url: 'http://localhost:3000/auth/github',
+	    url: baseUrl + '/auth/github',
 	    authorizationEndpoint: 'https://github.com/login/oauth/authorize',
 	    redirectUri: window.location.origin,
 	    optionalUrlParams: ['scope'],
@@ -31460,6 +31463,10 @@
 	
 	var _employeeDelete2 = _interopRequireDefault(_employeeDelete);
 	
+	var _homepage = __webpack_require__(22);
+	
+	var _homepage2 = _interopRequireDefault(_homepage);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var components = _angular2.default.module('components', []);
@@ -31470,6 +31477,7 @@
 	(0, _employeeControl2.default)(components);
 	(0, _employeeTable2.default)(components);
 	(0, _employeeDelete2.default)(components);
+	(0, _homepage2.default)(components);
 	(0, _app2.default)(components);
 	
 	exports.default = components.name;
@@ -31504,7 +31512,7 @@
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<main>\n\n      <employee-table employees=\"employees\"\n                      edit=\"edit(employee)\"\n                      delete=\"delete(employee)\">\n      </employee-table>\n\n    <!--POST/EDIT where directives and components come in place-->\n      <employee-edit\n                      edit-employee=\"editEmployee\"\n                      new-employee=\"newEmployee\"\n                      employees=\"employees\"\n                      employee-to-edit=\"employeeToEdit\"\n                      disable=\"disable\">\n      </employee-edit>\n    <!--DELETE-->\n    <div ng-show=\"deletedEmployee\">\n     <employee-delete deletedEmployee=\"deletedEmployee\"></employee-delete>\n    </div>\n</main>\n";
+	module.exports = "<main>\n\n      <employee-table employees=\"employees\"\n                      edit=\"edit(employee)\"\n                      delete=\"delete(employee)\">\n      </employee-table>\n\n    <!--POST/EDIT where directives and components come in place-->\n      <employee-edit\n                      edit-employee=\"editEmployee\"\n                      new-employee=\"newEmployee\"\n                      employees=\"employees\"\n                      employee-to-edit=\"employeeToEdit\"\n                      disable=\"disable\">\n      </employee-edit>\n    <!--DELETE-->\n<!--     <div ng-show=\"deletedEmployee\">\n     <employee-delete deletedEmployee=\"deletedEmployee\"></employee-delete>\n    </div> -->\n    <div ui-view></div>\n</main>\n";
 
 /***/ },
 /* 10 */
@@ -31538,7 +31546,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "  <nav class=\"navbar navbar-default\" role=\"navigation\">\n    <ul class=\"nav navbar-nav\">\n      <li><a ui-sref=\"home()\">Home</a></li>\n      <li><a ui-sref=\"employees()\">Employees</a></li>\n      <li><a ng-click=\"logout()\">Logout</a></li>\n    </ul>\n  </nav>\n";
+	module.exports = "  <nav class=\"navbar navbar-default\" role=\"navigation\">\n    <ul class=\"nav navbar-nav\">\n      <li><a ui-sref=\"home()\">Home</a></li>\n      <li><a ui-sref=\"employees()\" id=\"viewEmployee\">Employees</a></li>\n      <li><a ng-click=\"logout()\">Logout</a></li>\n    </ul>\n  </nav>\n";
 
 /***/ },
 /* 12 */
@@ -31654,6 +31662,7 @@
 	            $scope.badRequest = false;
 	            $scope.newEmployee = new Resource();
 	            $scope.editEmployee = null;
+	            window.location = '#/employees';
 	            $scope.myForm.$setPristine();
 	            $scope.myForm.$setUntouched();
 	          }, function (err) {
@@ -31792,7 +31801,7 @@
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "<section>\n    <h3>Employees</h3>\n    <br />\n    <form>\n      <label ng-repeat=\"(name, currency) in currencies track by name\">\n        <input type=\"radio\" ng-model=\"$parent.salaryFormat\" ng-value=\"currency\" name=\"currency\">\n        {{name}}\n      </label><br/>\n    </form>\n    <label>Filter by employee's name: </label>\n    <input ng-model=\"search.name\"></input>\n    <table class = \"table table-bordered table-striped\">\n      <tr>\n        <th>Name</th>\n        <th>ID</th>\n        <th>User Name</th>\n        <th>DOB</th>\n        <th>Address</th>\n        <th>Phone</th>\n        <th>Email</th>\n        <th>Salary</th>\n        <th>Position</th>\n        <th></th>\n        <th></th>\n      </tr>\n      <tr ng-repeat = \"employee in employees| filter: {name: search.name} | orderBy: '_id' track by employee._id\">\n        <td>{{employee.name}}</td>\n        <td>{{employee._id}}</td>\n        <td>{{employee.username}}</td>\n        <td>{{employee.DOB}}</td>\n        <td>{{employee.address}}</td>\n        <td>{{employee.phone}}</td>\n        <td>{{employee.email}}</td>\n        <td>{{employee.salary | moneyExchange:salaryFormat}}</td>\n        <td>{{employee.position}}</td>\n        <td ng-click = \"update(employee)\"><a>Edit</a></td>\n        <td ng-click = \"deleteEmployee(employee)\"><a>Delete</a></td>\n      </tr>\n    </table>\n</section>\n";
+	module.exports = "<section>\n    <h3>Employees</h3>\n    <br />\n    <form>\n      <label ng-repeat=\"(name, currency) in currencies track by name\">\n        <input type=\"radio\" ng-model=\"$parent.salaryFormat\" ng-value=\"currency\" name=\"currency\">\n        {{name}}\n      </label><br/>\n    </form>\n    <label>Filter by employee's name: </label>\n    <input ng-model=\"search.name\"></input>\n    <table class = \"table table-bordered table-striped\">\n      <tr>\n        <th>Name</th>\n        <th>ID</th>\n        <th>User Name</th>\n        <th>DOB</th>\n        <th>Address</th>\n        <th>Phone</th>\n        <th>Email</th>\n        <th>Salary</th>\n        <th>Position</th>\n        <th></th>\n        <th></th>\n      </tr>\n      <tr ng-repeat = \"employee in employees| filter: {name: search.name} | orderBy: '_id' track by employee._id\">\n        <td>{{employee.name}}</td>\n        <td>{{employee._id}}</td>\n        <td>{{employee.username}}</td>\n        <td>{{employee.DOB}}</td>\n        <td>{{employee.address}}</td>\n        <td>{{employee.phone}}</td>\n        <td>{{employee.email}}</td>\n        <td>{{employee.salary | moneyExchange:salaryFormat}}</td>\n        <td>{{employee.position}}</td>\n        <td ng-click = \"update(employee)\"><a>Edit</a></td>\n        <td ng-click = \"deleteEmployee(employee)\"><a ui-sref=\"employees.action({action: 'delete'})\">Delete</a></td>\n      </tr>\n    </table>\n</section>\n";
 
 /***/ },
 /* 20 */
@@ -31830,12 +31839,44 @@
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(23);
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (AngularModule) {
+	  AngularModule.directive('homepage', function () {
+	    return {
+	      replace: true, //replace this element with content from this directive's html template
+	      restrict: 'E', //restrict this directive to be html tag element
+	      template: _homepage2.default
+	    }; //end of return
+	  });
+	};
+	
+	var _homepage = __webpack_require__(23);
+
+	var _homepage2 = _interopRequireDefault(_homepage);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"header\">\n  <h1> Outsourcing Talents </h1>\n</div>\n";
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(25);
 	module.exports = 'ngResource';
 
 
 /***/ },
-/* 23 */
+/* 25 */
 /***/ function(module, exports) {
 
 	/**
@@ -32609,7 +32650,7 @@
 
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32618,7 +32659,7 @@
 	  value: true
 	});
 	
-	var _employeeService = __webpack_require__(25);
+	var _employeeService = __webpack_require__(27);
 	
 	var _employeeService2 = _interopRequireDefault(_employeeService);
 	
@@ -32631,7 +32672,7 @@
 	exports.default = services.name;
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32662,7 +32703,7 @@
 	};
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports) {
 
 	/**
@@ -37206,16 +37247,16 @@
 	})(window, window.angular);
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(28);
+	__webpack_require__(30);
 	
 	module.exports = 'ui.bootstrap';
 
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports) {
 
 	/*
@@ -44573,7 +44614,7 @@
 	angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); });
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports) {
 
 	/**
@@ -45540,7 +45581,7 @@
 
 
 /***/ },
-/* 30 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -46376,23 +46417,23 @@
 
 
 /***/ },
-/* 31 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(32);
+	var content = __webpack_require__(34);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(34)(content, {});
+	var update = __webpack_require__(37)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../css-loader/index.js!./ngDialog.css", function() {
-				var newContent = require("!!./../../css-loader/index.js!./ngDialog.css");
+			module.hot.accept("!!./../node_modules/css-loader/index.js?sourceMap!./../node_modules/resolve-url-loader/index.js?sourceMap!./../node_modules/sass-loader/index.js?sourceMap!./main.scss", function() {
+				var newContent = require("!!./../node_modules/css-loader/index.js?sourceMap!./../node_modules/resolve-url-loader/index.js?sourceMap!./../node_modules/sass-loader/index.js?sourceMap!./main.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -46402,21 +46443,21 @@
 	}
 
 /***/ },
-/* 32 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(33)();
+	exports = module.exports = __webpack_require__(35)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "@-webkit-keyframes ngdialog-fadeout {\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n}\n\n@keyframes ngdialog-fadeout {\n  0% {\n    opacity: 1;\n  }\n\n  100% {\n    opacity: 0;\n  }\n}\n\n@-webkit-keyframes ngdialog-fadein {\n  0% {\n    opacity: 0;\n  }\n\n  100% {\n    opacity: 1;\n  }\n}\n\n@keyframes ngdialog-fadein {\n  0% {\n    opacity: 0;\n  }\n\n  100% {\n    opacity: 1;\n  }\n}\n\n.ngdialog {\n  box-sizing: border-box;\n}\n\n.ngdialog *,\n.ngdialog *:before,\n.ngdialog *:after {\n  box-sizing: inherit;\n}\n\n.ngdialog {\n  position: fixed;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  z-index: 10000;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n\n.ngdialog.ngdialog-disabled-animation,\n.ngdialog.ngdialog-disabled-animation .ngdialog-overlay,\n.ngdialog.ngdialog-disabled-animation .ngdialog-content {\n  -webkit-animation: none!important;\n  animation: none!important;\n}\n\n.ngdialog-overlay {\n  position: fixed;\n  background: rgba(0, 0, 0, 0.4);\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  -webkit-backface-visibility: hidden;\n  -webkit-animation: ngdialog-fadein 0.5s;\n  animation: ngdialog-fadein 0.5s;\n}\n\n.ngdialog-no-overlay {\n  pointer-events: none;\n}\n\n.ngdialog.ngdialog-closing .ngdialog-overlay {\n  -webkit-backface-visibility: hidden;\n  -webkit-animation: ngdialog-fadeout 0.5s;\n  animation: ngdialog-fadeout 0.5s;\n}\n\n.ngdialog-content {\n  background: white;\n  -webkit-backface-visibility: hidden;\n  -webkit-animation: ngdialog-fadein 0.5s;\n  animation: ngdialog-fadein 0.5s;\n  pointer-events: all;\n}\n\n.ngdialog.ngdialog-closing .ngdialog-content {\n  -webkit-backface-visibility: hidden;\n  -webkit-animation: ngdialog-fadeout 0.5s;\n  animation: ngdialog-fadeout 0.5s;\n}\n\n.ngdialog-close:before {\n  font-family: 'Helvetica', Arial, sans-serif;\n  content: '\\D7';\n  cursor: pointer;\n}\n\nhtml.ngdialog-open,\nbody.ngdialog-open {\n  overflow: hidden;\n}", ""]);
+	exports.push([module.id, ".header h1 {\n  background: url(" + __webpack_require__(36) + ");\n  font-size: 20px;\n  color: #DDC9B1;\n}\n\n", "", {"version":3,"sources":["/./src/scss/_header.scss","/./src/main.scss"],"names":[],"mappings":"AAAA;EAEE,0CAAA;EACE,gBAAA;EACA,eAAA;CCAH","file":"main.scss","sourcesContent":[".header {\n  h1 {\n  background: url('flowerMobile.jpg');\n    font-size: $banner-font-size-lg;\n    color: $latte-color;\n  }\n}\n","@import 'style-assets';\n\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
 
 /***/ },
-/* 33 */
+/* 35 */
 /***/ function(module, exports) {
 
 	/*
@@ -46472,7 +46513,13 @@
 
 
 /***/ },
-/* 34 */
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "51277e380bb354b97bcd9de649b23135.jpg";
+
+/***/ },
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46723,46 +46770,6 @@
 		if(oldSrc)
 			URL.revokeObjectURL(oldSrc);
 	}
-
-
-/***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(36);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(34)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../css-loader/index.js!./ngDialog-theme-default.css", function() {
-				var newContent = require("!!./../../css-loader/index.js!./ngDialog-theme-default.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(33)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "@-webkit-keyframes ngdialog-flyin {\n  0% {\n    opacity: 0;\n    -webkit-transform: translateY(-40px);\n    transform: translateY(-40px);\n  }\n\n  100% {\n    opacity: 1;\n    -webkit-transform: translateY(0);\n    transform: translateY(0);\n  }\n}\n\n@keyframes ngdialog-flyin {\n  0% {\n    opacity: 0;\n    -webkit-transform: translateY(-40px);\n    transform: translateY(-40px);\n  }\n\n  100% {\n    opacity: 1;\n    -webkit-transform: translateY(0);\n    transform: translateY(0);\n  }\n}\n\n@-webkit-keyframes ngdialog-flyout {\n  0% {\n    opacity: 1;\n    -webkit-transform: translateY(0);\n    transform: translateY(0);\n  }\n\n  100% {\n    opacity: 0;\n    -webkit-transform: translateY(-40px);\n    transform: translateY(-40px);\n  }\n}\n\n@keyframes ngdialog-flyout {\n  0% {\n    opacity: 1;\n    -webkit-transform: translateY(0);\n    transform: translateY(0);\n  }\n\n  100% {\n    opacity: 0;\n    -webkit-transform: translateY(-40px);\n    transform: translateY(-40px);\n  }\n}\n\n.ngdialog.ngdialog-theme-default {\n  padding-bottom: 160px;\n  padding-top: 160px;\n}\n\n.ngdialog.ngdialog-theme-default.ngdialog-closing .ngdialog-content {\n  -webkit-animation: ngdialog-flyout .5s;\n  animation: ngdialog-flyout .5s;\n}\n\n.ngdialog.ngdialog-theme-default .ngdialog-content {\n  -webkit-animation: ngdialog-flyin .5s;\n  animation: ngdialog-flyin .5s;\n  background: #f0f0f0;\n  border-radius: 5px;\n  color: #444;\n  font-family: 'Helvetica',sans-serif;\n  font-size: 1.1em;\n  line-height: 1.5em;\n  margin: 0 auto;\n  max-width: 100%;\n  padding: 1em;\n  position: relative;\n  width: 450px;\n}\n\n.ngdialog.ngdialog-theme-default .ngdialog-close {\n  border-radius: 5px;\n  cursor: pointer;\n  position: absolute;\n  right: 0;\n  top: 0;\n}\n\n.ngdialog.ngdialog-theme-default .ngdialog-close:before {\n  background: transparent;\n  border-radius: 3px;\n  color: #bbb;\n  content: '\\D7';\n  font-size: 26px;\n  font-weight: 400;\n  height: 30px;\n  line-height: 26px;\n  position: absolute;\n  right: 3px;\n  text-align: center;\n  top: 3px;\n  width: 30px;\n}\n\n.ngdialog.ngdialog-theme-default .ngdialog-close:hover:before,\n.ngdialog.ngdialog-theme-default .ngdialog-close:active:before {\n  color: #777;\n}\n\n.ngdialog.ngdialog-theme-default .ngdialog-message {\n  margin-bottom: .5em;\n}\n\n.ngdialog.ngdialog-theme-default .ngdialog-input {\n  margin-bottom: 1em;\n}\n\n.ngdialog.ngdialog-theme-default .ngdialog-input textarea,\n.ngdialog.ngdialog-theme-default .ngdialog-input input[type=\"text\"],\n.ngdialog.ngdialog-theme-default .ngdialog-input input[type=\"password\"],\n.ngdialog.ngdialog-theme-default .ngdialog-input input[type=\"email\"],\n.ngdialog.ngdialog-theme-default .ngdialog-input input[type=\"url\"] {\n  background: #fff;\n  border: 0;\n  border-radius: 3px;\n  font-family: inherit;\n  font-size: inherit;\n  font-weight: inherit;\n  margin: 0 0 .25em;\n  min-height: 2.5em;\n  padding: .25em .67em;\n  width: 100%;\n}\n\n.ngdialog.ngdialog-theme-default .ngdialog-input textarea:focus,\n.ngdialog.ngdialog-theme-default .ngdialog-input input[type=\"text\"]:focus,\n.ngdialog.ngdialog-theme-default .ngdialog-input input[type=\"password\"]:focus,\n.ngdialog.ngdialog-theme-default .ngdialog-input input[type=\"email\"]:focus,\n.ngdialog.ngdialog-theme-default .ngdialog-input input[type=\"url\"]:focus {\n  box-shadow: inset 0 0 0 2px #8dbdf1;\n  outline: none;\n}\n\n.ngdialog.ngdialog-theme-default .ngdialog-buttons {\n  *zoom: 1;\n}\n\n.ngdialog.ngdialog-theme-default .ngdialog-buttons:after {\n  content: '';\n  display: table;\n  clear: both;\n}\n\n.ngdialog.ngdialog-theme-default .ngdialog-button {\n  border: 0;\n  border-radius: 3px;\n  cursor: pointer;\n  float: right;\n  font-family: inherit;\n  font-size: .8em;\n  letter-spacing: .1em;\n  line-height: 1em;\n  margin: 0 0 0 .5em;\n  padding: .75em 2em;\n  text-transform: uppercase;\n}\n\n.ngdialog.ngdialog-theme-default .ngdialog-button:focus {\n  -webkit-animation: ngdialog-pulse 1.1s infinite;\n  animation: ngdialog-pulse 1.1s infinite;\n  outline: none;\n}\n\n@media (max-width: 568px) {\n  .ngdialog.ngdialog-theme-default .ngdialog-button:focus {\n    -webkit-animation: none;\n    animation: none;\n  }\n}\n\n.ngdialog.ngdialog-theme-default .ngdialog-button.ngdialog-button-primary {\n  background: #3288e6;\n  color: #fff;\n}\n\n.ngdialog.ngdialog-theme-default .ngdialog-button.ngdialog-button-secondary {\n  background: #e0e0e0;\n  color: #777;\n}", ""]);
-	
-	// exports
 
 
 /***/ }

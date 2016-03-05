@@ -10,8 +10,9 @@ import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
 import satellizer from 'satellizer';
 import ngDialog from 'ng-dialog';
-import 'ng-dialog/css/ngDialog.css';
-import 'ng-dialog/css/ngDialog-theme-default.css';
+// import 'ng-dialog/css/ngDialog.css';
+// import 'ng-dialog/css/ngDialog-theme-default.css';
+import './main.scss';
 
 var employeeApp = angular.module( 'employeeApp', [ ngMessages,
                                                    ngResource,
@@ -34,12 +35,12 @@ employeeApp.config(function(url, employeeServiceProvider) {
 
 employeeApp.config(function($stateProvider, $urlRouterProvider){
 
-  $urlRouterProvider.otherwise( '/' );//if other routes not handled, redirect here
+  $urlRouterProvider.otherwise( '/home' );//if other routes not handled, redirect here
 
   $stateProvider
     .state('home', {
       url:'/home',
-      template:`<h1>Welcome to your employee Database</h1>`
+      template:`<homepage></homepage>`
     })
     .state('employees', {
       url: '/employees',

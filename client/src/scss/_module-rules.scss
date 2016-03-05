@@ -1,0 +1,16 @@
+@import 'style-assets';
+@import 'mix-ins';
+
+/******SCREEN <= 767PX******/
+@media only screen and (max-width: 767px){
+  .navbar {
+    margin-bottom: 0;
+  }
+}
+
+/******SCREEN >= 767PX******/
+@include mquery(xm) {
+  .mobile-nav {
+    display: none;
+  }
+}

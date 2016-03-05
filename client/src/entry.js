@@ -23,6 +23,7 @@ var employeeApp = angular.module( 'employeeApp', [ ngMessages,
                                                    components,
                                                    services,
                                                    filters]);
+
 var baseUrl = BASE_URL;
 
 //SET CONSTANT URL FOR APP
@@ -106,6 +107,8 @@ function ( $rootScope, ngDialog, $state, $auth ) {
 
 //EmployeeCtrl
 employeeApp.controller('EmployeeController', function($scope, $window, $auth, employeeService) {
+
+  $scope.isCollapsed = true;
 
   $scope.newEmployee = new employeeService();//Angular won't inititate this in childScope!
 

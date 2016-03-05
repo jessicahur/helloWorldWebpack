@@ -1,0 +1,15 @@
+@import 'mix-ins';
+
+/******SCREEN <= 768PX******/
+@include mquery(xm) {
+}
+  .header {
+    background: url(img/mac5.jpg) center;
+    background-size: 100%;
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: $banner-font-size-lg;
+      color: $latte-color;
+    }
+  }

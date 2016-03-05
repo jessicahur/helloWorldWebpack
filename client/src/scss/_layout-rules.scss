@@ -1,0 +1,31 @@
+@import 'mix-ins';
+
+/******SCREEN <= 768PX******/
+@include mquery(xm) {
+  .header {
+    background-size: 100%;
+  }
+}
+
+/******SCREEN <= 992PX******/
+@include mquery(sm) {
+  * {
+
+    }
+}
+
+/******SCREEN <= 1200PX******/
+@include mquery(md) {
+  .header {
+    background-size: 100%;
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: $banner-font-size-lg;
+      color: $latte-color;
+      height: 500px;
+    }
+  }
+}
+
+

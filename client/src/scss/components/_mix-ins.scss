@@ -1,0 +1,20 @@
+$screen-size: (
+  xm: 768px,
+  sm: 992px,
+  md: 1200px
+);
+
+/***************************
+* Media Queries:           *
+***************************/
+
+@mixin mquery($s) {
+  @if map-has-key($screen-size, $s) {
+    @media only screen and (max-width: #{map-get($screen-size, $s)}) {
+      @content;
+    }
+  }
+  @else {
+
+  }
+}

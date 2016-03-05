@@ -107,7 +107,7 @@
 	
 	employeeApp.config(function ($stateProvider, $urlRouterProvider) {
 	
-	  $urlRouterProvider.otherwise('/'); //if other routes not handled, redirect here
+	  $urlRouterProvider.otherwise('/home'); //if other routes not handled, redirect here
 	
 	  $stateProvider.state('home', {
 	    url: '/home',
@@ -46426,14 +46426,14 @@
 	var content = __webpack_require__(34);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(37)(content, {});
+	var update = __webpack_require__(36)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../node_modules/css-loader/index.js?sourceMap!./../node_modules/resolve-url-loader/index.js?sourceMap!./../node_modules/sass-loader/index.js?sourceMap!./main.scss", function() {
-				var newContent = require("!!./../node_modules/css-loader/index.js?sourceMap!./../node_modules/resolve-url-loader/index.js?sourceMap!./../node_modules/sass-loader/index.js?sourceMap!./main.scss");
+			module.hot.accept("!!./../node_modules/css-loader/index.js!./../node_modules/resolve-url-loader/index.js!./../node_modules/sass-loader/index.js?sourceMap!./main.scss", function() {
+				var newContent = require("!!./../node_modules/css-loader/index.js!./../node_modules/resolve-url-loader/index.js!./../node_modules/sass-loader/index.js?sourceMap!./main.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -46448,10 +46448,11 @@
 
 	exports = module.exports = __webpack_require__(35)();
 	// imports
-	
+	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Dancing+Script);", ""]);
+	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);", ""]);
 	
 	// module
-	exports.push([module.id, ".header h1 {\n  background: url(" + __webpack_require__(36) + ");\n  font-size: 20px;\n  color: #DDC9B1;\n}\n\n", "", {"version":3,"sources":["/./src/scss/_header.scss","/./src/main.scss"],"names":[],"mappings":"AAAA;EAEE,0CAAA;EACE,gBAAA;EACA,eAAA;CCAH","file":"main.scss","sourcesContent":[".header {\n  h1 {\n  background: url('flowerMobile.jpg');\n    font-size: $banner-font-size-lg;\n    color: $latte-color;\n  }\n}\n","@import 'style-assets';\n\n"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "\n\n", ""]);
 	
 	// exports
 
@@ -46514,12 +46515,6 @@
 
 /***/ },
 /* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "51277e380bb354b97bcd9de649b23135.jpg";
-
-/***/ },
-/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

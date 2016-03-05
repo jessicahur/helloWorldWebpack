@@ -5,6 +5,10 @@
 @media only screen and (max-width: 767px){
   .navbar {
     margin-bottom: 0;
+    padding: 5px 0;
+  }
+  .navbar-inner > .container {
+    padding: 5px 10px;
   }
 }
 

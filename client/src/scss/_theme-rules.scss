@@ -1,15 +1,19 @@
 @import 'mix-ins';
+@import 'style-assets';
 
 /******SCREEN <= 768PX******/
 @media only screen and (max-width: 767px) {
   .header {
     background: url(img/mac5.jpg) center;
     background-size: cover;
+    color: lighten($latte-color, 20%);
+    font-family: 'Dancing Script', cursive;
 
     h1 {
-      font-family: 'Dancing Script', cursive;
       font-size: $banner-font-size-xm;
-      color: lighten($latte-color, 20%);
     }
+  }
+  .panel-bar {
+    box-shadow: 2px 2px 2px $box-shadow;
   }
 }

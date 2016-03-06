@@ -2,5 +2,10 @@
 * {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
-  padding: 5px;
+  padding: 5px 0;
+}
+footer {
+  width: 100%;
+  background-color: $box-shadow;
+  text-align: center;
 }

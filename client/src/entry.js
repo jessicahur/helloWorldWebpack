@@ -41,8 +41,37 @@ employeeApp.config(function($stateProvider, $urlRouterProvider){
   $stateProvider
     .state('home', {
       url:'/home',
-      template:`<homepage></homepage>`
+      template:`<homepage></homepage>`,
+      resolve: {
+        agents( employeeService ) {
+          return employeeService.query().$promise;
+        }
+      },
+      controller: function($scope, agents){
+        //show-hide About Us section
+        $scope.aboutShow = false;
+        $scope.showAbout = function(){
+          $scope.aboutShow = !$scope.aboutShow;
+        }
+        //show-hide Agents
+        $scope.agentsShow = false;
+        $scope.agents = agents;
+        $scope.showAgents = function(){
+          $scope.agentsShow = !$scope.agentsShow;
+        }
+        //show-hide Locations
+        $scope.locationsShow = false;
+        $scope.showLocations = function(){
+          $scope.locationsShow = !$scope.locationsShow;
+        }
+        //show-hide Events
+        $scope.eventsShow = false;
+        $scope.showEvents = function(){
+          $scope.eventsShow = !$scope.eventsShow;
+        }
+      }
     })
+
     .state('employees', {
       url: '/employees',
       data: {
@@ -108,7 +137,14 @@ function ( $rootScope, ngDialog, $state, $auth ) {
 //EmployeeCtrl
 employeeApp.controller('EmployeeController', function($scope, $window, $auth, employeeService) {
 
+  //For mobile navbar
   $scope.isCollapsed = true;
+  //For About Use
+  $scope.aboutClose = true;
+  $scope.closeAbout = function (){
+    $scope.aboutClose = !$scope.aboutClose;
+    $window.location = '/home';
+  }
 
   $scope.newEmployee = new employeeService();//Angular won't inititate this in childScope!
 

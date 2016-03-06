@@ -7,11 +7,20 @@ $screen-size: (
 /***************************
 * Media Queries:           *
 ***************************/
-
 @mixin mquery($s) {
   @if map-has-key($screen-size, $s) {
     @media only screen and (min-width: #{map-get($screen-size, $s)}) {
       @content;
     }
   }
+}
+
+/***************************
+* Border Radius            *
+***************************/
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
 }

@@ -1,5 +1,5 @@
  <div>
-  <div class="navbar navbar-inverse mobile-nav">
+  <div class="navbar navbar-inverse mobile">
   <div class="navbar-inner">
       <div class="container">
         <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed" aria-label="Left Align">
@@ -23,5 +23,12 @@
       </div>
   </div>
   <!-- /navbar-inner -->
+  </div>
+  <div class="nonmobile">
+    <span>
+      <a ui-sref="home()">Home</a> |
+      <a ui-sref="employees()">Employees</a> |
+      <a ng-click="logout()">Logout</a> |
+    </span>
   </div>
  </div>

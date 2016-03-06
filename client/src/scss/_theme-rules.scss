@@ -17,3 +17,11 @@
     box-shadow: 2px 2px 2px $box-shadow;
   }
 }
+
+@include mquery(xm) {
+  #header-image {
+    height: 60vh;
+    background-image: url(img/mac5.jpg);
+    background-size: cover;
+  }
+}

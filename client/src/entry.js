@@ -14,6 +14,8 @@ import ngDialog from 'ng-dialog';
 // import 'ng-dialog/css/ngDialog-theme-default.css';
 import './main.scss';
 
+import mobileViewCtrl from './js/mobileViewCtrl';
+
 var employeeApp = angular.module( 'employeeApp', [ ngMessages,
                                                    ngResource,
                                                    uiRouter,
@@ -41,35 +43,21 @@ employeeApp.config(function($stateProvider, $urlRouterProvider){
   $stateProvider
     .state('home', {
       url:'/home',
-      template:`<homepage></homepage>`,
+      views: {
+        main: {
+          template: `<homepage/>`
+        },
+        mobile: {
+          template: `<hpview-mobile/>`,
+          controller: mobileViewCtrl
+        }
+      },
       resolve: {
         agents( employeeService ) {
           return employeeService.query().$promise;
         }
       },
-      controller: function($scope, agents){
-        //show-hide About Us section
-        $scope.aboutShow = false;
-        $scope.showAbout = function(){
-          $scope.aboutShow = !$scope.aboutShow;
-        }
-        //show-hide Agents
-        $scope.agentsShow = false;
-        $scope.agents = agents;
-        $scope.showAgents = function(){
-          $scope.agentsShow = !$scope.agentsShow;
-        }
-        //show-hide Locations
-        $scope.locationsShow = false;
-        $scope.showLocations = function(){
-          $scope.locationsShow = !$scope.locationsShow;
-        }
-        //show-hide Events
-        $scope.eventsShow = false;
-        $scope.showEvents = function(){
-          $scope.eventsShow = !$scope.eventsShow;
-        }
-      }
+
     })
 
     .state('employees', {

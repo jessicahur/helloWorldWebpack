@@ -26,8 +26,4 @@ $padding-normal: 5px;
 }
 
 /******SCREEN >= 767PX******/
-@include mquery(xm) {
-  .mobile-nav {
-    display: none;
-  }
-}
+

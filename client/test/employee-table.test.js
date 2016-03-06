@@ -24,6 +24,8 @@ describe ('Employee-Table Directive', () => {
   beforeEach(() => {
     $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
                 .respond(200, {rates: { JPY: 2, CNY: 1.5 } });
+    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+                .respond(200, []);
   });
 
   it('should GET currency rates', () => {

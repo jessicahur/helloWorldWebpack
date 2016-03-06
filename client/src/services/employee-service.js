@@ -5,7 +5,7 @@ export default function(angularModule){
 
     this.setUrl = function(url) {
       _url = url;
-      return _url;
+      return _url;//for testing purpose. Return 'this' if need to chain more methods!
     };
 
     this.$get = function ($resource){

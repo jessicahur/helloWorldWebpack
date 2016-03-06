@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "eval $(cat .env) webpack-dev-server --inline",
+    "webmupdate":"webdriver-manager update",
     "build": "eval $(cat .env) webpack",
     "test": "eval $(cat .env) karma start",
     "webmanager": "webdriver-manager start",

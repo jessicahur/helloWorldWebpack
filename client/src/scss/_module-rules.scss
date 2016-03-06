@@ -1,6 +1,7 @@
 @import 'style-assets';
 @import 'mix-ins';
 $padding-normal: 5px;
+
 /******SCREEN <= 767PX******/
 @media only screen and (max-width: 767px){
   .navbar {
@@ -24,6 +25,3 @@ $padding-normal: 5px;
     }
   }
 }
-
-/******SCREEN >= 767PX******/
-

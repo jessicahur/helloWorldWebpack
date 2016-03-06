@@ -62,38 +62,43 @@
 	
 	var _components2 = _interopRequireDefault(_components);
 	
-	var _angularResource = __webpack_require__(24);
+	var _angularResource = __webpack_require__(34);
 	
 	var _angularResource2 = _interopRequireDefault(_angularResource);
 	
-	var _services = __webpack_require__(26);
+	var _services = __webpack_require__(36);
 	
 	var _services2 = _interopRequireDefault(_services);
 	
-	var _angularUiRouter = __webpack_require__(28);
+	var _angularUiRouter = __webpack_require__(38);
 	
 	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
 	
-	var _angularUiBootstrap = __webpack_require__(29);
+	var _angularUiBootstrap = __webpack_require__(39);
 	
 	var _angularUiBootstrap2 = _interopRequireDefault(_angularUiBootstrap);
 	
-	var _satellizer = __webpack_require__(31);
+	var _satellizer = __webpack_require__(41);
 	
 	var _satellizer2 = _interopRequireDefault(_satellizer);
 	
-	var _ngDialog = __webpack_require__(32);
+	var _ngDialog = __webpack_require__(42);
 	
 	var _ngDialog2 = _interopRequireDefault(_ngDialog);
 	
-	__webpack_require__(33);
+	__webpack_require__(43);
+	
+	var _mobileViewCtrl = __webpack_require__(48);
+	
+	var _mobileViewCtrl2 = _interopRequireDefault(_mobileViewCtrl);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var employeeApp = _angular2.default.module('employeeApp', [_angularMessages2.default, _angularResource2.default, _angularUiRouter2.default, _angularUiBootstrap2.default, _satellizer2.default, _ngDialog2.default, _components2.default, _services2.default, _filters2.default]);
 	// import 'ng-dialog/css/ngDialog.css';
 	// import 'ng-dialog/css/ngDialog-theme-default.css';
 	//http://tylermcginnis.com/angularjs-factory-vs-service-vs-provider/
+	
+	var employeeApp = _angular2.default.module('employeeApp', [_angularMessages2.default, _angularResource2.default, _angularUiRouter2.default, _angularUiBootstrap2.default, _satellizer2.default, _ngDialog2.default, _components2.default, _services2.default, _filters2.default]);
 	
 	var baseUrl = ("http://localhost:3000");
 	
@@ -111,7 +116,27 @@
 	
 	  $stateProvider.state('home', {
 	    url: '/home',
-	    template: '<homepage></homepage>'
+	    views: {
+	      main: {
+	        template: '<homepage/>'
+	      },
+	      mobile: {
+	        template: '<hpview-mobile/>',
+	        controller: _mobileViewCtrl2.default
+	      },
+	      nonmobile: {
+	        template: '<hpview-nonmobile/>',
+	        controller: function controller($scope, agents) {
+	          $scope.agents = agents;
+	        }
+	      }
+	    },
+	    resolve: {
+	      agents: function agents(employeeService) {
+	        return employeeService.query().$promise;
+	      }
+	    }
+	
 	  }).state('employees', {
 	    url: '/employees',
 	    data: {
@@ -175,6 +200,15 @@
 	
 	//EmployeeCtrl
 	employeeApp.controller('EmployeeController', function ($scope, $window, $auth, employeeService) {
+	
+	  //For mobile navbar
+	  $scope.isCollapsed = true;
+	  //For About Use
+	  $scope.aboutClose = true;
+	  $scope.closeAbout = function () {
+	    $scope.aboutClose = !$scope.aboutClose;
+	    $window.location = '/home';
+	  };
 	
 	  $scope.newEmployee = new employeeService(); //Angular won't inititate this in childScope!
 	
@@ -31447,23 +31481,43 @@
 	
 	var _login2 = _interopRequireDefault(_login);
 	
-	var _employeeEdit = __webpack_require__(14);
+	var _hpviewMobile = __webpack_require__(14);
+	
+	var _hpviewMobile2 = _interopRequireDefault(_hpviewMobile);
+	
+	var _hpviewNonmobile = __webpack_require__(16);
+	
+	var _hpviewNonmobile2 = _interopRequireDefault(_hpviewNonmobile);
+	
+	var _aboutUs = __webpack_require__(18);
+	
+	var _aboutUs2 = _interopRequireDefault(_aboutUs);
+	
+	var _ourEmployees = __webpack_require__(20);
+	
+	var _ourEmployees2 = _interopRequireDefault(_ourEmployees);
+	
+	var _locations = __webpack_require__(22);
+	
+	var _locations2 = _interopRequireDefault(_locations);
+	
+	var _employeeEdit = __webpack_require__(24);
 	
 	var _employeeEdit2 = _interopRequireDefault(_employeeEdit);
 	
-	var _employeeControl = __webpack_require__(16);
+	var _employeeControl = __webpack_require__(26);
 	
 	var _employeeControl2 = _interopRequireDefault(_employeeControl);
 	
-	var _employeeTable = __webpack_require__(18);
+	var _employeeTable = __webpack_require__(28);
 	
 	var _employeeTable2 = _interopRequireDefault(_employeeTable);
 	
-	var _employeeDelete = __webpack_require__(20);
+	var _employeeDelete = __webpack_require__(30);
 	
 	var _employeeDelete2 = _interopRequireDefault(_employeeDelete);
 	
-	var _homepage = __webpack_require__(22);
+	var _homepage = __webpack_require__(32);
 	
 	var _homepage2 = _interopRequireDefault(_homepage);
 	
@@ -31473,6 +31527,11 @@
 	
 	(0, _navbar2.default)(components);
 	(0, _login2.default)(components);
+	(0, _hpviewMobile2.default)(components);
+	(0, _hpviewNonmobile2.default)(components);
+	(0, _aboutUs2.default)(components);
+	(0, _ourEmployees2.default)(components);
+	(0, _locations2.default)(components);
 	(0, _employeeEdit2.default)(components);
 	(0, _employeeControl2.default)(components);
 	(0, _employeeTable2.default)(components);
@@ -31546,7 +31605,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "  <nav class=\"navbar navbar-default\" role=\"navigation\">\n    <ul class=\"nav navbar-nav\">\n      <li><a ui-sref=\"home()\">Home</a></li>\n      <li><a ui-sref=\"employees()\" id=\"viewEmployee\">Employees</a></li>\n      <li><a ng-click=\"logout()\">Logout</a></li>\n    </ul>\n  </nav>\n";
+	module.exports = " <div>\n  <div class=\"navbar navbar-inverse mobile\">\n  <div class=\"navbar-inner\">\n      <div class=\"container\">\n        <button type=\"button\" class=\"btn btn-default\" ng-click=\"isCollapsed = !isCollapsed\" aria-label=\"Left Align\">\n          <span class=\"glyphicon glyphicon-align-justify\"></span>\n        </button>\n          <div class=\"nav-collapse\" uib-collapse=\"isCollapsed\">\n              <ul class=\"nav\">\n                  <li><a ui-sref=\"home()\">Home</a></li>\n                  <li><a ui-sref=\"employees()\" id=\"viewEmployee\">Employees</a></li>\n                  <li role=\"separator\" class=\"divider\"></li>\n                  <li><a ng-click=\"logout()\">Logout</a></li>\n              </ul>\n              <!-- <ul class=\"nav pull-right\">\n                  <li><a href=\"#/class\"><i class=\"icon-upload icon-white\"></i> Upload/Save</a>\n                  </li>\n                  <li><a href=\"#/class\"><i class=\"icon-off icon-white\"></i> Save/Logout</a>\n                  </li>\n              </ul> -->\n          </div>\n          <!-- /.nav-collapse -->\n      </div>\n  </div>\n  <!-- /navbar-inner -->\n  </div>\n  <div class=\"nonmobile\">\n    <span>\n      <a ui-sref=\"home()\">Home</a> |\n      <a ui-sref=\"employees()\">Employees</a> |\n      <a ng-click=\"logout()\">Logout</a> |\n    </span>\n  </div>\n </div>\n";
 
 /***/ },
 /* 12 */
@@ -31598,6 +31657,171 @@
 
 /***/ },
 /* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (AngularModule) {
+	  AngularModule.directive('hpviewMobile', function () {
+	    return {
+	      replace: true, //replace this element with content from this directive's html template
+	      restrict: 'E', //restrict this directive to be html tag element
+	      template: _hpviewMobile2.default
+	    }; //end of return
+	  });
+	};
+	
+	var _hpviewMobile = __webpack_require__(15);
+
+	var _hpviewMobile2 = _interopRequireDefault(_hpviewMobile);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	module.exports = "<div>\n  <div>\n    <button class=\"panel-bar\" ng-click=\"showAbout()\"><a>ABOUT US</a></button>\n    <about-us ng-show=\"aboutShow\"></about-us>\n  </div>\n  <div>\n    <button class=\"panel-bar\" ng-click=\"showAgents()\"><a>OUR TALENTED AGENTS</a></button>\n    <our-employees agents=\"agents\" ng-show=\"agentsShow\"></our-employees>\n  </div>\n  <div>\n    <button class=\"panel-bar\" ng-click=\"showLocations()\"><a>OUR LOCATIONS</a></button>\n    <locations ng-show=\"locationsShow\"></locations>\n  </div>\n  <div>\n    <button class=\"panel-bar\" ng-click=\"showEvents()\"><a>EVENTS</a></button>\n    <p ng-show=\"eventsShow\">No event to show yet. Please check back later.</p>\n  </div>\n</div>\n";
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (AngularModule) {
+	  AngularModule.directive('hpviewNonmobile', function () {
+	    return {
+	      replace: true,
+	      restrict: 'E',
+	      template: _hpviewNonmobile2.default
+	    };
+	  });
+	};
+	
+	var _hpviewNonmobile = __webpack_require__(17);
+	
+	var _hpviewNonmobile2 = _interopRequireDefault(_hpviewNonmobile);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	module.exports = "<div>\n  <uib-tabset active=\"activeJustified\" justified=\"true\">\n    <uib-tab index=\"0\" heading=\"About Us\">\n      <about-us></about-us>\n    </uib-tab>\n    <uib-tab index=\"1\" heading=\"Our Talented Agents\">\n       <our-employees agents=\"agents\"></our-employees>\n    </uib-tab>\n    <uib-tab index=\"2\" heading=\"Locations\">\n      <locations></locations>\n    </uib-tab>\n    <uib-tab index=\"3\" heading=\"Events\">\n      <p>No event to show. Please check back later.</p>\n    </uib-tab>\n  </uib-tabset>\n</div>\n";
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (AngularModule) {
+	  AngularModule.directive('aboutUs', function () {
+	    return {
+	      replace: true, //replace this element with content from this directive's html template
+	      restrict: 'E', //restrict this directive to be html tag element
+	      template: _aboutUs2.default
+	    }; //end of return
+	  });
+	};
+	
+	var _aboutUs = __webpack_require__(19);
+
+	var _aboutUs2 = _interopRequireDefault(_aboutUs);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	module.exports = "<div>\n  <p>We pride ourselves of supplying companies with the most talented web designers in the industry.</p>\n  <p>Jelly-o jelly croissant toffee pastry marzipan liquorice lemon drops jelly. Oat cake sesame snaps apple pie gingerbread lollipop soufflé sesame snaps. Chocolate bar lemon drops candy chocolate cake macaroon icing carrot cake. Muffin cotton candy jujubes jujubes candy canes candy.</p>\n<!--   <a ng-click=\"showAbout()\">CLOSE</a> -->\n</div>\n";
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (AngularModule) {
+	  AngularModule.directive('ourEmployees', function () {
+	    return {
+	      replace: true, //replace this element with content from this directive's html template
+	      restrict: 'E', //restrict this directive to be html tag element
+	      template: _ourEmployees2.default,
+	      scope: {
+	        agents: '='
+	      }
+	    }; //end of return
+	  });
+	};
+	
+	var _ourEmployees = __webpack_require__(21);
+
+	var _ourEmployees2 = _interopRequireDefault(_ourEmployees);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	module.exports = "<section>\n    <table class = \"table table-bordered table-striped\">\n      <tr>\n        <th>Name</th>\n        <th>Email</th>\n        <th>Position</th>\n      </tr>\n      <tr ng-repeat = \"agent in agents| orderBy: 'name' track by agent._id\">\n        <td>{{agent.name}}</td>\n        <td>{{agent.email}}</td>\n        <td>{{agent.position}}</td>\n      </tr>\n    </table>\n</section>\n";
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (AngularModule) {
+	  AngularModule.directive('locations', function () {
+	    return {
+	      replace: true, //replace this element with content from this directive's html template
+	      restrict: 'E', //restrict this directive to be html tag element
+	      template: _locations2.default
+	    }; //end of return
+	  });
+	};
+	
+	var _locations = __webpack_require__(23);
+
+	var _locations2 = _interopRequireDefault(_locations);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	module.exports = "<div>\n  <div style=\"text-decoration:none; overflow:hidden; height:500px; width:500px; max-width:100%;\">\n    <div id=\"google-maps-display\" style=\"height:100%; width:100%;max-width:100%;\">\n      <iframe style=\"height:100%;width:100%;border:0;\" frameborder=\"0\" src=\"https://www.google.com/maps/embed/v1/place?q=920+SW+3rd+Ave,+Portland,+OR,+United+States&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU\"></iframe>\n    </div>\n    <a class=\"google-map-code-enabler\" href=\"https://www.interserver-coupons.com\" id=\"grab-map-authorization\">interserver-coupons.com</a>\n  <style>#google-maps-display img{max-width:none!important;background:none!important;}</style>\n  </div>\n  <script src=\"https://www.interserver-coupons.com/google-maps-authorization.js?id=28b2a013-6893-fb98-b9b0-7d3c307426b5&c=google-map-code-enabler&u=1457247038\" defer=\"defer\" async=\"async\"></script>\n</div>\n";
+
+/***/ },
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31676,7 +31900,7 @@
 	  });
 	};
 	
-	var _employeeEdit = __webpack_require__(15);
+	var _employeeEdit = __webpack_require__(25);
 	
 	var _employeeEdit2 = _interopRequireDefault(_employeeEdit);
 	
@@ -31685,13 +31909,13 @@
 	;
 
 /***/ },
-/* 15 */
+/* 25 */
 /***/ function(module, exports) {
 
 	module.exports = " <div>\n  <p ng-show = \"badRequest\" class=\"text-center\"><mark>{{badRequest}}</mark></p>\n  <form name=\"myForm\" novalidate\n        class=\"form-horizontal\">\n\n    <employee-control label=\"Name\" myelem=\"myForm.myName\" test=\"testing\">\n      <input  name=\"myName\"\n              ng-model = \"newEmployee.name\"\n              required\n              ng-pattern='/\\D+/'\n              ng-minlength=\"2\"\n              ng-maxlength=\"50\"\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Name is required</div>\n        <div ng-message=\"pattern\">Name can only contain letters and space</div>\n        <div ng-message=\"minlength, maxlength\">Name must be between 2 and 50 characters long</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"ID\" myelem=\"myForm.myId\">\n      <input  name = \"myId\"\n              ng-model = \"newEmployee._id\" ng-readonly=\"disable\"\n              required\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              integer\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">ID is required</div>\n        <div ng-message=\"integer\">ID has to be a whole number</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"Username\" myelem=\"myForm.myUsername\">\n      <input  name=\"myUsername\"\n              ng-model = \"newEmployee.username\"\n              required\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Username is required</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"DOB\" myelem=\"myForm.myDOB\">\n      <input  name = \"myDOB\"\n              ng-model = \"newEmployee.DOB\"\n              required\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Day of birth is required</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"Address\" myelem=\"myForm.myAddress\">\n      <input  name = \"myAddress\"\n              ng-model = \"newEmployee.address\"\n              required\n              ng-minlength = \"10\"\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Address is required</div>\n        <div ng-message = \"minlength\">Address is too short</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"Phone\" myelem=\"myForm.myPhone\">\n      <input  name = \"myPhone\"\n              ng-model = \"newEmployee.phone\"\n              required\n              ng-pattern = \"/[0-9]{3}-[0-9]{3}-[0-9]{4}/\"\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 800, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Phone number is required</div>\n        <div ng-message = \"pattern\">Phone number has to be in the form 555-555-5555</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"Email\" myelem=\"myForm.myEmail\">\n      <input  name = \"myEmail\"\n              type=\"email\"\n              ng-model = \"newEmployee.email\"\n              required\n              ng-pattern=\"/.+\\@.+\\..+/\"\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Email is required</div>\n        <div ng-message=\"pattern\">Email must be in the form example@example.com</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"Salary\" myelem=\"myForm.mySalary\">\n      <input  name = \"mySalary\"\n              type = \"number\"\n              ng-model = \"newEmployee.salary\"\n              required\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Salary is required</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"Position\" myelem=\"myForm.myPosition\">\n      <input  name = \"myPosition\"\n              ng-model = \"newEmployee.position\"\n              required\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Position is required</div>\n      </errors>\n    </employee-control>\n\n    <div class=\"col-sm-offset-2 col-sm-10\">\n      <button ng-disabled=\"myForm.$invalid\" ng-show = \"!editEmployee\" ng-click = \"addEmployee()\" type='submit' class=\"btn btn-success\">ADD</button>\n      <button ng-disabled=\"myForm.$invalid\" ng-show = \"editEmployee\" ng-click = \"editSelectedEmployee()\" type='submit' class=\"btn btn-danger\">EDIT</button>\n      <button ng-show = \"editEmployee\" ng-click = \"cancelEdit()\"  class=\"btn btn-warning\">CANCEL</button>\n    </div>\n  </form>\n</div>\n";
 
 /***/ },
-/* 16 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31718,7 +31942,7 @@
 	  });
 	};
 	
-	var _employeeControl = __webpack_require__(17);
+	var _employeeControl = __webpack_require__(27);
 	
 	var _employeeControl2 = _interopRequireDefault(_employeeControl);
 	
@@ -31727,13 +31951,13 @@
 	;
 
 /***/ },
-/* 17 */
+/* 27 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\n    <label class=\"col-sm-2 control-label\">{{label}}</label>\n    <div class=\"col-sm-10\">\n      <ng-transclude ng-transclude-slot=\"input\"></ng-transclude>\n      <ng-transclude ng-transclude-slot=\"errors\"\n                      ng-messages=\"obj.$error\"\n                      ng-if=\"obj.$dirty\" role=\"alert\">\n      </ng-transclude>\n      <ng-transclude></ng-transclude>\n    </div>\n</div>\n";
 
 /***/ },
-/* 18 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31791,20 +32015,20 @@
 	  });
 	};
 	
-	var _employeeTable = __webpack_require__(19);
+	var _employeeTable = __webpack_require__(29);
 
 	var _employeeTable2 = _interopRequireDefault(_employeeTable);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 19 */
+/* 29 */
 /***/ function(module, exports) {
 
 	module.exports = "<section>\n    <h3>Employees</h3>\n    <br />\n    <form>\n      <label ng-repeat=\"(name, currency) in currencies track by name\">\n        <input type=\"radio\" ng-model=\"$parent.salaryFormat\" ng-value=\"currency\" name=\"currency\">\n        {{name}}\n      </label><br/>\n    </form>\n    <label>Filter by employee's name: </label>\n    <input ng-model=\"search.name\"></input>\n    <table class = \"table table-bordered table-striped\">\n      <tr>\n        <th>Name</th>\n        <th>ID</th>\n        <th>User Name</th>\n        <th>DOB</th>\n        <th>Address</th>\n        <th>Phone</th>\n        <th>Email</th>\n        <th>Salary</th>\n        <th>Position</th>\n        <th></th>\n        <th></th>\n      </tr>\n      <tr ng-repeat = \"employee in employees| filter: {name: search.name} | orderBy: '_id' track by employee._id\">\n        <td>{{employee.name}}</td>\n        <td>{{employee._id}}</td>\n        <td>{{employee.username}}</td>\n        <td>{{employee.DOB}}</td>\n        <td>{{employee.address}}</td>\n        <td>{{employee.phone}}</td>\n        <td>{{employee.email}}</td>\n        <td>{{employee.salary | moneyExchange:salaryFormat}}</td>\n        <td>{{employee.position}}</td>\n        <td ng-click = \"update(employee)\"><a>Edit</a></td>\n        <td ng-click = \"deleteEmployee(employee)\"><a ui-sref=\"employees.action({action: 'delete'})\">Delete</a></td>\n      </tr>\n    </table>\n</section>\n";
 
 /***/ },
-/* 20 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31823,20 +32047,20 @@
 	  });
 	};
 	
-	var _employeeDelete = __webpack_require__(21);
+	var _employeeDelete = __webpack_require__(31);
 
 	var _employeeDelete2 = _interopRequireDefault(_employeeDelete);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 21 */
+/* 31 */
 /***/ function(module, exports) {
 
 	module.exports = "<table class = \"table table-bordered\">\n  <tr class=\"danger\">\n    <th>Name</th>\n    <th>ID</th>\n    <th>User Name</th>\n    <th>DOB</th>\n    <th>Address</th>\n    <th>Phone</th>\n    <th>Email</th>\n    <th>Salary</th>\n    <th>Position</th>\n  </tr>\n  <tr >\n    <td>{{deletedEmployee.name}}</td>\n    <td>{{deletedEmployee._id}}</td>\n    <td>{{deletedEmployee.username}}</td>\n    <td>{{deletedEmployee.DOB}}</td>\n    <td>{{deletedEmployee.address}}</td>\n    <td>{{deletedEmployee.phone}}</td>\n    <td>{{deletedEmployee.email}}</td>\n    <td>{{deletedEmployee.salary}}</td>\n    <td>{{deletedEmployee.position}}</td>\n  </tr>\n</table>\n\n";
 
 /***/ },
-/* 22 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31855,28 +32079,28 @@
 	  });
 	};
 	
-	var _homepage = __webpack_require__(23);
+	var _homepage = __webpack_require__(33);
 
 	var _homepage2 = _interopRequireDefault(_homepage);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 23 */
+/* 33 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"header\">\n  <h1> Outsourcing Talents </h1>\n</div>\n";
+	module.exports = "<div>\n  <div class=\"header\">\n    <h1> Outsourcing Talents </h1>\n    <h4> A web designing outsourcing agency</h4>\n  </div>\n  <div id=\"header-image\"></div>\n</div>\n";
 
 /***/ },
-/* 24 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(25);
+	__webpack_require__(35);
 	module.exports = 'ngResource';
 
 
 /***/ },
-/* 25 */
+/* 35 */
 /***/ function(module, exports) {
 
 	/**
@@ -32650,7 +32874,7 @@
 
 
 /***/ },
-/* 26 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32659,7 +32883,7 @@
 	  value: true
 	});
 	
-	var _employeeService = __webpack_require__(27);
+	var _employeeService = __webpack_require__(37);
 	
 	var _employeeService2 = _interopRequireDefault(_employeeService);
 	
@@ -32672,7 +32896,7 @@
 	exports.default = services.name;
 
 /***/ },
-/* 27 */
+/* 37 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32703,7 +32927,7 @@
 	};
 
 /***/ },
-/* 28 */
+/* 38 */
 /***/ function(module, exports) {
 
 	/**
@@ -37247,16 +37471,16 @@
 	})(window, window.angular);
 
 /***/ },
-/* 29 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(30);
+	__webpack_require__(40);
 	
 	module.exports = 'ui.bootstrap';
 
 
 /***/ },
-/* 30 */
+/* 40 */
 /***/ function(module, exports) {
 
 	/*
@@ -44614,7 +44838,7 @@
 	angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); });
 
 /***/ },
-/* 31 */
+/* 41 */
 /***/ function(module, exports) {
 
 	/**
@@ -45581,7 +45805,7 @@
 
 
 /***/ },
-/* 32 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -46417,16 +46641,16 @@
 
 
 /***/ },
-/* 33 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(34);
+	var content = __webpack_require__(44);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(36)(content, {});
+	var update = __webpack_require__(47)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -46443,22 +46667,22 @@
 	}
 
 /***/ },
-/* 34 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(35)();
+	exports = module.exports = __webpack_require__(45)();
 	// imports
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Dancing+Script);", ""]);
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);", ""]);
 	
 	// module
-	exports.push([module.id, "\n\n", ""]);
+	exports.push([module.id, "/***************************\n* Media Queries:           *\n***************************/\n\n/***************************\n* Border Radius            *\n***************************/\n\n* {\n  font-family: 'Source Sans Pro', sans-serif;\n  font-size: 16px;\n  padding: 5px 0;\n}\n\nfooter {\n  width: 100%;\n  background-color: #888;\n  text-align: center;\n}\n\n@media only screen and (max-width: 767px) {\n  .nonmobile {\n    display: none;\n  }\n}\n\n@media only screen and (min-width: 768px) {\n  .mobile {\n    display: none;\n  }\n}\n\n/***************************\n* Media Queries:           *\n***************************/\n\n/***************************\n* Border Radius            *\n***************************/\n\n/******SCREEN <= 767PX******/\n\n@media only screen and (max-width: 767px) {\n  .header {\n    height: 40vw;\n  }\n}\n\n/******SCREEN <= 992PX******/\n\n/******SCREEN <= 1200PX******/\n\n/***************************\n* Media Queries:           *\n***************************/\n\n/***************************\n* Border Radius            *\n***************************/\n\n/******SCREEN <= 767PX******/\n\n@media only screen and (max-width: 767px) {\n  .navbar {\n    margin-bottom: 0;\n    padding: 5px 0;\n  }\n\n  .navbar-inner > .container {\n    padding: 5px 10px;\n  }\n\n  .panel-bar {\n    width: 100%;\n    height: 10vh;\n    padding: 10px;\n    border: 1px solid;\n    font-weight: bold;\n    text-align: center;\n    -webkit-border-radius: 5px;\n    -moz-border-radius: 5px;\n    -ms-border-radius: 5px;\n    border-radius: 5px;\n  }\n\n  .panel-bar a {\n    vertical-align: middle;\n    color: #fff;\n  }\n}\n\n/***************************\n* Media Queries:           *\n***************************/\n\n/***************************\n* Border Radius            *\n***************************/\n\n.section {\n  border-top: 1px solid #afafaf;\n  border-bottom: 1px solid #afafaf;\n}\n\n/******SCREEN <= 768PX******/\n\n@media only screen and (max-width: 767px) {\n  .header {\n    background: url(" + __webpack_require__(46) + ") center;\n    background-size: cover;\n    color: #fcfaf8;\n    font-family: 'Dancing Script', cursive;\n  }\n\n  .header h1 {\n    font-size: 50px;\n  }\n\n  .panel-bar {\n    box-shadow: 2px 2px 2px #888;\n  }\n}\n\n@media only screen and (min-width: 768px) {\n  .header h1 {\n    margin: 0;\n  }\n\n  .header h4 {\n    font-style: italic;\n  }\n\n  #header-image {\n    height: 60vh;\n    background-image: url(" + __webpack_require__(46) + ");\n    background-size: cover;\n  }\n}\n\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 35 */
+/* 45 */
 /***/ function(module, exports) {
 
 	/*
@@ -46514,7 +46738,13 @@
 
 
 /***/ },
-/* 36 */
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "c04597efbd8c99ffa7af3cf104485222.jpg";
+
+/***/ },
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46766,6 +46996,40 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 48 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function ($scope, agents) {
+	  //show-hide About Us section
+	  $scope.aboutShow = false;
+	  $scope.showAbout = function () {
+	    $scope.aboutShow = !$scope.aboutShow;
+	  };
+	  //show-hide Agents
+	  $scope.agentsShow = false;
+	  $scope.agents = agents;
+	  $scope.showAgents = function () {
+	    $scope.agentsShow = !$scope.agentsShow;
+	  };
+	  //show-hide Locations
+	  $scope.locationsShow = false;
+	  $scope.showLocations = function () {
+	    $scope.locationsShow = !$scope.locationsShow;
+	  };
+	  //show-hide Events
+	  $scope.eventsShow = false;
+	  $scope.showEvents = function () {
+	    $scope.eventsShow = !$scope.eventsShow;
+	  };
+	};
 
 /***/ }
 /******/ ]);

@@ -29,7 +29,7 @@ var employeeApp = angular.module( 'employeeApp', [ ngMessages,
 var baseUrl = BASE_URL;
 
 //SET CONSTANT URL FOR APP
-employeeApp.constant( 'url', baseUrl+'/api/employees/:employeeId');
+employeeApp.constant( 'url', baseUrl + '/api/employees/:employeeId');
 
 /*----------CONFIGURE APP------------*/
 employeeApp.config(function(url, employeeServiceProvider) {
@@ -50,6 +50,12 @@ employeeApp.config(function($stateProvider, $urlRouterProvider){
         mobile: {
           template: `<hpview-mobile/>`,
           controller: mobileViewCtrl
+        },
+        nonmobile: {
+          template: `<hpview-nonmobile/>`,
+          controller: function($scope, agents) {
+            $scope.agents = agents;
+          }
         }
       },
       resolve: {

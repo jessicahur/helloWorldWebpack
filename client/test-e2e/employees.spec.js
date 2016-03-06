@@ -25,19 +25,16 @@ describe('employeeApp', () => {
     }
 
     it('should have a title', () => {
-      browser.get('/');
+      browser.get('#/home');
       expect(browser.getTitle()).toEqual('Employee List');
     });
 
 
     describe('inside protected route with token setup', () => {
 
-      it('should be able to view employees with token set', () => {
-        browser.executeScript(`window.localStorage.setItem('satellizer_token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1NmQzN2JmOTEwMDc4NGQ4MDVkZGU3NGUiLCJpYXQiOjE0NTcwMzcyMDksImV4cCI6MTQ1ODI0MzIwOX0.Es_vRz7sEBc6r61dA75oDqXtNoIChxPbItCjLsLL5GY');`);
-        element(by.css('#viewEmployee')).click();
-      });
-
       it('POST: a new employee to db', () => {
+        browser.executeScript(`window.localStorage.setItem('satellizer_token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1NmQzN2JmOTEwMDc4NGQ4MDVkZGU3NGUiLCJpYXQiOjE0NTcwMzcyMDksImV4cCI6MTQ1ODI0MzIwOX0.Es_vRz7sEBc6r61dA75oDqXtNoIChxPbItCjLsLL5GY');`);
+        browser.get('#/employees');
         modify(testObj);
         element(by.buttonText('ADD')).click();
         element.all(by.repeater('employee in employees').column('employee.name')).last().getText()

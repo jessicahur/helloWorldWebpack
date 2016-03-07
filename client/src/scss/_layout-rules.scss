@@ -1,0 +1,28 @@
+@import 'mix-ins';
+
+/******SCREEN <= 767PX******/
+@media only screen and (max-width: 767px){
+  .header {
+    height: 40vw;
+  }
+}
+
+/******SCREEN <= 992PX******/
+@include mquery(sm) {
+  * {
+
+    }
+}
+
+/******SCREEN <= 1200PX******/
+@include mquery(md) {
+/*  .header {
+    background-size: 100%;
+
+    h1 {
+      height: 400px;
+    }
+  }*/
+}
+
+

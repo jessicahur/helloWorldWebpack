@@ -1,0 +1,18 @@
+<div>
+  <div>
+    <button class="panel-bar" ng-click="showAbout()"><a>ABOUT US</a></button>
+    <about-us ng-show="aboutShow"></about-us>
+  </div>
+<!--   <div>
+    <button class="panel-bar" ng-click="showAgents()"><a>OUR TALENTED AGENTS</a></button>
+    <our-employees agents="agents" ng-show="agentsShow"></our-employees>
+  </div> -->
+  <div>
+    <button class="panel-bar" ng-click="showLocations()"><a>OUR LOCATIONS</a></button>
+    <locations ng-show="locationsShow"></locations>
+  </div>
+  <div>
+    <button class="panel-bar" ng-click="showEvents()"><a>EVENTS</a></button>
+    <p ng-show="eventsShow">No event to show yet. Please check back later.</p>
+  </div>
+</div>

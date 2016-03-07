@@ -1,0 +1,40 @@
+@import 'mix-ins';
+@import 'style-assets';
+
+.section {
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+}
+
+/******SCREEN <= 768PX******/
+@media only screen and (max-width: 767px) {
+  .header {
+    background: url(img/mac5.jpg) center;
+    background-size: cover;
+    color: lighten($latte-color, 20%);
+    font-family: 'Dancing Script', cursive;
+
+    h1 {
+      font-size: $banner-font-size-xm;
+    }
+  }
+  .panel-bar {
+    box-shadow: 2px 2px 2px $box-shadow;
+  }
+}
+
+@include mquery(xm) {
+  .header{
+    h1 {
+      margin: 0;
+    }
+    h4 {
+      font-style: italic;
+    }
+  }
+  #header-image {
+    height: 60vh;
+    background-image: url(img/mac5.jpg);
+    background-size: cover;
+  }
+}

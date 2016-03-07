@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='employeeApp'>
+<head>
+  <title>Employee List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container" ng-controller="EmployeeController">
+      <navbar></navbar>
+      <div ui-view></div>
+      <div ui-view="main"></div>
+      <div ui-view="mobile" class="mobile"></div>
+      <div ui-view="nonmobile" class="nonmobile"></div>
+  </div>
+  <footer>
+    <p> © All rights reserved 2016</p>
+  </footer>
+</body>
+</html>

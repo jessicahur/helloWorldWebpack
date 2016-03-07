@@ -1,0 +1,34 @@
+ <div>
+  <div class="navbar navbar-inverse mobile">
+  <div class="navbar-inner">
+      <div class="container">
+        <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed" aria-label="Left Align">
+          <span class="glyphicon glyphicon-align-justify"></span>
+        </button>
+          <div class="nav-collapse" uib-collapse="isCollapsed">
+              <ul class="nav">
+                  <li><a ui-sref="home()">Home</a></li>
+                  <li><a ui-sref="employees()" id="viewEmployee">Employees</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a ng-click="logout()">Logout</a></li>
+              </ul>
+              <!-- <ul class="nav pull-right">
+                  <li><a href="#/class"><i class="icon-upload icon-white"></i> Upload/Save</a>
+                  </li>
+                  <li><a href="#/class"><i class="icon-off icon-white"></i> Save/Logout</a>
+                  </li>
+              </ul> -->
+          </div>
+          <!-- /.nav-collapse -->
+      </div>
+  </div>
+  <!-- /navbar-inner -->
+  </div>
+  <div class="nonmobile">
+    <span>
+      <a ui-sref="home()">Home</a> |
+      <a ui-sref="employees()">Employees</a> |
+      <a ng-click="logout()">Logout</a> |
+    </span>
+  </div>
+ </div>

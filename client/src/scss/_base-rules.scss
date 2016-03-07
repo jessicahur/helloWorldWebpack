@@ -1,0 +1,22 @@
+@import 'style-assets';
+@import 'mix-ins';
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  padding: 5px 0;
+}
+footer {
+  width: 100%;
+  background-color: $box-shadow;
+  text-align: center;
+}
+@media only screen and (max-width: 767px) {
+  .nonmobile {
+    display: none;
+  }
+}
+@include mquery(xm){
+  .mobile {
+    display: none;
+  }
+}

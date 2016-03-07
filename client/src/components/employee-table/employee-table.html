@@ -1,0 +1,40 @@
+<section>
+    <h3>Employees</h3>
+    <br />
+    <form>
+      <label ng-repeat="(name, currency) in currencies track by name">
+        <input type="radio" ng-model="$parent.salaryFormat" ng-value="currency" name="currency">
+        {{name}}
+      </label><br/>
+    </form>
+    <label>Filter by employee's name: </label>
+    <input ng-model="search.name"></input>
+    <table class = "table table-bordered table-striped">
+      <tr>
+        <th>Name</th>
+        <th>ID</th>
+        <th>User Name</th>
+        <th>DOB</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Salary</th>
+        <th>Position</th>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr ng-repeat = "employee in employees| filter: {name: search.name} | orderBy: '_id' track by employee._id">
+        <td>{{employee.name}}</td>
+        <td>{{employee._id}}</td>
+        <td>{{employee.username}}</td>
+        <td>{{employee.DOB}}</td>
+        <td>{{employee.address}}</td>
+        <td>{{employee.phone}}</td>
+        <td>{{employee.email}}</td>
+        <td>{{employee.salary | moneyExchange:salaryFormat}}</td>
+        <td>{{employee.position}}</td>
+        <td ng-click = "update(employee)"><a>Edit</a></td>
+        <td ng-click = "deleteEmployee(employee)"><a ui-sref="employees.action({action: 'delete'})">Delete</a></td>
+      </tr>
+    </table>
+</section>

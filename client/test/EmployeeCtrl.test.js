@@ -1,19 +1,16 @@
-/*put "babel": {
-    "presets": [ "es2015" ]
-  }
-into package.json since babel will need a preset to run the test files
+// /*put "babel": {
+//     "presets": [ "es2015" ]
+//   }
+// into package.json since babel will need a preset to run the test files
 
-defaults write com.apple.Safari ApplePersistenceIgnoreState YES : prevent new Safari tab opens for each time tests are run
-*/
-// import child_process from ('child_process');
-// child_process.spawn('defaults write com.apple.Safari ApplePersistenceIgnoreState YES');
-//You need to include some adapter that implements __karma__.start method!
+// defaults write com.apple.Safari ApplePersistenceIgnoreState YES : prevent new Safari tab opens for each time tests are run
+// */
 
 describe( 'Employee Controller', () => {
 
   beforeEach( angular.mock.module( 'employeeApp' ));
 
-  var $controller, $scope, $httpBackend;
+  var $controller, $scope, $httpBackend, $window, $auth, mockResource;
 
   var obj = {
                 _id: '1',
@@ -25,137 +22,79 @@ describe( 'Employee Controller', () => {
                 email: 'test@testing.com',
                 position: 'accountant'
               };
+  var keys = Object.keys(obj);
 
-  var exchangeRates = {
-        rates: {
-          JPY: 2,
-          CNY: 1.5
-        }
-    };
-
-  beforeEach( angular.mock.inject( function(_$rootScope_, _$controller_, _$httpBackend_) {
+  beforeEach( angular.mock.inject( function(_$rootScope_, _$controller_, _$httpBackend_, _$window_, _$auth_, employeeService) { //we wrap these dependencies with underscore because we need to pass them to the declared vars $controller (for example) so that the tests will have access to it
     $controller = _$controller_;
     $scope = _$rootScope_.$new();//use rootScope instead of {} because we may set $rootScope.user = 'Something'
     $httpBackend = _$httpBackend_;
+    $window = _$window_;
+    $auth = _$auth_;
+    mockResource = new employeeService();
+
+    keys.forEach(key => {
+      mockResource[key] = obj[key];
+    });
+
   }));
 
-  it('filter: changes currencies', () => {
-
-    $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
-                .respond(200, exchangeRates);
-
+  beforeEach(() => {
     $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-                .respond(200, [obj]);
-
-    $controller('EmployeeController', {$scope, $httpBackend});
-
-    $httpBackend.flush();
-
-    assert.equal($scope.currencies.USD.rate, 1);
-    assert.equal($scope.currencies.JPY.rate, 2);
-    assert.equal($scope.currencies.CNY.rate, 1.5);
-
+                .respond(200, [mockResource]);
+    $controller('EmployeeController', {$scope, $httpBackend, $window, $auth});
   });
 
   it('GET', () => {
-
-    $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
-                .respond(200, exchangeRates);
-
-    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-                .respond(200, [obj]);
-
-    $controller('EmployeeController', {$scope, $httpBackend});
-
+    // $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+    //             .respond(200, [mockResource]);
     $httpBackend.flush();
 
-    var props = Object.keys($scope.employees[0]);
+    var props = Object.keys(obj);
     props.forEach(prop => {
       assert.equal($scope.employees[0].prop, obj.prop);
     });
   });
 
+  it ('EDIT', () => {
+    // $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+    //             .respond(200, [mockResource]);
+    $httpBackend.flush();
+
+    $scope.edit(mockResource);
+
+    //Test if a copy is made and newEmployee has the same reference to the editting instance
+    var copy = angular.copy(mockResource);
+    assert.equal($scope.newEmployee, mockResource);
+    assert.notEqual($scope.employeeToEdit, copy);
+    assert.deepEqual($scope.employeeToEdit, copy);
+
+    //Test if scope variables are set correctly after a user clicks on Edit link
+    assert.equal($scope.editEmployee, true);
+    assert.equal($scope.disable, true);
+  });
 
   it('DELETE', () => {
 
-    $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
-                .respond(200, exchangeRates);
-
-    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-                .respond(200, [obj]);
-
     $httpBackend.expect('DELETE', 'http://localhost:3000/api/employees/1')
-                .respond(200, obj);
+                .respond(200, mockResource);
+    // $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+    //             .respond(200, [mockResource]);
 
-    $controller('EmployeeController', {$scope, $httpBackend});
-
-    $scope.delete(obj);
+    $scope.delete(mockResource);
     $httpBackend.flush();
 
     var keys = Object.keys($scope.deletedEmployee);
     keys.forEach(key => {
-      assert.equal($scope.deletedEmployee.key, obj.key);
+      assert.equal($scope.deletedEmployee.key, mockResource.key);
     });
   });
 
-  it('ADD', () => {
-    var newEmployee = {
-                _id: '2',
-                name: 'new',
-                username: 'new',
-                DOB: '1989-04-24UTC',
-                address: '123 new',
-                phone: '555-555-5555',
-                email: 'new@testing.com',
-                position: 'accountant'
-    };
+  it ('LOG OUT', () => {
+    // $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+    //             .respond(200, [mockResource]);
+    $scope.logout();
 
-    $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
-                .respond(200, exchangeRates);
-
-    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-                .respond(200, [obj]);
-
-    $httpBackend.expect('POST','http://localhost:3000/api/employees')//No need to include newEmployee here?
-                .respond(newEmployee);
-
-    $controller('EmployeeController', {$scope, $httpBackend});
-
-    $scope.edit(newEmployee);
-    $scope.addEmployee();
-    $httpBackend.flush();
-
-    var keys = Object.keys($scope.employees[1]);
-    keys.forEach(key => {
-      assert.equal($scope.employees[1].key, newEmployee.key);
-    });
-    assert.equal($scope.badRequest, false);
+    //Test that after logout, the user is not authenticated anymore
+    assert.equal($auth.isAuthenticated(), false);
   });
-
-  it('EDIT', () => {
-    obj.name = 'NEW NAME';
-
-    $httpBackend.expect('GET', 'https://openexchangerates.org/api/latest.json?app_id=fb4db514dcda4cce9452221d5993cc04')
-                .respond(200, exchangeRates);
-
-    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-                .respond(200, [obj]);
-
-    $httpBackend.expect('PUT', 'http://localhost:3000/api/employees/1')
-                .respond(200, obj);
-
-    $controller('EmployeeController', {$scope, $httpBackend});
-
-    $scope.edit(obj);
-    $scope.newEmployee.index = 1;
-    $scope.editSelectedEmployee();
-
-    $httpBackend.flush();
-
-    var keys = Object.keys($scope.employees[0]);
-    keys.forEach(key => {
-      assert.equal($scope.employees[0].key, obj.key);
-    });
-  });
-
 });

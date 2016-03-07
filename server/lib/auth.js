@@ -6,7 +6,7 @@ const qs = require( 'querystring' );
 const router = new Router();
 const User = require( '../model/User' );
 
-var config = require('../config');
+// var config = require('../config');
 // const config = process.env;
 
 
@@ -21,7 +21,7 @@ function createJWT(user) {
     iat: moment().unix(),
     exp: moment().add(14, 'days').unix()
   };
-  return jwt.encode(payload, config.TOKEN_SECRET);
+  return jwt.encode(payload, process.env.TOKEN_SECRET);
 }
 
 /*
@@ -32,17 +32,15 @@ function createJWT(user) {
 router.post('/github', function(req, res) {
   var accessTokenUrl = 'https://github.com/login/oauth/access_token';
   var userApiUrl = 'https://api.github.com/user';
-  console.log(req.body);
   var params = {
     code: req.body.code,
     client_id: req.body.clientId,
-    client_secret: config.GITHUB_SECRET,
+    client_secret: process.env.GITHUB_SECRET,
     redirect_uri: req.body.redirectUri
   };
   // Step 1. Exchange authorization code for access token.
   request.get({ url: accessTokenUrl, qs: params }, function(err, response, accessToken) {
     accessToken = qs.parse(accessToken);
-    console.log('GITHUB ACCESS TOKEN', accessToken);
     var headers = { 'User-Agent': 'Satellizer' };
 
     // Step 2. Retrieve profile information about the current user.
@@ -54,7 +52,7 @@ router.post('/github', function(req, res) {
             return res.status(409).send({ message: 'There is already a GitHub account that belongs to you' });
           }
           var token = req.header('Authorization').split(' ')[1];
-          var payload = jwt.decode(token, config.TOKEN_SECRET);
+          var payload = jwt.decode(token, process.env.TOKEN_SECRET);
           User.findById(payload.sub, function(err, user) {
             if (!user) {
               return res.status(400).send({ message: 'User not found' });
@@ -64,7 +62,6 @@ router.post('/github', function(req, res) {
             user.displayName = user.displayName || profile.name;
             user.save(function() {
               var token = createJWT(user);
-              console.log('TOKEN in step3a', token);
               res.send({ token: token });
             });
           });
@@ -74,7 +71,6 @@ router.post('/github', function(req, res) {
         User.findOne({ github: profile.id }, function(err, existingUser) {
           if (existingUser) {
             var token = createJWT(existingUser);
-              console.log('TOKEN IN STEP3b', token);
             return res.send({ token: token });
           }
           var user = new User();

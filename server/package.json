@@ -7,6 +7,9 @@
     "test": "gulp testing",
     "start": "eval $(cat .env) nodemon index.js"
   },
+  "engines": {
+    "node": "5.5.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jessicahur/MongoDB.git"
@@ -33,10 +36,14 @@
     "mocha": "^2.3.4",
     "mongodb": "^2.1.4",
     "mongoose": "^4.3.6",
-    "nodemon": "^1.8.1",
+    "nodemon": "^1.9.1",
     "path": "^0.12.7"
   },
   "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "mongodb": "^2.1.4",
+    "mongoose": "^4.3.6",
     "jwt-simple": "^0.4.1",
     "method-override": "^2.3.5",
     "moment": "^2.11.2",

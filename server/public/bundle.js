@@ -50,21 +50,21 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	__webpack_require__(45);
+	__webpack_require__(43);
+	
+	__webpack_require__(47);
 	
 	__webpack_require__(49);
 	
-	__webpack_require__(51);
-	
-	var _employeeCtrl = __webpack_require__(35);
+	var _employeeCtrl = __webpack_require__(33);
 	
 	var _employeeCtrl2 = _interopRequireDefault(_employeeCtrl);
 	
-	var _configRoute = __webpack_require__(54);
+	var _configRoute = __webpack_require__(52);
 	
 	var _configRoute2 = _interopRequireDefault(_configRoute);
 	
-	var _configAuth = __webpack_require__(56);
+	var _configAuth = __webpack_require__(54);
 	
 	var _configAuth2 = _interopRequireDefault(_configAuth);
 	
@@ -105,37 +105,37 @@
 	
 	var _components2 = _interopRequireDefault(_components);
 	
-	var _employeeCtrl = __webpack_require__(35);
+	var _employeeCtrl = __webpack_require__(33);
 	
 	var _employeeCtrl2 = _interopRequireDefault(_employeeCtrl);
 	
-	var _angularMessages = __webpack_require__(36);
+	var _angularMessages = __webpack_require__(34);
 	
 	var _angularMessages2 = _interopRequireDefault(_angularMessages);
 	
-	var _angularResource = __webpack_require__(38);
+	var _angularResource = __webpack_require__(36);
 	
 	var _angularResource2 = _interopRequireDefault(_angularResource);
 	
-	var _angularUiRouter = __webpack_require__(40);
+	var _angularUiRouter = __webpack_require__(38);
 	
 	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
 	
-	var _angularUiBootstrap = __webpack_require__(41);
+	var _angularUiBootstrap = __webpack_require__(39);
 	
 	var _angularUiBootstrap2 = _interopRequireDefault(_angularUiBootstrap);
 	
-	var _satellizer = __webpack_require__(43);
+	var _satellizer = __webpack_require__(41);
 	
 	var _satellizer2 = _interopRequireDefault(_satellizer);
 	
-	var _ngDialog = __webpack_require__(44);
+	var _ngDialog = __webpack_require__(42);
 	
 	var _ngDialog2 = _interopRequireDefault(_ngDialog);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var baseUrl = ("http://localhost:3000");
+	var baseUrl = ("https://cryptic-hamlet-74342.herokuapp.com");
 	
 	exports.default = _angular2.default.module('employeeApp', [_angularMessages2.default, _angularResource2.default, _angularUiRouter2.default, _angularUiBootstrap2.default, _satellizer2.default, _ngDialog2.default, _components2.default, _services2.default, _filters2.default]).controller('EmployeeController', _employeeCtrl2.default).constant('url', baseUrl + '/api/employees/:employeeId');
 
@@ -30735,31 +30735,27 @@
 	
 	var _aboutUs2 = _interopRequireDefault(_aboutUs);
 	
-	var _ourEmployees = __webpack_require__(21);
-	
-	var _ourEmployees2 = _interopRequireDefault(_ourEmployees);
-	
-	var _locations = __webpack_require__(23);
+	var _locations = __webpack_require__(21);
 	
 	var _locations2 = _interopRequireDefault(_locations);
 	
-	var _employeeEdit = __webpack_require__(25);
+	var _employeeEdit = __webpack_require__(23);
 	
 	var _employeeEdit2 = _interopRequireDefault(_employeeEdit);
 	
-	var _employeeControl = __webpack_require__(27);
+	var _employeeControl = __webpack_require__(25);
 	
 	var _employeeControl2 = _interopRequireDefault(_employeeControl);
 	
-	var _employeeTable = __webpack_require__(29);
+	var _employeeTable = __webpack_require__(27);
 	
 	var _employeeTable2 = _interopRequireDefault(_employeeTable);
 	
-	var _employeeDelete = __webpack_require__(31);
+	var _employeeDelete = __webpack_require__(29);
 	
 	var _employeeDelete2 = _interopRequireDefault(_employeeDelete);
 	
-	var _homepage = __webpack_require__(33);
+	var _homepage = __webpack_require__(31);
 	
 	var _homepage2 = _interopRequireDefault(_homepage);
 	
@@ -30772,7 +30768,6 @@
 	(0, _hpviewMobile2.default)(components);
 	(0, _hpviewNonmobile2.default)(components);
 	(0, _aboutUs2.default)(components);
-	(0, _ourEmployees2.default)(components);
 	(0, _locations2.default)(components);
 	(0, _employeeEdit2.default)(components);
 	(0, _employeeControl2.default)(components);
@@ -31006,41 +31001,6 @@
 	});
 	
 	exports.default = function (AngularModule) {
-	  AngularModule.directive('ourEmployees', function () {
-	    return {
-	      replace: true, //replace this element with content from this directive's html template
-	      restrict: 'E', //restrict this directive to be html tag element
-	      template: _ourEmployees2.default,
-	      scope: {
-	        agents: '='
-	      }
-	    }; //end of return
-	  });
-	};
-	
-	var _ourEmployees = __webpack_require__(22);
-
-	var _ourEmployees2 = _interopRequireDefault(_ourEmployees);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ },
-/* 22 */
-/***/ function(module, exports) {
-
-	module.exports = "<section>\n    <table class = \"table table-bordered table-striped\">\n      <tr>\n        <th>Name</th>\n        <th>Email</th>\n        <th>Position</th>\n      </tr>\n      <tr ng-repeat = \"agent in agents| orderBy: 'name' track by agent._id\">\n        <td>{{agent.name}}</td>\n        <td>{{agent.email}}</td>\n        <td>{{agent.position}}</td>\n      </tr>\n    </table>\n</section>\n";
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function (AngularModule) {
 	  AngularModule.directive('locations', function () {
 	    return {
 	      replace: true, //replace this element with content from this directive's html template
@@ -31050,20 +31010,20 @@
 	  });
 	};
 	
-	var _locations = __webpack_require__(24);
+	var _locations = __webpack_require__(22);
 
 	var _locations2 = _interopRequireDefault(_locations);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 24 */
+/* 22 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\n  <div style=\"text-decoration:none; overflow:hidden; height:500px; width:500px; max-width:100%;\">\n    <div id=\"google-maps-display\" style=\"height:100%; width:100%;max-width:100%;\">\n      <iframe style=\"height:100%;width:100%;border:0;\" frameborder=\"0\" src=\"https://www.google.com/maps/embed/v1/place?q=920+SW+3rd+Ave,+Portland,+OR,+United+States&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU\"></iframe>\n    </div>\n    <a class=\"google-map-code-enabler\" href=\"https://www.interserver-coupons.com\" id=\"grab-map-authorization\">interserver-coupons.com</a>\n  <style>#google-maps-display img{max-width:none!important;background:none!important;}</style>\n  </div>\n  <script src=\"https://www.interserver-coupons.com/google-maps-authorization.js?id=28b2a013-6893-fb98-b9b0-7d3c307426b5&c=google-map-code-enabler&u=1457247038\" defer=\"defer\" async=\"async\"></script>\n</div>\n";
 
 /***/ },
-/* 25 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31142,7 +31102,7 @@
 	  });
 	};
 	
-	var _employeeEdit = __webpack_require__(26);
+	var _employeeEdit = __webpack_require__(24);
 	
 	var _employeeEdit2 = _interopRequireDefault(_employeeEdit);
 	
@@ -31151,13 +31111,13 @@
 	;
 
 /***/ },
-/* 26 */
+/* 24 */
 /***/ function(module, exports) {
 
 	module.exports = " <div>\n  <p ng-show = \"badRequest\" class=\"text-center\"><mark>{{badRequest}}</mark></p>\n  <form name=\"myForm\" novalidate\n        class=\"form-horizontal\">\n\n    <employee-control label=\"Name\" myelem=\"myForm.myName\" test=\"testing\">\n      <input  name=\"myName\"\n              ng-model = \"newEmployee.name\"\n              required\n              ng-pattern='/\\D+/'\n              ng-minlength=\"2\"\n              ng-maxlength=\"50\"\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Name is required</div>\n        <div ng-message=\"pattern\">Name can only contain letters and space</div>\n        <div ng-message=\"minlength, maxlength\">Name must be between 2 and 50 characters long</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"ID\" myelem=\"myForm.myId\">\n      <input  name = \"myId\"\n              ng-model = \"newEmployee._id\" ng-readonly=\"disable\"\n              required\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              integer\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">ID is required</div>\n        <div ng-message=\"integer\">ID has to be a whole number</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"Username\" myelem=\"myForm.myUsername\">\n      <input  name=\"myUsername\"\n              ng-model = \"newEmployee.username\"\n              required\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Username is required</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"DOB\" myelem=\"myForm.myDOB\">\n      <input  name = \"myDOB\"\n              ng-model = \"newEmployee.DOB\"\n              required\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Day of birth is required</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"Address\" myelem=\"myForm.myAddress\">\n      <input  name = \"myAddress\"\n              ng-model = \"newEmployee.address\"\n              required\n              ng-minlength = \"10\"\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Address is required</div>\n        <div ng-message = \"minlength\">Address is too short</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"Phone\" myelem=\"myForm.myPhone\">\n      <input  name = \"myPhone\"\n              ng-model = \"newEmployee.phone\"\n              required\n              ng-pattern = \"/[0-9]{3}-[0-9]{3}-[0-9]{4}/\"\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 800, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Phone number is required</div>\n        <div ng-message = \"pattern\">Phone number has to be in the form 555-555-5555</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"Email\" myelem=\"myForm.myEmail\">\n      <input  name = \"myEmail\"\n              type=\"email\"\n              ng-model = \"newEmployee.email\"\n              required\n              ng-pattern=\"/.+\\@.+\\..+/\"\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Email is required</div>\n        <div ng-message=\"pattern\">Email must be in the form example@example.com</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"Salary\" myelem=\"myForm.mySalary\">\n      <input  name = \"mySalary\"\n              type = \"number\"\n              ng-model = \"newEmployee.salary\"\n              required\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Salary is required</div>\n      </errors>\n    </employee-control>\n\n    <employee-control label=\"Position\" myelem=\"myForm.myPosition\">\n      <input  name = \"myPosition\"\n              ng-model = \"newEmployee.position\"\n              required\n              ng-model-options=\"{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }\"\n              type=\"text\" class = \"form-control\">\n      <errors>\n        <div ng-message=\"required\">Position is required</div>\n      </errors>\n    </employee-control>\n\n    <div class=\"col-sm-offset-2 col-sm-10\">\n      <button ng-disabled=\"myForm.$invalid\" ng-show = \"!editEmployee\" ng-click = \"addEmployee()\" type='submit' class=\"btn btn-success\">ADD</button>\n      <button ng-disabled=\"myForm.$invalid\" ng-show = \"editEmployee\" ng-click = \"editSelectedEmployee()\" type='submit' class=\"btn btn-danger\">EDIT</button>\n      <button ng-show = \"editEmployee\" ng-click = \"cancelEdit()\"  class=\"btn btn-warning\">CANCEL</button>\n    </div>\n  </form>\n</div>\n";
 
 /***/ },
-/* 27 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31184,7 +31144,7 @@
 	  });
 	};
 	
-	var _employeeControl = __webpack_require__(28);
+	var _employeeControl = __webpack_require__(26);
 	
 	var _employeeControl2 = _interopRequireDefault(_employeeControl);
 	
@@ -31193,13 +31153,13 @@
 	;
 
 /***/ },
-/* 28 */
+/* 26 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\n    <label class=\"col-sm-2 control-label\">{{label}}</label>\n    <div class=\"col-sm-10\">\n      <ng-transclude ng-transclude-slot=\"input\"></ng-transclude>\n      <ng-transclude ng-transclude-slot=\"errors\"\n                      ng-messages=\"obj.$error\"\n                      ng-if=\"obj.$dirty\" role=\"alert\">\n      </ng-transclude>\n      <ng-transclude></ng-transclude>\n    </div>\n</div>\n";
 
 /***/ },
-/* 29 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31257,20 +31217,20 @@
 	  });
 	};
 	
-	var _employeeTable = __webpack_require__(30);
+	var _employeeTable = __webpack_require__(28);
 
 	var _employeeTable2 = _interopRequireDefault(_employeeTable);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 30 */
+/* 28 */
 /***/ function(module, exports) {
 
 	module.exports = "<section>\n    <h3>Employees</h3>\n    <br />\n    <form>\n      <label ng-repeat=\"(name, currency) in currencies track by name\">\n        <input type=\"radio\" ng-model=\"$parent.salaryFormat\" ng-value=\"currency\" name=\"currency\">\n        {{name}}\n      </label><br/>\n    </form>\n    <label>Filter by employee's name: </label>\n    <input ng-model=\"search.name\"></input>\n    <table class = \"table table-bordered table-striped\">\n      <tr>\n        <th>Name</th>\n        <th>ID</th>\n        <th>User Name</th>\n        <th>DOB</th>\n        <th>Address</th>\n        <th>Phone</th>\n        <th>Email</th>\n        <th>Salary</th>\n        <th>Position</th>\n        <th></th>\n        <th></th>\n      </tr>\n      <tr ng-repeat = \"employee in employees| filter: {name: search.name} | orderBy: '_id' track by employee._id\">\n        <td>{{employee.name}}</td>\n        <td>{{employee._id}}</td>\n        <td>{{employee.username}}</td>\n        <td>{{employee.DOB}}</td>\n        <td>{{employee.address}}</td>\n        <td>{{employee.phone}}</td>\n        <td>{{employee.email}}</td>\n        <td>{{employee.salary | moneyExchange:salaryFormat}}</td>\n        <td>{{employee.position}}</td>\n        <td ng-click = \"update(employee)\"><a>Edit</a></td>\n        <td ng-click = \"deleteEmployee(employee)\"><a ui-sref=\"employees.action({action: 'delete'})\">Delete</a></td>\n      </tr>\n    </table>\n</section>\n";
 
 /***/ },
-/* 31 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31289,20 +31249,20 @@
 	  });
 	};
 	
-	var _employeeDelete = __webpack_require__(32);
+	var _employeeDelete = __webpack_require__(30);
 
 	var _employeeDelete2 = _interopRequireDefault(_employeeDelete);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 32 */
+/* 30 */
 /***/ function(module, exports) {
 
 	module.exports = "<table class = \"table table-bordered\">\n  <tr class=\"danger\">\n    <th>Name</th>\n    <th>ID</th>\n    <th>User Name</th>\n    <th>DOB</th>\n    <th>Address</th>\n    <th>Phone</th>\n    <th>Email</th>\n    <th>Salary</th>\n    <th>Position</th>\n  </tr>\n  <tr >\n    <td>{{deletedEmployee.name}}</td>\n    <td>{{deletedEmployee._id}}</td>\n    <td>{{deletedEmployee.username}}</td>\n    <td>{{deletedEmployee.DOB}}</td>\n    <td>{{deletedEmployee.address}}</td>\n    <td>{{deletedEmployee.phone}}</td>\n    <td>{{deletedEmployee.email}}</td>\n    <td>{{deletedEmployee.salary}}</td>\n    <td>{{deletedEmployee.position}}</td>\n  </tr>\n</table>\n\n";
 
 /***/ },
-/* 33 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31321,20 +31281,20 @@
 	  });
 	};
 	
-	var _homepage = __webpack_require__(34);
+	var _homepage = __webpack_require__(32);
 
 	var _homepage2 = _interopRequireDefault(_homepage);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 34 */
+/* 32 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\n  <div class=\"header\">\n    <h1> Outsourcing Talents </h1>\n    <h4> A web designing outsourcing agency</h4>\n  </div>\n  <div id=\"header-image\"></div>\n</div>\n";
 
 /***/ },
-/* 35 */
+/* 33 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31394,15 +31354,15 @@
 	};
 
 /***/ },
-/* 36 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(37);
+	__webpack_require__(35);
 	module.exports = 'ngMessages';
 
 
 /***/ },
-/* 37 */
+/* 35 */
 /***/ function(module, exports) {
 
 	/**
@@ -32095,15 +32055,15 @@
 
 
 /***/ },
-/* 38 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(39);
+	__webpack_require__(37);
 	module.exports = 'ngResource';
 
 
 /***/ },
-/* 39 */
+/* 37 */
 /***/ function(module, exports) {
 
 	/**
@@ -32877,7 +32837,7 @@
 
 
 /***/ },
-/* 40 */
+/* 38 */
 /***/ function(module, exports) {
 
 	/**
@@ -37421,16 +37381,16 @@
 	})(window, window.angular);
 
 /***/ },
-/* 41 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(42);
+	__webpack_require__(40);
 	
 	module.exports = 'ui.bootstrap';
 
 
 /***/ },
-/* 42 */
+/* 40 */
 /***/ function(module, exports) {
 
 	/*
@@ -44788,7 +44748,7 @@
 	angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); });
 
 /***/ },
-/* 43 */
+/* 41 */
 /***/ function(module, exports) {
 
 	/**
@@ -45755,7 +45715,7 @@
 
 
 /***/ },
-/* 44 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -46591,16 +46551,16 @@
 
 
 /***/ },
-/* 45 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(46);
+	var content = __webpack_require__(44);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(48)(content, {});
+	var update = __webpack_require__(46)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -46617,10 +46577,10 @@
 	}
 
 /***/ },
-/* 46 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(47)();
+	exports = module.exports = __webpack_require__(45)();
 	// imports
 	
 	
@@ -46631,7 +46591,7 @@
 
 
 /***/ },
-/* 47 */
+/* 45 */
 /***/ function(module, exports) {
 
 	/*
@@ -46687,7 +46647,7 @@
 
 
 /***/ },
-/* 48 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -46941,16 +46901,16 @@
 
 
 /***/ },
-/* 49 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(50);
+	var content = __webpack_require__(48);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(48)(content, {});
+	var update = __webpack_require__(46)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -46967,10 +46927,10 @@
 	}
 
 /***/ },
-/* 50 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(47)();
+	exports = module.exports = __webpack_require__(45)();
 	// imports
 	
 	
@@ -46981,16 +46941,16 @@
 
 
 /***/ },
-/* 51 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(52);
+	var content = __webpack_require__(50);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(48)(content, {});
+	var update = __webpack_require__(46)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -47007,28 +46967,28 @@
 	}
 
 /***/ },
-/* 52 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(47)();
+	exports = module.exports = __webpack_require__(45)();
 	// imports
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Dancing+Script);", ""]);
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);", ""]);
 	
 	// module
-	exports.push([module.id, "/***************************\n* Media Queries:           *\n***************************/\n\n/***************************\n* Border Radius            *\n***************************/\n\n* {\n  font-family: 'Source Sans Pro', sans-serif;\n  font-size: 16px;\n  padding: 5px 0;\n}\n\nfooter {\n  width: 100%;\n  background-color: #888;\n  text-align: center;\n}\n\n@media only screen and (max-width: 767px) {\n  .nonmobile {\n    display: none;\n  }\n}\n\n@media only screen and (min-width: 768px) {\n  .mobile {\n    display: none;\n  }\n}\n\n/***************************\n* Media Queries:           *\n***************************/\n\n/***************************\n* Border Radius            *\n***************************/\n\n/******SCREEN <= 767PX******/\n\n@media only screen and (max-width: 767px) {\n  .header {\n    height: 40vw;\n  }\n}\n\n/******SCREEN <= 992PX******/\n\n/******SCREEN <= 1200PX******/\n\n/***************************\n* Media Queries:           *\n***************************/\n\n/***************************\n* Border Radius            *\n***************************/\n\n/******SCREEN <= 767PX******/\n\n@media only screen and (max-width: 767px) {\n  .navbar {\n    margin-bottom: 0;\n    padding: 5px 0;\n  }\n\n  .navbar-inner > .container {\n    padding: 5px 10px;\n  }\n\n  .panel-bar {\n    width: 100%;\n    height: 10vh;\n    padding: 10px;\n    border: 1px solid;\n    font-weight: bold;\n    text-align: center;\n    -webkit-border-radius: 5px;\n    -moz-border-radius: 5px;\n    -ms-border-radius: 5px;\n    border-radius: 5px;\n  }\n\n  .panel-bar a {\n    vertical-align: middle;\n    color: #fff;\n  }\n}\n\n/***************************\n* Media Queries:           *\n***************************/\n\n/***************************\n* Border Radius            *\n***************************/\n\n.section {\n  border-top: 1px solid #afafaf;\n  border-bottom: 1px solid #afafaf;\n}\n\n/******SCREEN <= 768PX******/\n\n@media only screen and (max-width: 767px) {\n  .header {\n    background: url(" + __webpack_require__(53) + ") center;\n    background-size: cover;\n    color: #fcfaf8;\n    font-family: 'Dancing Script', cursive;\n  }\n\n  .header h1 {\n    font-size: 50px;\n  }\n\n  .panel-bar {\n    box-shadow: 2px 2px 2px #888;\n  }\n}\n\n@media only screen and (min-width: 768px) {\n  .header h1 {\n    margin: 0;\n  }\n\n  .header h4 {\n    font-style: italic;\n  }\n\n  #header-image {\n    height: 60vh;\n    background-image: url(" + __webpack_require__(53) + ");\n    background-size: cover;\n  }\n}\n\n", ""]);
+	exports.push([module.id, "/***************************\n* Media Queries:           *\n***************************/\n\n/***************************\n* Border Radius            *\n***************************/\n\n* {\n  font-family: 'Source Sans Pro', sans-serif;\n  font-size: 16px;\n  padding: 5px 0;\n}\n\nfooter {\n  width: 100%;\n  background-color: #888;\n  text-align: center;\n}\n\n@media only screen and (max-width: 767px) {\n  .nonmobile {\n    display: none;\n  }\n}\n\n@media only screen and (min-width: 768px) {\n  .mobile {\n    display: none;\n  }\n}\n\n/***************************\n* Media Queries:           *\n***************************/\n\n/***************************\n* Border Radius            *\n***************************/\n\n/******SCREEN <= 767PX******/\n\n@media only screen and (max-width: 767px) {\n  .header {\n    height: 40vw;\n  }\n}\n\n/******SCREEN <= 992PX******/\n\n/******SCREEN <= 1200PX******/\n\n/***************************\n* Media Queries:           *\n***************************/\n\n/***************************\n* Border Radius            *\n***************************/\n\n/******SCREEN <= 767PX******/\n\n@media only screen and (max-width: 767px) {\n  .navbar {\n    margin-bottom: 0;\n    padding: 5px 0;\n  }\n\n  .navbar-inner > .container {\n    padding: 5px 10px;\n  }\n\n  .panel-bar {\n    width: 100%;\n    height: 10vh;\n    padding: 10px;\n    border: 1px solid;\n    font-weight: bold;\n    text-align: center;\n    -webkit-border-radius: 5px;\n    -moz-border-radius: 5px;\n    -ms-border-radius: 5px;\n    border-radius: 5px;\n  }\n\n  .panel-bar a {\n    vertical-align: middle;\n    color: #fff;\n  }\n}\n\n/***************************\n* Media Queries:           *\n***************************/\n\n/***************************\n* Border Radius            *\n***************************/\n\n.section {\n  border-top: 1px solid #afafaf;\n  border-bottom: 1px solid #afafaf;\n}\n\n/******SCREEN <= 768PX******/\n\n@media only screen and (max-width: 767px) {\n  .header {\n    background: url(" + __webpack_require__(51) + ") center;\n    background-size: cover;\n    color: #fcfaf8;\n    font-family: 'Dancing Script', cursive;\n  }\n\n  .header h1 {\n    font-size: 50px;\n  }\n\n  .panel-bar {\n    box-shadow: 2px 2px 2px #888;\n  }\n}\n\n@media only screen and (min-width: 768px) {\n  .header h1 {\n    margin: 0;\n  }\n\n  .header h4 {\n    font-style: italic;\n  }\n\n  #header-image {\n    height: 60vh;\n    background-image: url(" + __webpack_require__(51) + ");\n    background-size: cover;\n  }\n}\n\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 53 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "c04597efbd8c99ffa7af3cf104485222.jpg";
 
 /***/ },
-/* 54 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47041,7 +47001,7 @@
 	  app.config(['$stateProvider', '$urlRouterProvider', configRoutes]);
 	};
 	
-	var _mobileViewCtrl = __webpack_require__(55);
+	var _mobileViewCtrl = __webpack_require__(53);
 	
 	var _mobileViewCtrl2 = _interopRequireDefault(_mobileViewCtrl);
 	
@@ -47087,7 +47047,7 @@
 	}
 
 /***/ },
-/* 55 */
+/* 53 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -47120,7 +47080,7 @@
 	};
 
 /***/ },
-/* 56 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47135,18 +47095,18 @@
 	  app.run(['$rootScope', 'ngDialog', '$state', '$auth', runAuth]);
 	};
 	
-	var _satellizer = __webpack_require__(43);
+	var _satellizer = __webpack_require__(41);
 	
 	var _satellizer2 = _interopRequireDefault(_satellizer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var baseUrl = ("http://localhost:3000");
+	var baseUrl = ("https://cryptic-hamlet-74342.herokuapp.com");
 	
 	
 	function configAuth($authProvider) {
 	  $authProvider.github({
-	    clientId: ("d9dff7bff1850d059f18")
+	    clientId: ("398f3b6a46e14c94059a")
 	  });
 	
 	  $authProvider.github({

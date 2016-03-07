@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const db = mongoose.connection;
 const app = require('./lib/app');
 
-mongoose.connect('mongodb://localhost/test');
-
+mongoose.connect(process.env.MONGO_URI);
+// console.log(process.env.MONGO_URI);
 db.on('error', err => {
   console.log(err);
   db.close();

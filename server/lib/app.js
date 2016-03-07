@@ -7,7 +7,6 @@ const jwt = require( 'jwt-simple');
 const router = require('./router');
 const app = express();
 
-// var config = require('../config');
 const auth = require( './auth.js' );
 
 /*

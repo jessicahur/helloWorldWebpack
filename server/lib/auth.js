@@ -6,10 +6,6 @@ const qs = require( 'querystring' );
 const router = new Router();
 const User = require( '../model/User' );
 
-// var config = require('../config');
-// const config = process.env;
-
-
 /*
  |--------------------------------------------------------------------------
  | Generate JSON Web Token

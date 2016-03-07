@@ -45,8 +45,8 @@ describe( 'Employee Controller', () => {
   });
 
   it('GET', () => {
-    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-                .respond(200, [mockResource]);
+    // $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+    //             .respond(200, [mockResource]);
     $httpBackend.flush();
 
     var props = Object.keys(obj);
@@ -56,8 +56,8 @@ describe( 'Employee Controller', () => {
   });
 
   it ('EDIT', () => {
-    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-                .respond(200, [mockResource]);
+    // $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+    //             .respond(200, [mockResource]);
     $httpBackend.flush();
 
     $scope.edit(mockResource);
@@ -77,8 +77,8 @@ describe( 'Employee Controller', () => {
 
     $httpBackend.expect('DELETE', 'http://localhost:3000/api/employees/1')
                 .respond(200, mockResource);
-    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-                .respond(200, [mockResource]);
+    // $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+    //             .respond(200, [mockResource]);
 
     $scope.delete(mockResource);
     $httpBackend.flush();
@@ -90,8 +90,8 @@ describe( 'Employee Controller', () => {
   });
 
   it ('LOG OUT', () => {
-    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-                .respond(200, [mockResource]);
+    // $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+    //             .respond(200, [mockResource]);
     $scope.logout();
 
     //Test that after logout, the user is not authenticated anymore

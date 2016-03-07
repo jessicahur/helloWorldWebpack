@@ -1,4 +1,4 @@
-export default function($scope, agents){
+export default function($scope){
   //show-hide About Us section
   $scope.aboutShow = false;
   $scope.showAbout = function(){
@@ -6,7 +6,6 @@ export default function($scope, agents){
   }
   //show-hide Agents
   $scope.agentsShow = false;
-  $scope.agents = agents;
   $scope.showAgents = function(){
     $scope.agentsShow = !$scope.agentsShow;
   }

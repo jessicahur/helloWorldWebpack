@@ -19,17 +19,17 @@ function configRoutes($stateProvider, $urlRouterProvider) {
           controller: mobileViewCtrl
         },
         nonmobile: {
-          template: `<hpview-nonmobile/>`,
-          controller: function($scope, agents) {
-            $scope.agents = agents;
-          }
+          template: `<hpview-nonmobile/>`
+          // controller: function($scope, agents) {
+          //   $scope.agents = agents;
+          // }
         }
       },
-      resolve: {
-        agents( employeeService ) {
-          return employeeService.query().$promise;
-        }
-      },
+      // resolve: {
+      //   agents( employeeService ) {
+      //     return employeeService.query().$promise;
+      //   }
+      // },
 
     })
 

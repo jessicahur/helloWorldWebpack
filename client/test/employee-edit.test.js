@@ -111,8 +111,8 @@ describe('employee-edit Component', () => {
 
     $httpBackend.expect('PUT', 'http://localhost:3000/api/employees/1')
                 .respond(200, updatedEmployee);
-    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-                .respond(200, [resourceEmployee]);
+    // $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+    //             .respond(200, [resourceEmployee]);
     scope.newEmployee = resourceEmployee;
     scope.editEmployee = true;
     scope.employeeToEdit = angular.copy(resourceEmployee);
@@ -137,8 +137,8 @@ describe('employee-edit Component', () => {
   it('should successfully add a new employee to employees array', () => {
     $httpBackend.expect('POST', 'http://localhost:3000/api/employees')
                 .respond(200, newEmployeeData);
-    $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
-                .respond(200, [resourceEmployee]);
+    // $httpBackend.expect('GET', 'http://localhost:3000/api/employees')
+    //             .respond(200, [resourceEmployee]);
     scope.newEmployee = {};
 
     const element = getElement(scope);

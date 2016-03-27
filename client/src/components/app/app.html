@@ -1,0 +1,20 @@
+<main>
+
+      <employee-table employees="employees"
+                      edit="edit(employee)"
+                      delete="delete(employee)">
+      </employee-table>
+
+    <!--POST/EDIT where directives and components come in place-->
+      <employee-edit
+                      edit-employee="editEmployee"
+                      new-employee="newEmployee"
+                      employees="employees"
+                      employee-to-edit="employeeToEdit"
+                      disable="disable">
+      </employee-edit>
+    <!--DELETE-->
+    <div ng-show="deletedEmployee">
+     <employee-delete deletedEmployee="deletedEmployee"></employee-delete>
+    </div>
+</main>

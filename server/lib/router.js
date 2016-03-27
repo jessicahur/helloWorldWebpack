@@ -14,6 +14,8 @@ router.post('/', (req, res, next) => {
 
   var postedEmployee = req.body;
 
+  console.log(postedEmployee.profilePic);
+
   if (!Object.keys(postedEmployee).length) return res.status(400).send('Wrong input format');
 
   var newEmployee = new Employee({
@@ -25,7 +27,8 @@ router.post('/', (req, res, next) => {
     address: postedEmployee.address,
     phone: postedEmployee.phone,
     salary: postedEmployee.salary,
-    position: postedEmployee.position
+    position: postedEmployee.position,
+    // profilePic: postedEmployee.profilePic
   });
 
   newEmployee.save((err, savedEmployee) => {
@@ -100,27 +103,6 @@ function update(req, res, next) {
 router.route('/:id')
   .put(update)
   .patch(update);
-// router.all('/:id', (req, res, next) => {
-//   var id = req.params.id;
-//   var update = req.body;
-//   update.DOB = new Date(update.DOB);
-
-//   Employee.findByIdAndUpdate(id, update, {runValidators: true, multi: false}, (err, numAffected) => {
-//     if (err) {
-//       res.status(400).send(err);
-//       return console.log(err);
-//     }
-
-//     Employee.findById(req.params.id, (err, employee) => {
-//       if (err) {
-//         console.log(err);
-//         return res.status(500).send(err);
-//       }
-//       res.send(employee);
-//     });
-
-//   });
-// });
 
 module.exports = router;
 

@@ -1,15 +1,12 @@
-/*Rewrite a date format instead of using moment.js*/
-
 
 export default function(angularModule) {
-  angularModule.filter('moneyExchange', function() { //register "moment" filter to the angular module passed in
+  angularModule.filter('moneyExchange', function() { //register "moneyExchange" filter to the angular module passed in
     return function filter( salary, format) {
       const simplifyArr = ['', 'k', 'm'];
       const base = 1000;
 
       function convert() {
         if (salary < base) {
-          console.log(format.symbol);
           return `${format.symbol} ${salary} ${simplifyArr[0]}`;
           // return format.symbol+ salary + simplifyArr[0];
         }

@@ -1,0 +1,131 @@
+ <div>
+  <p ng-show = "badRequest" class="text-center"><mark>{{badRequest}}</mark></p>
+  <form name="myForm" novalidate enctype="multipart/form-data"
+        class="form-horizontal">
+
+    <employee-control label="Name" myelem="myForm.myName" test="testing">
+      <input  name="myName"
+              ng-model = "newEmployee.name"
+              required
+              ng-pattern='/\D+/'
+              ng-minlength="2"
+              ng-maxlength="50"
+              ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+              type="text" class = "form-control">
+      <errors>
+        <div ng-message="required">Name is required</div>
+        <div ng-message="pattern">Name can only contain letters and space</div>
+        <div ng-message="minlength, maxlength">Name must be between 2 and 50 characters long</div>
+      </errors>
+    </employee-control>
+
+    <employee-control label="ID" myelem="myForm.myId">
+      <input  name = "myId"
+              ng-model = "newEmployee._id" ng-readonly="disable"
+              required
+              ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+              integer
+              type="text" class = "form-control">
+      <errors>
+        <div ng-message="required">ID is required</div>
+        <div ng-message="integer">ID has to be a whole number</div>
+      </errors>
+    </employee-control>
+
+    <employee-control label="Username" myelem="myForm.myUsername">
+      <input  name="myUsername"
+              ng-model = "newEmployee.username"
+              required
+              ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+              type="text" class = "form-control">
+      <errors>
+        <div ng-message="required">Username is required</div>
+      </errors>
+    </employee-control>
+
+    <employee-control label="DOB" myelem="myForm.myDOB">
+      <input  name = "myDOB"
+              ng-model = "newEmployee.DOB"
+              required
+              ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+              type="text" class = "form-control">
+      <errors>
+        <div ng-message="required">Day of birth is required</div>
+      </errors>
+    </employee-control>
+
+    <employee-control label="Address" myelem="myForm.myAddress">
+      <input  name = "myAddress"
+              ng-model = "newEmployee.address"
+              required
+              ng-minlength = "10"
+              ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+              type="text" class = "form-control">
+      <errors>
+        <div ng-message="required">Address is required</div>
+        <div ng-message = "minlength">Address is too short</div>
+      </errors>
+    </employee-control>
+
+    <employee-control label="Phone" myelem="myForm.myPhone">
+      <input  name = "myPhone"
+              ng-model = "newEmployee.phone"
+              required
+              ng-pattern = "/[0-9]{3}-[0-9]{3}-[0-9]{4}/"
+              ng-model-options="{ updateOn: 'default blur', debounce: { default: 800, blur: 0 } }"
+              type="text" class = "form-control">
+      <errors>
+        <div ng-message="required">Phone number is required</div>
+        <div ng-message = "pattern">Phone number has to be in the form 555-555-5555</div>
+      </errors>
+    </employee-control>
+
+    <employee-control label="Email" myelem="myForm.myEmail">
+      <input  name = "myEmail"
+              type="email"
+              ng-model = "newEmployee.email"
+              required
+              ng-pattern="/.+\@.+\..+/"
+              ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+              type="text" class = "form-control">
+      <errors>
+        <div ng-message="required">Email is required</div>
+        <div ng-message="pattern">Email must be in the form example@example.com</div>
+      </errors>
+    </employee-control>
+
+    <employee-control label="Salary" myelem="myForm.mySalary">
+      <input  name = "mySalary"
+              type = "number"
+              ng-model = "newEmployee.salary"
+              required
+              ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+              type="text" class = "form-control">
+      <errors>
+        <div ng-message="required">Salary is required</div>
+      </errors>
+    </employee-control>
+
+    <employee-control label="Position" myelem="myForm.myPosition">
+      <input  name = "myPosition"
+              ng-model = "newEmployee.position"
+              required
+              ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
+              type="text" class = "form-control">
+      <errors>
+        <div ng-message="required">Position is required</div>
+      </errors>
+    </employee-control>
+
+    <input type="file"
+           name="upload"
+           multiple="multiple"
+           ng-model = "newEmployee.profilePic">
+
+    <div class="col-sm-offset-2 col-sm-10">
+      <button ng-disabled="myForm.$invalid" ng-show = "!editEmployee" ng-click = "addEmployee()" type='submit' class="btn btn-success">ADD</button>
+      <button ng-disabled="myForm.$invalid" ng-show = "editEmployee" ng-click = "editSelectedEmployee()" type='submit' class="btn btn-danger">EDIT</button>
+      <button ng-show = "editEmployee" ng-click = "cancelEdit()"  class="btn btn-warning">CANCEL</button>
+    </div>
+  </form>
+</div>
